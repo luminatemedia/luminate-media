@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boka onboarding call – Luminate Media</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #0a0a0a;
+    font-family: -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    padding: 32px 16px;
+  }
+  .card {
+    background: #141414;
+    border: 1px solid #222;
+    border-radius: 16px;
+    max-width: 480px;
+    width: 100%;
+    padding: 32px 24px;
+  }
+  .logo {
+    color: #C8FF00;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  h1 {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+    margin: 0 0 8px;
+  }
+  .subtitle {
+    color: #888;
+    font-size: 14px;
+    text-align: center;
+    margin: 0 0 28px;
+    line-height: 1.4;
+  }
+  .label {
+    color: #aaa;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    display: block;
+    margin-bottom: 6px;
+  }
+  input[type="text"], input[type="tel"] {
+    width: 100%;
+    padding: 12px 14px;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 15px;
+    outline: none;
+    box-sizing: border-box;
+  }
+  .input-section { margin-bottom: 24px; }
+  .day-section { margin-bottom: 20px; }
+  .day-title {
+    color: #C8FF00;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 10px;
+  }
+  .slot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 8px;
+  }
+  .slot {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: #fff;
+    padding: 10px 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+  }
+  .slot.selected {
+    background: #C8FF00;
+    color: #000;
+    border-color: #C8FF00;
+    font-weight: 700;
+  }
+  .method-row { display: flex; gap: 8px; }
+  .method-btn {
+    flex: 1;
+    padding: 12px 10px;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .method-btn.selected {
+    background: #C8FF00;
+    color: #000;
+    border-color: #C8FF00;
+    font-weight: 700;
+  }
+  .confirm-btn {
+    width: 100%;
+    padding: 14px;
+    background: #C8FF00;
+    color: #000;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 8px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  .confirm-btn.active { opacity: 1; pointer-events: auto; }
+  .error { color: #ff4444; font-size: 13px; text-align: center; margin: 0 0 12px; min-height: 16px; }
+  .note { color: #666; font-size: 12px; text-align: center; margin-top: 14px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">LUMINATE MEDIA</div>
+  <h1>Boka din onboarding call</h1>
+  <p class="subtitle">Välj en tid som passar dig — samtalet tar ca 15–20 min.</p>
+
+  <div class="input-section">
+    <label class="label">Ditt namn</label>
+    <input type="text" id="name" placeholder="Förnamn Efternamn">
+  </div>
+
+  <div class="input-section">
+    <label class="label">Hur vill du bli kontaktad?</label>
+    <div class="method-row">
+      <button type="button" class="method-btn" id="btn-phone" onclick="selectMethod('phone')">Telefon</button>
+      <button type="button" class="method-btn" id="btn-meet" onclick="selectMethod('meet')">Google Meet</button>
+    </div>
+    <input type="tel" id="phone" placeholder="07X-XXX XX XX" style="margin-top:10px; display:none;">
+  </div>
+
+  <div id="days"></div>
+
+  <p class="error" id="error"></p>
+
+  <a href="#" class="confirm-btn" id="confirm-btn" onclick="return submitBooking()">Boka tid</a>
+  <p class="note">Din bokning skickas direkt till Luminate Media.</p>
+</div>
+
+<script>
+  var DAYS = [
+    { label: "Måndag 6 juli", date: "6/7", slots: (function(){
+        var s = [];
+        for (var h = 9; h < 19; h++) {
+          if (h === 12) continue;
+          s.push(String(h).padStart(2,'0') + ':00');
+          s.push(String(h).padStart(2,'0') + ':30');
+        }
+        return s;
+      })() },
+    { label: "Tisdag 7 juli", date: "7/7", slots: ["14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30"] },
+    { label: "Onsdag 8 juli", date: "8/7", slots: ["16:30","17:00","17:30","18:00","18:30"] },
+    { label: "Torsdag 9 juli", date: "9/7", slots: (function(){
+        var s = [];
+        for (var h = 10; h < 19; h++) { s.push(String(h).padStart(2,'0') + ':00'); s.push(String(h).padStart(2,'0') + ':30'); }
+        return s;
+      })() },
+    { label: "Fredag 10 juli", date: "10/7", slots: (function(){
+        var s = [];
+        for (var h = 10; h < 19; h++) { s.push(String(h).padStart(2,'0') + ':00'); s.push(String(h).padStart(2,'0') + ':30'); }
+        return s;
+      })() },
+    { label: "Söndag 12 juli", date: "12/7", slots: ["12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30"] },
+    { label: "Måndag 13 juli", date: "13/7", slots: ["13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30"] }
+  ];
+
+  var selectedSlot = null;
+  var selectedMethod = null;
+
+  var daysEl = document.getElementById('days');
+  DAYS.forEach(function(day) {
+    var section = document.createElement('div');
+    section.className = 'day-section';
+    var title = document.createElement('div');
+    title.className = 'day-title';
+    title.textContent = day.label;
+    section.appendChild(title);
+    var grid = document.createElement('div');
+    grid.className = 'slot-grid';
+    day.slots.forEach(function(time) {
+      var btn = document.createElement('div');
+      btn.className = 'slot';
+      btn.textContent = time;
+      btn.onclick = function() {
+        document.querySelectorAll('.slot').forEach(function(s) { s.classList.remove('selected'); });
+        btn.classList.add('selected');
+        selectedSlot = { date: day.date, label: day.label, time: time };
+        updateConfirmState();
+      };
+      grid.appendChild(btn);
+    });
+    section.appendChild(grid);
+    daysEl.appendChild(section);
+  });
+
+  function selectMethod(method) {
+    selectedMethod = method;
+    document.getElementById('btn-phone').classList.toggle('selected', method === 'phone');
+    document.getElementById('btn-meet').classList.toggle('selected', method === 'meet');
+    document.getElementById('phone').style.display = method === 'phone' ? 'block' : 'none';
+    updateConfirmState();
+  }
+
+  function updateConfirmState() {
+    var name = document.getElementById('name').value.trim();
+    var phone = document.getElementById('phone').value.trim();
+    var ok = name && selectedSlot && selectedMethod && (selectedMethod !== 'phone' || phone);
+    document.getElementById('confirm-btn').classList.toggle('active', ok);
+  }
+
+  document.getElementById('name').addEventListener('input', updateConfirmState);
+  document.getElementById('phone').addEventListener('input', updateConfirmState);
+
+  function submitBooking() {
+    var name = document.getElementById('name').value.trim();
+    var phone = document.getElementById('phone').value.trim();
+    var errorEl = document.getElementById('error');
+    errorEl.textContent = '';
+
+    if (!name) { errorEl.textContent = 'Skriv ditt namn först!'; return false; }
+    if (!selectedSlot) { errorEl.textContent = 'Välj en tid!'; return false; }
+    if (!selectedMethod) { errorEl.textContent = 'Välj telefon eller Google Meet!'; return false; }
+    if (selectedMethod === 'phone' && !phone) { errorEl.textContent = 'Skriv in ditt telefonnummer!'; return false; }
+
+    var methodText = selectedMethod === 'phone' ? ('Telefon: ' + phone) : 'Google Meet';
+    var subject = encodeURIComponent('Onboarding-bokning: ' + name + ' – ' + selectedSlot.label + ' ' + selectedSlot.time);
+    var body = encodeURIComponent(
+      'Namn: ' + name + '\n' +
+      'Tid: ' + selectedSlot.label + ' kl ' + selectedSlot.time + '\n' +
+      'Kontakt: ' + methodText + '\n'
+    );
+    window.location.href = 'mailto:luminatemediarecruiting@gmail.com?subject=' + subject + '&body=' + body;
+    return false;
+  }
+</script>
+</body>
+</html>
