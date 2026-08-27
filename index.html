@@ -456,6 +456,171 @@ footer{
 footer .mark-sm{width:32px;height:auto;color:var(--pink)}
 footer .label{color:rgba(255,255,255,.5)}
 
+/* ---------- booking modal ---------- */
+.bmodal{position:fixed;inset:0;z-index:300;display:none}
+.bmodal.show{display:block}
+.bm-back{
+  position:absolute;inset:0;
+  background:rgba(24,13,16,.72);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  opacity:0;transition:opacity .35s var(--ease);
+}
+.bmodal.show .bm-back{opacity:1}
+.bm-panel{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-48%) scale(.97);
+  width:min(980px,94vw);height:min(760px,90svh);
+  background:var(--white);border-radius:24px;overflow:hidden;
+  display:flex;flex-direction:column;
+  box-shadow:0 40px 120px rgba(0,0,0,.5);
+  opacity:0;transition:opacity .35s var(--ease), transform .35s var(--ease);
+}
+.bmodal.show .bm-panel{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.bm-head{
+  display:flex;align-items:center;gap:14px;
+  background:var(--plum);color:var(--white);
+  padding:14px 18px;flex:none;
+}
+.bm-head svg{width:22px;height:auto;color:var(--pink);flex:none}
+.bm-title{font-family:var(--black);font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+.bm-spacer{flex:1}
+.bm-ext{
+  font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(231,153,156,.95);white-space:nowrap;
+}
+.bm-ext:hover{color:var(--white)}
+.bm-close{
+  flex:none;background:none;border:none;cursor:pointer;color:var(--white);
+  font-family:var(--sans);font-size:26px;line-height:1;padding:2px 6px;
+  transition:color .3s var(--ease), transform .3s var(--ease);
+}
+.bm-close:hover{color:var(--pink);transform:rotate(90deg)}
+.bm-body{flex:1;position:relative;background:#F6F3F4}
+.bm-body iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.bm-loading{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  color:var(--accent);font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase;
+  pointer-events:none;
+}
+@media (max-width:640px){
+  .bm-panel{width:100vw;height:100svh;border-radius:0;top:50%}
+  .bm-ext{display:none}
+}
+body.bm-open{overflow:hidden}
+
+/* ---------- campaign builder ---------- */
+.km-panel{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-48%) scale(.97);
+  width:min(760px,94vw);max-height:min(860px,92svh);
+  background:linear-gradient(180deg,var(--plum) 0%,var(--plum-2) 100%);
+  color:var(--white);
+  border-radius:24px;overflow:hidden;
+  display:flex;flex-direction:column;
+  box-shadow:0 40px 120px rgba(0,0,0,.5);
+  opacity:0;transition:opacity .35s var(--ease), transform .35s var(--ease);
+}
+.bmodal.show .km-panel{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.km-body{flex:1;overflow-y:auto;padding:clamp(22px,4vw,36px)}
+.km-intro{color:rgba(255,255,255,.72);font-size:15px;font-weight:500;margin-bottom:26px;max-width:520px}
+.km-field{margin-bottom:24px}
+.km-field .f-label{color:rgba(231,153,156,.95)}
+.km-count-row{display:flex;align-items:center;gap:18px}
+.km-count-row input[type="range"]{flex:1;accent-color:var(--pink);height:6px}
+.km-count-out{
+  font-family:var(--black);font-size:26px;min-width:2.2ch;text-align:center;
+  color:var(--pink);
+}
+.km-toggle{display:flex;gap:10px;flex-wrap:wrap}
+.km-toggle button{
+  flex:1;min-width:120px;
+  padding:13px 12px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(231,153,156,.35);
+  border-radius:999px;
+  color:var(--white);
+  font-family:var(--black);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;
+  cursor:pointer;
+  transition:background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease);
+}
+.km-toggle button:hover{border-color:var(--pink)}
+.km-toggle button.selected{background:var(--pink);color:var(--plum);border-color:var(--pink)}
+.km-budget-input{
+  width:100%;padding:15px 18px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(231,153,156,.35);
+  border-radius:14px;color:var(--white);
+  font-family:var(--sans);font-size:16px;font-weight:500;outline:none;
+  transition:border-color .3s var(--ease);
+}
+.km-budget-input::placeholder{color:rgba(255,255,255,.35)}
+.km-budget-input:focus{border-color:var(--pink)}
+.km-generate{width:100%;text-align:center;background:var(--pink);color:var(--plum);border:none;cursor:pointer;margin-top:6px}
+.km-genanim{
+  display:flex;align-items:center;justify-content:center;min-height:260px;
+  font-family:var(--black);font-size:15px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--pink);
+  animation:kmPulse 1.1s ease-in-out infinite;
+}
+@keyframes kmPulse{0%,100%{opacity:.45}50%{opacity:1}}
+.km-mixrow{
+  display:flex;align-items:baseline;gap:12px;
+  padding:12px 0;border-bottom:1px solid rgba(231,153,156,.18);
+  font-weight:500;font-size:15px;
+}
+.km-mixrow:first-of-type{border-top:1px solid rgba(231,153,156,.18)}
+.km-mixrow b{font-family:var(--black);font-size:17px;color:var(--pink);min-width:2ch}
+.km-mixrow span{color:rgba(255,255,255,.85)}
+.km-mixrow small{margin-left:auto;color:rgba(255,255,255,.5);font-size:12.5px;white-space:nowrap}
+.km-minigrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0}
+.km-mini{
+  background:rgba(255,255,255,.05);border:1px solid rgba(231,153,156,.22);
+  border-radius:16px;padding:16px 18px;
+}
+.km-mini b{font-family:var(--black);font-size:clamp(18px,3vw,24px);display:block}
+.km-mini span{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.km-pricebox{
+  background:rgba(231,153,156,.10);
+  border:1px solid rgba(231,153,156,.35);
+  border-radius:18px;padding:20px 22px;margin:6px 0 18px;
+}
+.km-priceline{display:flex;justify-content:space-between;gap:14px;font-size:14.5px;font-weight:500;color:rgba(255,255,255,.75);padding:4px 0}
+.km-priceline s{opacity:.75}
+.km-priceline.km-disc{color:var(--pink);font-weight:700}
+.km-total{
+  display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  border-top:1px solid rgba(231,153,156,.3);margin-top:10px;padding-top:12px;
+}
+.km-total b{font-family:var(--black);font-size:clamp(24px,4.5vw,34px);color:var(--white)}
+.km-total span{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--pink)}
+.km-save{
+  display:inline-block;
+  background:var(--pink);color:var(--plum);
+  font-family:var(--black);font-size:12px;letter-spacing:.06em;text-transform:uppercase;
+  padding:10px 18px;border-radius:999px;margin-bottom:18px;
+}
+.km-why{list-style:none;margin:0 0 18px;padding:0}
+.km-why li{
+  position:relative;padding:7px 0 7px 26px;
+  font-size:14.5px;font-weight:500;color:rgba(255,255,255,.85);
+}
+.km-why li::before{content:"✦";position:absolute;left:2px;color:var(--pink)}
+.km-note{font-size:12px;color:rgba(255,255,255,.45);margin-bottom:22px;max-width:560px}
+.km-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.km-ctas .book{background:var(--pink);color:var(--plum)}
+.km-ctas .book.ghost{background:transparent;color:var(--white);box-shadow:inset 0 0 0 2px rgba(231,153,156,.7)}
+.km-ctas .book.ghost:hover{background:rgba(231,153,156,.14)}
+.km-back-link{
+  display:inline-block;margin-top:18px;
+  font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.55);cursor:pointer;background:none;border:none;
+  transition:color .3s var(--ease);
+}
+.km-back-link:hover{color:var(--pink)}
+.km-adapt{font-size:12.5px;font-weight:700;color:var(--pink);margin:-14px 0 20px}
+@media (max-width:640px){
+  .km-panel{width:100vw;height:100svh;max-height:100svh;border-radius:0}
+  .km-minigrid{grid-template-columns:1fr}
+}
+
 /* ---------- motion prefs ---------- */
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation:none !important;transition:none !important}
@@ -480,7 +645,7 @@ footer .label{color:rgba(255,255,255,.5)}
     <a href="#tjanster">Tjänster</a>
     <a href="#kreatorer">Kreatörer</a>
     <a href="#team">Team</a>
-    <a class="nav-cta" href="mailto:hello@luminatemedia.se?subject=Boka%20m%C3%B6te">Boka möte</a>
+    <a class="nav-cta js-book" href="https://calendar.app.google/8vFghCDtFN2itfJU8" target="_blank" rel="noopener">Boka möte</a>
   </div>
 </nav>
 
@@ -494,7 +659,7 @@ footer .label{color:rgba(255,255,255,.5)}
   <h1 class="wordmark"><span>Luminate</span><span>Media</span></h1>
   <p class="hero-sub">Vi kopplar samman varumärken med Nordens mest engagerade TikTok-kreatörer. Ett kurerat nätverk med <b>1,8 miljoner följare</b> och <b>77+ miljoner likes</b> — och en byrå som tar hela ansvaret, från strategi till slutrapport.</p>
   <div class="hero-ctas">
-    <a class="book" href="mailto:hello@luminatemedia.se?subject=Boka%20m%C3%B6te">Boka möte →</a>
+    <a class="book js-book" href="https://calendar.app.google/8vFghCDtFN2itfJU8" target="_blank" rel="noopener">Boka möte →</a>
     <a class="book ghost" href="#siffror">Se nätverket ↓</a>
   </div>
   <div class="hero-scroll" aria-hidden="true"><i>↓</i> Scrolla</div>
@@ -502,8 +667,8 @@ footer .label{color:rgba(255,255,255,.5)}
 
 <div class="marquee" aria-hidden="true">
   <div class="mq-track">
-    <span>Luminate Media <em>✦</em> 1,8M följare <em>✦</em> 77M+ likes <em>✦</em> 35+ kreatörer <em>✦</em> TikTok creator marketing <em>✦</em> Mode <em>✦</em> Beauty <em>✦</em> Lifestyle <em>✦</em>&nbsp;</span>
-    <span>Luminate Media <em>✦</em> 1,8M följare <em>✦</em> 77M+ likes <em>✦</em> 35+ kreatörer <em>✦</em> TikTok creator marketing <em>✦</em> Mode <em>✦</em> Beauty <em>✦</em> Lifestyle <em>✦</em>&nbsp;</span>
+    <span>Luminate Media <em>✦</em> 1,8M följare <em>✦</em> 77M+ likes <em>✦</em> 30 kreatörer <em>✦</em> TikTok creator marketing <em>✦</em> Mode <em>✦</em> Beauty <em>✦</em> Lifestyle <em>✦</em>&nbsp;</span>
+    <span>Luminate Media <em>✦</em> 1,8M följare <em>✦</em> 77M+ likes <em>✦</em> 30 kreatörer <em>✦</em> TikTok creator marketing <em>✦</em> Mode <em>✦</em> Beauty <em>✦</em> Lifestyle <em>✦</em>&nbsp;</span>
   </div>
 </div>
 
@@ -522,7 +687,7 @@ footer .label{color:rgba(255,255,255,.5)}
       <div class="stat-lbl">Totala likes</div>
     </div>
     <div class="stat reveal" style="transition-delay:.16s">
-      <div class="stat-num" data-target="35" data-suffix="+">0</div>
+      <div class="stat-num" data-target="30" data-suffix="">0</div>
       <div class="stat-lbl">Kreatörer i nätverket</div>
     </div>
     <div class="stat reveal" style="transition-delay:.24s">
@@ -552,7 +717,7 @@ footer .label{color:rgba(255,255,255,.5)}
           <div class="sub"><span class="label">En partner, hela vägen</span><p>Strategi, urval, produktion, publicering, annonsering och rapport — ett avtal, en kontaktperson, ett ansvar. Ni behöver inte koordinera mellan byråer, creators och plattformar. Det gör vi.</p></div>
           <div class="sub"><span class="label">Er insats</span><p>Ni godkänner manus och video — resten sköter vi. En typisk kampanj kostar er ett fåtal timmar totalt, från brief till slutrapport.</p></div>
         </div>
-        <a class="book" href="mailto:hello@luminatemedia.se?subject=Boka%20m%C3%B6te%20%E2%80%94%20Samarbete">Boka möte →</a>
+        <a class="book js-book" href="https://calendar.app.google/8vFghCDtFN2itfJU8" target="_blank" rel="noopener">Boka möte →</a>
       </div>
     </div></div>
   </div>
@@ -567,7 +732,7 @@ footer .label{color:rgba(255,255,255,.5)}
           <div class="sub"><span class="label">Vad ni får</span><p>Ett färdigt rosterförslag med motivering per creator, klart inom dagar. Ni ser exakt vem vi föreslår och varför — och godkänner innan något låses.</p></div>
           <div class="sub"><span class="label">Nätverket</span><p>Ett kurerat nätverk av nordiska TikTok-creators inom mode, beauty och lifestyle. Alla har arbetat med oss tidigare eller genomgått vår granskning.</p></div>
         </div>
-        <a class="book" href="mailto:hello@luminatemedia.se?subject=Boka%20m%C3%B6te%20%E2%80%94%20Creator-urval">Boka möte →</a>
+        <a class="book js-book" href="https://calendar.app.google/8vFghCDtFN2itfJU8" target="_blank" rel="noopener">Boka möte →</a>
       </div>
     </div></div>
   </div>
@@ -582,7 +747,7 @@ footer .label{color:rgba(255,255,255,.5)}
           <div class="sub"><span class="label">Deadlines</span><p>Tidplanen ligger fast från dag ett. Varje creator arbetar mot fasta deadlines för manus, utkast och publicering — och vi följer upp varje steg.</p></div>
           <div class="sub"><span class="label">Er kontakt</span><p>En kontaktperson hos oss genom hela kampanjen. All kommunikation med creators, all logistik och alla påminnelser sköter vi.</p></div>
         </div>
-        <a class="book" href="mailto:hello@luminatemedia.se?subject=Boka%20m%C3%B6te%20%E2%80%94%20Kampanjhantering">Boka möte →</a>
+        <a class="book js-book" href="https://calendar.app.google/8vFghCDtFN2itfJU8" target="_blank" rel="noopener">Boka möte →</a>
       </div>
     </div></div>
   </div>
@@ -597,7 +762,7 @@ footer .label{color:rgba(255,255,255,.5)}
           <div class="sub"><span class="label">Rekommendation</span><p>Efter cirka 48 timmar får ni en konkret rekommendation för budgetfördelning, där vi prioriterar videos som redan presterar organiskt. Vi rekommenderar — ni väljer. Ni äger alltid beslutet och annonskontot.</p></div>
           <div class="sub"><span class="label">Rapport</span><p>När kampanjen är avslutad får ni en fullständig rapport med resultat per video och creator, samt våra rekommendationer inför nästa kampanj.</p></div>
         </div>
-        <a class="book" href="mailto:hello@luminatemedia.se?subject=Boka%20m%C3%B6te%20%E2%80%94%20Spark%20Ads">Boka möte →</a>
+        <a class="book js-book" href="https://calendar.app.google/8vFghCDtFN2itfJU8" target="_blank" rel="noopener">Boka möte →</a>
       </div>
     </div></div>
   </div>
@@ -612,7 +777,7 @@ footer .label{color:rgba(255,255,255,.5)}
           <div class="sub"><span class="label">När det passar</span><p>När ni behöver mycket annonsmaterial snabbt, vill testa flera vinklar och hooks mot varandra, eller bygga ett flöde av äkta innehåll utan att aktivera en full kampanj varje gång.</p></div>
           <div class="sub"><span class="label">Så levererar vi</span><p>Samma process som våra kampanjer: brief, manus, granskning, fasta deadlines — men med färdiga filer som leverans. Går att köra som enskild beställning eller löpande varje månad.</p></div>
         </div>
-        <a class="book" href="mailto:hello@luminatemedia.se?subject=Boka%20m%C3%B6te%20%E2%80%94%20UGC">Boka möte →</a>
+        <a class="book js-book" href="https://calendar.app.google/8vFghCDtFN2itfJU8" target="_blank" rel="noopener">Boka möte →</a>
       </div>
     </div></div>
   </div>
@@ -627,7 +792,7 @@ footer .label{color:rgba(255,255,255,.5)}
           <div class="sub"><span class="label">Användningsrättigheter</span><p>Rättigheter för organisk publicering och Spark Ads under avtalad period ingår i upplägget. Vill ni använda materialet i fler kanaler löser vi det.</p></div>
           <div class="sub"><span class="label">Ersättningar</span><p>Alla utbetalningar till creators hanteras av oss. Ni får en faktura — vi tar hand om resten.</p></div>
         </div>
-        <a class="book" href="mailto:hello@luminatemedia.se?subject=Boka%20m%C3%B6te%20%E2%80%94%20R%C3%A4ttigheter">Boka möte →</a>
+        <a class="book js-book" href="https://calendar.app.google/8vFghCDtFN2itfJU8" target="_blank" rel="noopener">Boka möte →</a>
       </div>
     </div></div>
   </div>
@@ -639,25 +804,27 @@ footer .label{color:rgba(255,255,255,.5)}
   <p class="lead reveal">Ett urval ur nätverket — varje kreatör är granskad på färska siffror innan hon föreslås i en kampanj. Följarsiffrorna nedan kommer direkt från vår plattform.</p>
 
   <div class="creator-list reveal">
-    <a class="creator" href="https://www.tiktok.com/@alice.almm" target="_blank" rel="noopener"><span class="idx">01</span><span class="cn">Alice Alm</span><span class="ch">@alice.almm</span><span class="spacer"></span><span class="arrow">↗</span></a>
+    <a class="creator" href="https://www.tiktok.com/@aotterud" target="_blank" rel="noopener"><span class="idx">01</span><span class="cn">Alicia Otterud</span><span class="ch">@aotterud</span><span class="spacer"></span><span class="f-pill">261K följare</span><span class="arrow">↗</span></a>
     <a class="creator" href="https://www.tiktok.com/@astridholmstromming" target="_blank" rel="noopener"><span class="idx">02</span><span class="cn">Astrid Holmström</span><span class="ch">@astridholmstromming</span><span class="spacer"></span><span class="f-pill">24,9K följare</span><span class="arrow">↗</span></a>
     <a class="creator" href="https://www.tiktok.com/@electrakarlsson200" target="_blank" rel="noopener"><span class="idx">03</span><span class="cn">Electra Karlsson</span><span class="ch">@electrakarlsson200</span><span class="spacer"></span><span class="f-pill">114K följare</span><span class="arrow">↗</span></a>
-    <a class="creator" href="https://www.tiktok.com/@leabelge_" target="_blank" rel="noopener"><span class="idx">04</span><span class="cn">Lea Belge</span><span class="ch">@leabelge_</span><span class="spacer"></span><span class="arrow">↗</span></a>
-    <a class="creator" href="https://www.tiktok.com/@linneafknahlqvist" target="_blank" rel="noopener"><span class="idx">05</span><span class="cn">Linnea Ahlqvist</span><span class="ch">@linneafknahlqvist</span><span class="spacer"></span><span class="f-pill">24,7K följare</span><span class="arrow">↗</span></a>
-    <a class="creator" href="https://www.tiktok.com/@lunamaarkovic" target="_blank" rel="noopener"><span class="idx">06</span><span class="cn">Luna Markovic</span><span class="ch">@lunamaarkovic</span><span class="spacer"></span><span class="f-pill">44K följare</span><span class="arrow">↗</span></a>
-    <a class="creator" href="https://www.tiktok.com/@tjejenshemlighet" target="_blank" rel="noopener"><span class="idx">07</span><span class="cn">Maja Stjärnerfält</span><span class="ch">@tjejenshemlighet</span><span class="spacer"></span><span class="f-pill">70,4K följare</span><span class="arrow">↗</span></a>
-    <a class="creator" href="https://www.tiktok.com/@superhemligtmg" target="_blank" rel="noopener"><span class="idx">08</span><span class="cn">Minja Gustafsson</span><span class="ch">@superhemligtmg</span><span class="spacer"></span><span class="f-pill">26,6K följare</span><span class="arrow">↗</span></a>
-    <a class="creator" href="https://www.tiktok.com/@minoue.ranta" target="_blank" rel="noopener"><span class="idx">09</span><span class="cn">Minoue Ranta</span><span class="ch">@minoue.ranta</span><span class="spacer"></span><span class="arrow">↗</span></a>
-    <a class="creator" href="https://www.tiktok.com/@mirandaomatilda_westerbe" target="_blank" rel="noopener"><span class="idx">10</span><span class="cn">Miranda &amp; Matilda Westerberg</span><span class="ch">@mirandaomatilda_westerbe</span><span class="spacer"></span><span class="f-pill">62,5K följare</span><span class="arrow">↗</span></a>
-    <a class="creator" href="https://www.tiktok.com/@norvellan" target="_blank" rel="noopener"><span class="idx">11</span><span class="cn">Sigrid Norvell</span><span class="ch">@norvellan</span><span class="spacer"></span><span class="f-pill">12,2K följare</span><span class="arrow">↗</span></a>
-    <a class="creator" href="https://www.tiktok.com/@diihhva" target="_blank" rel="noopener"><span class="idx">12</span><span class="cn">Stina Backenfall</span><span class="ch">@diihhva</span><span class="spacer"></span><span class="arrow">↗</span></a>
-    <a class="creator" href="https://www.tiktok.com/@svea.engstrom" target="_blank" rel="noopener"><span class="idx">13</span><span class="cn">Svea Engström</span><span class="ch">@svea.engstrom</span><span class="spacer"></span><span class="f-pill">18,5K följare</span><span class="arrow">↗</span></a>
-    <a class="creator" href="https://www.tiktok.com/@veira.larsson" target="_blank" rel="noopener"><span class="idx">14</span><span class="cn">Veira Larsson</span><span class="ch">@veira.larsson</span><span class="spacer"></span><span class="f-pill">149K följare</span><span class="arrow">↗</span></a>
-    <div class="creator more"><span class="idx">+</span><span class="cn">Ett 20-tal till i nätverket</span><span class="spacer"></span><span class="f-pill">Hela rostern vid förfrågan</span></div>
+    <a class="creator" href="https://www.tiktok.com/@elsak1612" target="_blank" rel="noopener"><span class="idx">04</span><span class="cn">Elsa Grahn</span><span class="ch">@elsak1612</span><span class="spacer"></span><span class="f-pill">69K följare</span><span class="arrow">↗</span></a>
+    <a class="creator" href="https://www.tiktok.com/@jacquelineekenstedt" target="_blank" rel="noopener"><span class="idx">05</span><span class="cn">Jacqueline Ekenstedt</span><span class="ch">@jacquelineekenstedt</span><span class="spacer"></span><span class="f-pill">31,2K följare</span><span class="arrow">↗</span></a>
+    <a class="creator" href="https://www.tiktok.com/@linneafknahlqvist" target="_blank" rel="noopener"><span class="idx">06</span><span class="cn">Linnea Ahlqvist</span><span class="ch">@linneafknahlqvist</span><span class="spacer"></span><span class="f-pill">24,7K följare</span><span class="arrow">↗</span></a>
+    <a class="creator" href="https://www.tiktok.com/@lovisa.haeger" target="_blank" rel="noopener"><span class="idx">07</span><span class="cn">Lovisa Haeger</span><span class="ch">@lovisa.haeger</span><span class="spacer"></span><span class="f-pill">129K följare</span><span class="arrow">↗</span></a>
+    <a class="creator" href="https://www.tiktok.com/@lunamaarkovic" target="_blank" rel="noopener"><span class="idx">08</span><span class="cn">Luna Markovic</span><span class="ch">@lunamaarkovic</span><span class="spacer"></span><span class="f-pill">44K följare</span><span class="arrow">↗</span></a>
+    <a class="creator" href="https://www.tiktok.com/@tjejenshemlighet" target="_blank" rel="noopener"><span class="idx">09</span><span class="cn">Maja Stjärnerfält</span><span class="ch">@tjejenshemlighet</span><span class="spacer"></span><span class="f-pill">70,4K följare</span><span class="arrow">↗</span></a>
+    <a class="creator" href="https://www.tiktok.com/@superhemligtmg" target="_blank" rel="noopener"><span class="idx">10</span><span class="cn">Minja Gustafsson</span><span class="ch">@superhemligtmg</span><span class="spacer"></span><span class="f-pill">26,6K följare</span><span class="arrow">↗</span></a>
+    <a class="creator" href="https://www.tiktok.com/@mirandaomatilda_westerbe" target="_blank" rel="noopener"><span class="idx">11</span><span class="cn">Miranda &amp; Matilda Westerberg</span><span class="ch">@mirandaomatilda_westerbe</span><span class="spacer"></span><span class="f-pill">62,5K följare</span><span class="arrow">↗</span></a>
+    <a class="creator" href="https://www.tiktok.com/@norvellan" target="_blank" rel="noopener"><span class="idx">12</span><span class="cn">Sigrid Norvell</span><span class="ch">@norvellan</span><span class="spacer"></span><span class="f-pill">12,2K följare</span><span class="arrow">↗</span></a>
+    <a class="creator" href="https://www.tiktok.com/@diihhva" target="_blank" rel="noopener"><span class="idx">13</span><span class="cn">Stina Backenfall</span><span class="ch">@diihhva</span><span class="spacer"></span><span class="arrow">↗</span></a>
+    <a class="creator" href="https://www.tiktok.com/@svea.engstrom" target="_blank" rel="noopener"><span class="idx">14</span><span class="cn">Svea Engström</span><span class="ch">@svea.engstrom</span><span class="spacer"></span><span class="f-pill">18,5K följare</span><span class="arrow">↗</span></a>
+    <a class="creator" href="https://www.tiktok.com/@tildesundb" target="_blank" rel="noopener"><span class="idx">15</span><span class="cn">Tilde Sundberg</span><span class="ch">@tildesundb</span><span class="spacer"></span><span class="f-pill">91,5K följare</span><span class="arrow">↗</span></a>
+    <a class="creator" href="https://www.tiktok.com/@veira.larsson" target="_blank" rel="noopener"><span class="idx">16</span><span class="cn">Veira Larsson</span><span class="ch">@veira.larsson</span><span class="spacer"></span><span class="f-pill">149K följare</span><span class="arrow">↗</span></a>
+    <div class="creator more"><span class="idx">+</span><span class="cn">14 till i nätverket</span><span class="spacer"></span><span class="f-pill">Hela rostern vid förfrågan</span></div>
   </div>
 
   <div class="creators-cta reveal">
-    <a class="book" href="mailto:hello@luminatemedia.se?subject=Rosterf%C3%B6rslag">Få ett rosterförslag →</a>
+    <a class="book js-proposal" href="mailto:hello@luminatemedia.se?subject=Rosterf%C3%B6rslag">Bygg er kampanj — få pris direkt →</a>
   </div>
 </section>
 
@@ -697,7 +864,7 @@ footer .label{color:rgba(255,255,255,.5)}
   <h2 class="reveal">Redo att synas där era kunder <mark>redan är?</mark></h2>
   <p class="cline reveal">Mejla <a href="mailto:hello@luminatemedia.se">hello@luminatemedia.se</a> — ni får svar inom 24 timmar, och ett första rosterförslag inom dagar.</p>
   <div class="contact-ctas reveal">
-    <a class="book" href="mailto:hello@luminatemedia.se?subject=Boka%20m%C3%B6te">Boka möte →</a>
+    <a class="book js-book" href="https://calendar.app.google/8vFghCDtFN2itfJU8" target="_blank" rel="noopener">Boka möte →</a>
     <a class="book ghost" href="mailto:hello@luminatemedia.se?subject=Creator">Är du creator? Sök till oss</a>
   </div>
 </section>
@@ -709,6 +876,106 @@ footer .label{color:rgba(255,255,255,.5)}
   <span class="label">© 2026 Luminate Media</span>
   <span class="label">Lund — Sverige</span>
 </footer>
+
+<div class="bmodal" id="bmodal" role="dialog" aria-modal="true" aria-label="Boka möte">
+  <div class="bm-back" id="bm-back"></div>
+  <div class="bm-panel">
+    <div class="bm-head">
+      <svg viewBox="0 0 400 435" aria-hidden="true"><g transform="translate(0,435) scale(0.1,-0.1)"><path fill="currentColor" d="M62 2174 l3 -2119 1230 -2 c677 -2 1243 1 1259 5 29 8 29 8 -140 183 -93 96 -232 240 -309 320 l-140 147 -655 1 -655 0 -3 1499 -2 1500 -291 288 c-159 159 -292 291 -295 293 -2 2 -3 -949 -2 -2115z M3694 2953 c-136 -142 -386 -400 -554 -573 -168 -173 -387 -399 -485 -502 -98 -104 -182 -188 -185 -188 -4 0 -42 37 -86 83 -517 538 -911 945 -1141 1177 l-243 245 0 -459 0 -458 88 -92 c48 -51 247 -261 442 -467 315 -331 791 -834 891 -941 49 -53 20 -76 400 329 189 202 390 414 446 472 l102 106 1 -811 0 -812 23 -6 c12 -3 142 -6 290 -6 l267 0 0 1580 c0 869 -2 1580 -4 1580 -2 0 -115 -116 -252 -257z"/></g></svg>
+      <span class="bm-title">Boka möte</span>
+      <span class="bm-spacer"></span>
+      <a class="bm-ext" href="https://calendar.app.google/8vFghCDtFN2itfJU8" target="_blank" rel="noopener">Öppna i nytt fönster ↗</a>
+      <button class="bm-close" id="bm-close" aria-label="Stäng">×</button>
+    </div>
+    <div class="bm-body">
+      <div class="bm-loading" id="bm-loading">Laddar kalender …</div>
+      <iframe id="bm-frame" title="Boka möte — Luminate Media" loading="lazy" allow="fullscreen"></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="bmodal" id="kmodal" role="dialog" aria-modal="true" aria-label="Skapa kampanjförslag">
+  <div class="bm-back" id="km-back"></div>
+  <div class="km-panel">
+    <div class="bm-head">
+      <svg viewBox="0 0 400 435" aria-hidden="true"><g transform="translate(0,435) scale(0.1,-0.1)"><path fill="currentColor" d="M62 2174 l3 -2119 1230 -2 c677 -2 1243 1 1259 5 29 8 29 8 -140 183 -93 96 -232 240 -309 320 l-140 147 -655 1 -655 0 -3 1499 -2 1500 -291 288 c-159 159 -292 291 -295 293 -2 2 -3 -949 -2 -2115z M3694 2953 c-136 -142 -386 -400 -554 -573 -168 -173 -387 -399 -485 -502 -98 -104 -182 -188 -185 -188 -4 0 -42 37 -86 83 -517 538 -911 945 -1141 1177 l-243 245 0 -459 0 -458 88 -92 c48 -51 247 -261 442 -467 315 -331 791 -834 891 -941 49 -53 20 -76 400 329 189 202 390 414 446 472 l102 106 1 -811 0 -812 23 -6 c12 -3 142 -6 290 -6 l267 0 0 1580 c0 869 -2 1580 -4 1580 -2 0 -115 -116 -252 -257z"/></g></svg>
+      <span class="bm-title">Kampanjbyggaren</span>
+      <span class="bm-spacer"></span>
+      <button class="bm-close" id="km-close" aria-label="Stäng">×</button>
+    </div>
+    <div class="km-body">
+
+      <div class="km-step" id="km-step1">
+        <p class="km-intro">Berätta vad ni behöver — vi räknar direkt på nätverkets faktiska snittpriser och snittvisningar.</p>
+
+        <div class="km-field">
+          <span class="f-label">Antal kreatörer</span>
+          <div class="km-count-row">
+            <input type="range" id="km-count" min="1" max="20" value="5" aria-label="Antal kreatörer">
+            <span class="km-count-out" id="km-count-out">5</span>
+          </div>
+        </div>
+
+        <div class="km-field">
+          <span class="f-label">Videos per kreatör</span>
+          <div class="km-toggle" id="km-videos">
+            <button type="button" data-v="1" class="selected">1 video</button>
+            <button type="button" data-v="2">2 videos · större rabatt</button>
+          </div>
+        </div>
+
+        <div class="km-field">
+          <span class="f-label">Kampanjfokus</span>
+          <div class="km-toggle" id="km-focus">
+            <button type="button" data-f="bred" class="selected">Bred räckvidd</button>
+            <button type="button" data-f="topp">Toppnamn</button>
+            <button type="button" data-f="micro">Micro-styrka</button>
+          </div>
+        </div>
+
+        <div class="km-field">
+          <label class="f-label" for="km-budget">Budget i kr — valfritt, vi anpassar förslaget</label>
+          <input class="km-budget-input" type="text" inputmode="numeric" id="km-budget" placeholder="t.ex. 50 000">
+        </div>
+
+        <button type="button" class="book km-generate" id="km-generate">Skapa förslag ✦</button>
+      </div>
+
+      <div class="km-step" id="km-loading" hidden>
+        <div class="km-genanim" id="km-genmsg">Analyserar nätverket …</div>
+      </div>
+
+      <div class="km-step" id="km-step2" hidden>
+        <span class="label" style="display:block;margin-bottom:14px;color:rgba(231,153,156,.9)">Ert kampanjförslag</span>
+        <p class="km-adapt" id="km-adapt" hidden></p>
+        <div id="km-mix"></div>
+        <div class="km-minigrid">
+          <div class="km-mini"><b id="km-views">–</b><span>Estimerade visningar</span></div>
+          <div class="km-mini"><b id="km-vidcount">–</b><span>Videos totalt</span></div>
+        </div>
+        <div class="km-pricebox">
+          <div class="km-priceline"><span>Ordinarie pris</span><s id="km-list">–</s></div>
+          <div class="km-priceline km-disc"><span id="km-disclabel">Volymrabatt</span><span id="km-discount">–</span></div>
+          <div class="km-total"><span>Rabatterat pris<br>genom Luminate</span><b id="km-final">–</b></div>
+        </div>
+        <div class="km-save" id="km-save">Ni sparar –</div>
+        <ul class="km-why">
+          <li>Ett avtal, en kontaktperson — vi koordinerar alla kreatörer åt er</li>
+          <li>Vi förhandlar kreatörspriserna — ni betalar mindre än vid direktkontakt</li>
+          <li>Spark Ads-rättigheter köps först när ni sett vilken video som levererar</li>
+          <li>Manus- och videogodkännande i två steg — ni har alltid sista ordet</li>
+        </ul>
+        <p class="km-note">Estimat baserat på nätverkets faktiska snittpriser och snittvisningar (senaste 20 videos per kreatör). Slutgiltigt förslag med namngivna kreatörer och exakta priser får ni inom två arbetsdagar efter ett möte.</p>
+        <div class="km-ctas">
+          <button type="button" class="book" id="km-book">Boka möte →</button>
+          <a class="book ghost" id="km-mail" href="mailto:hello@luminatemedia.se?subject=Kampanjf%C3%B6rslag">Mejla mig förslaget</a>
+        </div>
+        <button type="button" class="km-back-link" id="km-redo">← Ändra förslaget</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <script>
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -743,6 +1010,150 @@ const sio = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { countUp(e.target); sio.unobserve(e.target); } });
 }, {threshold:.5});
 document.querySelectorAll('.stat-num').forEach(el => sio.observe(el));
+
+/* booking modal */
+const BOOKING_EMBED = 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ2H9nHhXi1YbekPKJsLFUU3ZhN_5npioIDSyM7V9sfqDnXW9NdKP4um4_C9vQtoz9akFRWMlMlj?gv=true';
+const bmodal = document.getElementById('bmodal');
+const bframe = document.getElementById('bm-frame');
+const bloading = document.getElementById('bm-loading');
+let lastFocus = null;
+
+function openBooking(){
+  if (!bframe.src) {
+    bframe.addEventListener('load', () => { bloading.style.display = 'none'; }, {once:true});
+    bframe.src = BOOKING_EMBED;
+  }
+  lastFocus = document.activeElement;
+  bmodal.classList.add('show');
+  document.body.classList.add('bm-open');
+  document.getElementById('bm-close').focus();
+}
+function closeBooking(){
+  bmodal.classList.remove('show');
+  document.body.classList.remove('bm-open');
+  if (lastFocus) lastFocus.focus();
+}
+document.querySelectorAll('.js-book').forEach(a => {
+  a.addEventListener('click', e => { e.preventDefault(); openBooking(); });
+});
+document.getElementById('bm-close').addEventListener('click', closeBooking);
+document.getElementById('bm-back').addEventListener('click', closeBooking);
+addEventListener('keydown', e => { if (e.key === 'Escape' && bmodal.classList.contains('show')) closeBooking(); });
+
+/* campaign builder */
+const TIERS = [
+  {key:'topp',   label:'Toppkreatör',   range:'250K+ följare',    price:10000, views:70000},
+  {key:'stor',   label:'Stor kreatör',  range:'100–250K följare', price:8000,  views:45000},
+  {key:'mellan', label:'Mellankreatör', range:'50–100K följare',  price:5500,  views:35000},
+  {key:'micro',  label:'Microkreatör',  range:'10–50K följare',   price:2500,  views:20000}
+];
+const MIX = { bred:[.10,.20,.30,.40], topp:[.25,.40,.25,.10], micro:[0,.10,.25,.65] };
+const kmodal = document.getElementById('kmodal');
+let kmVideos = 1, kmFocus = 'bred', kmState = null;
+
+const fmtKr = n => Math.round(n).toLocaleString('sv-SE') + ' kr';
+const fmtViews = n => n >= 1e6 ? (Math.round(n/1e5)/10).toLocaleString('sv-SE') + ' M' : Math.round(n/1e3).toLocaleString('sv-SE') + 'K';
+
+function kmAlloc(n, focus){
+  const w = MIX[focus], base = w.map(x => Math.floor(x*n));
+  let left = n - base.reduce((a,b)=>a+b,0);
+  const rem = w.map((x,i)=>({i, r:x*n-base[i]})).sort((a,b)=>b.r-a.r);
+  for (let j=0; j<left; j++) base[rem[j % 4].i]++;
+  return base;
+}
+function kmDiscount(n, v){
+  const t1 = n>=20?12 : n>=15?10 : n>=10?8 : n>=6?5 : n>=3?3 : 0;
+  const t2 = n>=20?18 : n>=15?16 : n>=10?14 : n>=6?10 : n>=3?8 : 5;
+  return v === 2 ? t2 : t1;
+}
+function kmCalc(n, v, focus){
+  const counts = kmAlloc(n, focus);
+  const list = counts.reduce((s,c,i)=>s + c*TIERS[i].price, 0) * v;
+  const views = counts.reduce((s,c,i)=>s + c*TIERS[i].views, 0) * v;
+  const disc = kmDiscount(n, v);
+  return {n, v, focus, counts, list, disc, saved:list*disc/100, final:list*(1-disc/100), views};
+}
+function kmRender(st){
+  kmState = st;
+  document.getElementById('km-mix').innerHTML = st.counts.map((c,i)=> c ?
+    `<div class="km-mixrow"><b>${c}×</b><span>${TIERS[i].label}</span><small>${TIERS[i].range}</small></div>` : '').join('');
+  document.getElementById('km-views').textContent = '≈ ' + fmtViews(st.views*0.75) + ' – ' + fmtViews(st.views*1.4);
+  document.getElementById('km-vidcount').textContent = st.n * st.v + ' videos';
+  document.getElementById('km-list').textContent = fmtKr(st.list);
+  document.getElementById('km-disclabel').textContent = 'Volymrabatt −' + st.disc + ' %';
+  document.getElementById('km-discount').textContent = '−' + fmtKr(st.saved);
+  document.getElementById('km-final').textContent = fmtKr(st.final);
+  document.getElementById('km-save').textContent = 'Ni sparar ' + fmtKr(st.saved) + ' genom Luminate';
+  const mailBody =
+    'Hej Luminate!\n\nVi har byggt ett kampanjförslag på er hemsida och vill veta mer:\n\n' +
+    st.counts.map((c,i)=>c?`${c} × ${TIERS[i].label} (${TIERS[i].range})`:'').filter(Boolean).join('\n') +
+    `\n${st.n*st.v} videos totalt\nEstimat: ${fmtKr(st.final)} (efter ${st.disc} % volymrabatt)\n\nFöretag:\nKontaktperson:\nTelefon:`;
+  document.getElementById('km-mail').href = 'mailto:hello@luminatemedia.se?subject=' +
+    encodeURIComponent('Kampanjförslag från hemsidan') + '&body=' + encodeURIComponent(mailBody);
+}
+function kmShow(step){
+  ['km-step1','km-loading','km-step2'].forEach(id => document.getElementById(id).hidden = id !== step);
+  document.querySelector('#kmodal .km-body').scrollTop = 0;
+}
+function openProposal(){
+  lastFocus = document.activeElement;
+  kmodal.classList.add('show');
+  document.body.classList.add('bm-open');
+  kmShow('km-step1');
+  document.getElementById('km-close').focus();
+}
+function closeProposal(){
+  kmodal.classList.remove('show');
+  document.body.classList.remove('bm-open');
+  if (lastFocus) lastFocus.focus();
+}
+document.querySelectorAll('.js-proposal').forEach(a => {
+  a.addEventListener('click', e => { e.preventDefault(); openProposal(); });
+});
+document.getElementById('km-close').addEventListener('click', closeProposal);
+document.getElementById('km-back').addEventListener('click', closeProposal);
+addEventListener('keydown', e => { if (e.key === 'Escape' && kmodal.classList.contains('show')) closeProposal(); });
+
+document.getElementById('km-count').addEventListener('input', e => {
+  document.getElementById('km-count-out').textContent = e.target.value;
+});
+document.querySelectorAll('#km-videos button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('#km-videos button').forEach(x => x.classList.remove('selected'));
+  b.classList.add('selected'); kmVideos = +b.dataset.v;
+}));
+document.querySelectorAll('#km-focus button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('#km-focus button').forEach(x => x.classList.remove('selected'));
+  b.classList.add('selected'); kmFocus = b.dataset.f;
+}));
+
+document.getElementById('km-generate').addEventListener('click', () => {
+  let n = +document.getElementById('km-count').value;
+  const budget = parseInt((document.getElementById('km-budget').value || '').replace(/\D/g,''), 10);
+  const adapt = document.getElementById('km-adapt');
+  adapt.hidden = true;
+  if (budget && budget >= 2000) {
+    let best = 1;
+    for (let i = 1; i <= 20; i++) { if (kmCalc(i, kmVideos, kmFocus).final <= budget) best = i; }
+    if (best !== n) {
+      n = best;
+      document.getElementById('km-count').value = n;
+      document.getElementById('km-count-out').textContent = n;
+      adapt.textContent = '✦ Anpassat till er budget på ' + fmtKr(budget) + ' — ' + n + ' kreatörer ryms.';
+      adapt.hidden = false;
+    }
+  }
+  kmRender(kmCalc(n, kmVideos, kmFocus));
+  if (reduced) { kmShow('km-step2'); return; }
+  kmShow('km-loading');
+  const msgs = ['Analyserar nätverket …','Matchar kreatörer mot ert fokus …','Räknar på snittvisningar …','Förhandlar fram er rabatt …'];
+  let mi = 0;
+  const msgEl = document.getElementById('km-genmsg');
+  msgEl.textContent = msgs[0];
+  const iv = setInterval(() => { mi++; if (msgs[mi]) msgEl.textContent = msgs[mi]; }, 550);
+  setTimeout(() => { clearInterval(iv); kmShow('km-step2'); }, 2100);
+});
+document.getElementById('km-redo').addEventListener('click', () => kmShow('km-step1'));
+document.getElementById('km-book').addEventListener('click', () => { closeProposal(); openBooking(); });
 
 /* accordions — one open at a time */
 document.querySelectorAll('.svc-btn').forEach(btn => {
