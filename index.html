@@ -908,9 +908,9 @@ body.bm-open{overflow:hidden}
         <p class="km-intro">Berätta vad ni behöver — vi räknar direkt på nätverkets faktiska snittpriser och snittvisningar.</p>
 
         <div class="km-field">
-          <span class="f-label">Antal kreatörer</span>
+          <span class="f-label">Antal kreatörer — 27 = hela nätverket</span>
           <div class="km-count-row">
-            <input type="range" id="km-count" min="1" max="20" value="5" aria-label="Antal kreatörer">
+            <input type="range" id="km-count" min="1" max="27" value="5" aria-label="Antal kreatörer">
             <span class="km-count-out" id="km-count-out">5</span>
           </div>
         </div>
@@ -959,12 +959,13 @@ body.bm-open{overflow:hidden}
         </div>
         <div class="km-save" id="km-save">Ni sparar –</div>
         <ul class="km-why">
+          <li>3 mindre kreatörer följer alltid med på köpet — samma brief, 0 kr</li>
           <li>Ett avtal, en kontaktperson — vi koordinerar alla kreatörer åt er</li>
           <li>Vi förhandlar kreatörspriserna — ni betalar mindre än vid direktkontakt</li>
           <li>Spark Ads-rättigheter köps först när ni sett vilken video som levererar</li>
           <li>Manus- och videogodkännande i två steg — ni har alltid sista ordet</li>
         </ul>
-        <p class="km-note">Estimat baserat på nätverkets faktiska snittpriser och snittvisningar (senaste 20 videos per kreatör). Slutgiltigt förslag med namngivna kreatörer och exakta priser får ni inom två arbetsdagar efter ett möte.</p>
+        <p class="km-note">Estimat baserat på nätverkets faktiska snittpriser och snittvisningar (senaste 20 videos per kreatör). Rabatten växer med antalet videos — upp till 18 % när hela nätverket bokas. Slutgiltigt förslag med namngivna kreatörer och exakta priser får ni inom två arbetsdagar efter ett möte.</p>
         <div class="km-ctas">
           <button type="button" class="book" id="km-book">Boka möte →</button>
           <a class="book ghost" id="km-mail" href="mailto:hello@luminatemedia.se?subject=Kampanjf%C3%B6rslag">Mejla mig förslaget</a>
@@ -1039,14 +1040,16 @@ document.getElementById('bm-close').addEventListener('click', closeBooking);
 document.getElementById('bm-back').addEventListener('click', closeBooking);
 addEventListener('keydown', e => { if (e.key === 'Escape' && bmodal.classList.contains('show')) closeBooking(); });
 
-/* campaign builder */
+/* campaign builder — tiers speglar det verkliga nätverket (27 prissatta + 3 på köpet = 30) */
 const TIERS = [
-  {key:'topp',   label:'Toppkreatör',   range:'250K+ följare',    price:10000, views:70000},
-  {key:'stor',   label:'Stor kreatör',  range:'100–250K följare', price:8000,  views:45000},
-  {key:'mellan', label:'Mellankreatör', range:'50–100K följare',  price:5500,  views:35000},
-  {key:'micro',  label:'Microkreatör',  range:'10–50K följare',   price:2500,  views:20000}
+  {key:'topp',   label:'Toppkreatör',   range:'250K+ följare',    max:1,  price:10000, views:69000},
+  {key:'stor',   label:'Stor kreatör',  range:'100–250K följare', max:5,  price:8800,  views:39000},
+  {key:'mellan', label:'Mellankreatör', range:'50–100K följare',  max:7,  price:6600,  views:44000},
+  {key:'micro',  label:'Microkreatör',  range:'10–50K följare',   max:14, price:4100,  views:36000}
 ];
-const MIX = { bred:[.10,.20,.30,.40], topp:[.25,.40,.25,.10], micro:[0,.10,.25,.65] };
+const KM_MAX = TIERS.reduce((s,t)=>s+t.max,0);            /* 27 */
+const KM_FREE = {count:3, views:21000};                    /* 3 minsta följer med utan kostnad */
+const MIX = { bred:[.10,.20,.30,.40], topp:null, micro:null };
 const kmodal = document.getElementById('kmodal');
 let kmVideos = 1, kmFocus = 'bred', kmState = null;
 
@@ -1054,30 +1057,40 @@ const fmtKr = n => Math.round(n).toLocaleString('sv-SE') + ' kr';
 const fmtViews = n => n >= 1e6 ? (Math.round(n/1e5)/10).toLocaleString('sv-SE') + ' M' : Math.round(n/1e3).toLocaleString('sv-SE') + 'K';
 
 function kmAlloc(n, focus){
-  const w = MIX[focus], base = w.map(x => Math.floor(x*n));
-  let left = n - base.reduce((a,b)=>a+b,0);
-  const rem = w.map((x,i)=>({i, r:x*n-base[i]})).sort((a,b)=>b.r-a.r);
-  for (let j=0; j<left; j++) base[rem[j % 4].i]++;
-  return base;
+  n = Math.min(n, KM_MAX);
+  const counts = [0,0,0,0], caps = TIERS.map(t=>t.max);
+  if (focus === 'topp' || focus === 'micro') {
+    const order = focus === 'topp' ? [0,1,2,3] : [3,2,1,0];
+    let left = n;
+    for (const i of order) { const take = Math.min(left, caps[i]); counts[i] = take; left -= take; }
+    return counts;
+  }
+  /* bred: viktad fördelning, cappad mot vad som faktiskt finns i varje tier */
+  const w = MIX.bred;
+  w.forEach((x,i)=>{ counts[i] = Math.min(Math.floor(x*n), caps[i]); });
+  let left = n - counts.reduce((a,b)=>a+b,0);
+  for (const i of [3,2,1,0]) { while (left > 0 && counts[i] < caps[i]) { counts[i]++; left--; } }
+  return counts;
 }
-function kmDiscount(n, v){
-  const t1 = n>=20?12 : n>=15?10 : n>=10?8 : n>=6?5 : n>=3?3 : 0;
-  const t2 = n>=20?18 : n>=15?16 : n>=10?14 : n>=6?10 : n>=3?8 : 5;
-  return v === 2 ? t2 : t1;
+/* rabatten växer med antalet videos — max 18 % vid hela nätverket, 1 video var (27 videos) */
+function kmDiscount(videos){
+  return videos>=27?18 : videos>=20?15 : videos>=15?12 : videos>=10?9 : videos>=6?6 : videos>=3?3 : 0;
 }
 function kmCalc(n, v, focus){
   const counts = kmAlloc(n, focus);
+  n = counts.reduce((a,b)=>a+b,0);
   const list = counts.reduce((s,c,i)=>s + c*TIERS[i].price, 0) * v;
-  const views = counts.reduce((s,c,i)=>s + c*TIERS[i].views, 0) * v;
-  const disc = kmDiscount(n, v);
+  const views = (counts.reduce((s,c,i)=>s + c*TIERS[i].views, 0) + KM_FREE.views) * v;
+  const disc = kmDiscount(n * v);
   return {n, v, focus, counts, list, disc, saved:list*disc/100, final:list*(1-disc/100), views};
 }
 function kmRender(st){
   kmState = st;
   document.getElementById('km-mix').innerHTML = st.counts.map((c,i)=> c ?
-    `<div class="km-mixrow"><b>${c}×</b><span>${TIERS[i].label}</span><small>${TIERS[i].range}</small></div>` : '').join('');
+    `<div class="km-mixrow"><b>${c}×</b><span>${TIERS[i].label}</span><small>${TIERS[i].range} · ${TIERS[i].max} i nätverket</small></div>` : '').join('') +
+    `<div class="km-mixrow"><b>${KM_FREE.count}×</b><span>Mindre kreatörer — på köpet</span><small>0 kr</small></div>`;
   document.getElementById('km-views').textContent = '≈ ' + fmtViews(st.views*0.75) + ' – ' + fmtViews(st.views*1.4);
-  document.getElementById('km-vidcount').textContent = st.n * st.v + ' videos';
+  document.getElementById('km-vidcount').textContent = (st.n + KM_FREE.count) * st.v + ' videos · ' + KM_FREE.count * st.v + ' på köpet';
   document.getElementById('km-list').textContent = fmtKr(st.list);
   document.getElementById('km-disclabel').textContent = 'Volymrabatt −' + st.disc + ' %';
   document.getElementById('km-discount').textContent = '−' + fmtKr(st.saved);
@@ -1086,7 +1099,7 @@ function kmRender(st){
   const mailBody =
     'Hej Luminate!\n\nVi har byggt ett kampanjförslag på er hemsida och vill veta mer:\n\n' +
     st.counts.map((c,i)=>c?`${c} × ${TIERS[i].label} (${TIERS[i].range})`:'').filter(Boolean).join('\n') +
-    `\n${st.n*st.v} videos totalt\nEstimat: ${fmtKr(st.final)} (efter ${st.disc} % volymrabatt)\n\nFöretag:\nKontaktperson:\nTelefon:`;
+    `\n${KM_FREE.count} × mindre kreatörer på köpet\n${(st.n+KM_FREE.count)*st.v} videos totalt\nEstimat: ${fmtKr(st.final)} (efter ${st.disc} % volymrabatt)\n\nFöretag:\nKontaktperson:\nTelefon:`;
   document.getElementById('km-mail').href = 'mailto:hello@luminatemedia.se?subject=' +
     encodeURIComponent('Kampanjförslag från hemsidan') + '&body=' + encodeURIComponent(mailBody);
 }
@@ -1132,7 +1145,7 @@ document.getElementById('km-generate').addEventListener('click', () => {
   adapt.hidden = true;
   if (budget && budget >= 2000) {
     let best = 1;
-    for (let i = 1; i <= 20; i++) { if (kmCalc(i, kmVideos, kmFocus).final <= budget) best = i; }
+    for (let i = 1; i <= 27; i++) { if (kmCalc(i, kmVideos, kmFocus).final <= budget) best = i; }
     if (best !== n) {
       n = best;
       document.getElementById('km-count').value = n;
