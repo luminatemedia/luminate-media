@@ -3,260 +3,324 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Boka onboarding call – Luminate Media</title>
+<title>Boka onboarding call — Luminate Media</title>
+<meta name="description" content="Boka din onboarding call med Luminate Media — välj en tid som passar dig, samtalet tar ca 15–20 minuter.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/assets/luminate-icon-64.png" sizes="64x64">
+<link rel="apple-touch-icon" href="/assets/luminate-icon-180.png">
+<meta name="theme-color" content="#2A1A1D">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Schibsted+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: #0a0a0a;
-    font-family: -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    padding: 32px 16px;
-  }
-  .card {
-    background: #141414;
-    border: 1px solid #222;
-    border-radius: 16px;
-    max-width: 480px;
-    width: 100%;
-    padding: 32px 24px;
-  }
-  .logo {
-    color: #C8FF00;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-align: center;
-    margin-bottom: 24px;
-  }
-  h1 {
-    color: #fff;
-    font-size: 22px;
-    font-weight: 600;
-    text-align: center;
-    margin: 0 0 8px;
-  }
-  .subtitle {
-    color: #888;
-    font-size: 14px;
-    text-align: center;
-    margin: 0 0 28px;
-    line-height: 1.4;
-  }
-  .label {
-    color: #aaa;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    display: block;
-    margin-bottom: 6px;
-  }
-  input[type="text"], input[type="tel"] {
-    width: 100%;
-    padding: 12px 14px;
-    background: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 8px;
-    color: #fff;
-    font-size: 15px;
-    outline: none;
-    box-sizing: border-box;
-  }
-  .input-section { margin-bottom: 24px; }
-  .day-section { margin-bottom: 20px; }
-  .day-title {
-    color: #C8FF00;
-    font-size: 14px;
-    font-weight: 600;
-    margin: 0 0 10px;
-  }
-  .slot-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    gap: 8px;
-  }
-  .slot {
-    background: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 8px;
-    color: #fff;
-    padding: 10px 4px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    text-align: center;
-  }
-  .slot.selected {
-    background: #C8FF00;
-    color: #000;
-    border-color: #C8FF00;
-    font-weight: 700;
-  }
-  .method-row { display: flex; gap: 8px; }
-  .method-btn {
-    flex: 1;
-    padding: 12px 10px;
-    background: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 8px;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-  }
-  .method-btn.selected {
-    background: #C8FF00;
-    color: #000;
-    border-color: #C8FF00;
-    font-weight: 700;
-  }
-  .confirm-btn {
-    width: 100%;
-    padding: 14px;
-    background: #C8FF00;
-    color: #000;
-    border: none;
-    border-radius: 10px;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    margin-top: 8px;
-    text-decoration: none;
-    display: block;
-    text-align: center;
-    opacity: 0.4;
-    pointer-events: none;
-  }
-  .confirm-btn.active { opacity: 1; pointer-events: auto; }
-  .error { color: #ff4444; font-size: 13px; text-align: center; margin: 0 0 12px; min-height: 16px; }
-  .note { color: #666; font-size: 12px; text-align: center; margin-top: 14px; }
+:root{
+  --pink:   #E7999C;
+  --plum:   #2A1A1D;
+  --plum-2: #211316;
+  --plum-3: #180D10;
+  --accent: #7E3D4E;
+  --white:  #FFFFFF;
+  --line:   rgba(231,153,156,.28);
+  --black:  "Archivo Black", "Arial Black", sans-serif;
+  --sans:   "Schibsted Grotesk", "Helvetica Neue", sans-serif;
+  --ease:   cubic-bezier(.16,1,.3,1);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  background:linear-gradient(180deg,var(--plum) 0%,var(--plum-3) 100%);
+  color:var(--white);
+  font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+::selection{background:var(--pink);color:var(--plum)}
+a{color:inherit;text-decoration:none}
+
+body::after{
+  content:"";position:fixed;inset:0;z-index:80;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.glow{position:fixed;border-radius:50%;filter:blur(110px);pointer-events:none;z-index:0;
+  width:56vw;height:56vw;min-width:420px;min-height:420px;
+  background:rgba(231,153,156,.10);top:-20%;right:-15%;}
+
+.wrap{
+  position:relative;z-index:1;
+  max-width:760px;margin:0 auto;
+  padding:clamp(28px,5vw,56px) clamp(20px,4.5vw,40px) 80px;
+}
+
+.top{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  margin-bottom:clamp(40px,7vw,64px);
+}
+.brand{display:flex;align-items:center;gap:12px}
+.brand svg{width:30px;height:auto;color:var(--pink);display:block}
+.brand b{font-family:var(--black);font-weight:400;font-size:14px;letter-spacing:.08em;text-transform:uppercase}
+.back{
+  font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.6);transition:color .3s var(--ease);
+}
+.back:hover{color:var(--pink)}
+
+.label{
+  font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
+  color:rgba(231,153,156,.9);display:block;margin-bottom:14px;
+}
+h1{
+  font-family:var(--black);
+  font-size:clamp(30px,6.4vw,56px);
+  line-height:1.04;text-transform:uppercase;
+  margin-bottom:14px;
+}
+h1 mark{background:none;color:var(--pink)}
+.sub{
+  color:rgba(255,255,255,.75);font-size:clamp(15px,1.8vw,18px);font-weight:500;
+  max-width:520px;margin-bottom:clamp(36px,6vw,52px);
+}
+
+.section{margin-bottom:clamp(28px,4.5vw,40px)}
+.f-label{
+  font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.65);display:block;margin-bottom:10px;
+}
+input[type="text"],input[type="tel"]{
+  width:100%;
+  padding:15px 18px;
+  background:rgba(255,255,255,.06);
+  border:1px solid var(--line);
+  border-radius:14px;
+  color:var(--white);
+  font-family:var(--sans);font-size:16px;font-weight:500;
+  outline:none;
+  transition:border-color .3s var(--ease), background .3s var(--ease);
+}
+input::placeholder{color:rgba(255,255,255,.35)}
+input:focus{border-color:var(--pink);background:rgba(255,255,255,.09)}
+
+.method-row{display:flex;gap:10px}
+.method-btn{
+  flex:1;
+  padding:14px 10px;
+  background:rgba(255,255,255,.06);
+  border:1px solid var(--line);
+  border-radius:999px;
+  color:var(--white);
+  font-family:var(--black);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  cursor:pointer;
+  transition:background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease);
+}
+.method-btn:hover{border-color:var(--pink);transform:translateY(-1px)}
+.method-btn.selected{background:var(--pink);color:var(--plum);border-color:var(--pink)}
+#phone{margin-top:10px;display:none}
+
+.day{margin-bottom:22px}
+.day-title{
+  font-family:var(--black);font-size:15px;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--pink);margin-bottom:10px;
+}
+.slot-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px;
+}
+.slot{
+  background:rgba(255,255,255,.06);
+  border:1px solid var(--line);
+  border-radius:999px;
+  color:var(--white);
+  padding:11px 4px;
+  font-size:14px;font-weight:700;
+  cursor:pointer;text-align:center;
+  transition:background .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease), transform .25s var(--ease);
+}
+.slot:hover{border-color:var(--pink);transform:translateY(-1px)}
+.slot.selected{background:var(--pink);color:var(--plum);border-color:var(--pink)}
+
+.error{color:#FF8B8B;font-size:13.5px;font-weight:700;margin:0 0 14px;min-height:18px}
+
+.confirm-btn{
+  display:block;width:100%;
+  font-family:var(--black);
+  font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+  background:var(--pink);color:var(--plum);
+  padding:19px 32px;border-radius:999px;border:none;cursor:pointer;
+  text-align:center;
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease), opacity .35s var(--ease);
+  box-shadow:0 12px 30px rgba(0,0,0,.3);
+  opacity:.35;pointer-events:none;
+}
+.confirm-btn.active{opacity:1;pointer-events:auto}
+.confirm-btn.active:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(0,0,0,.4)}
+.note{color:rgba(255,255,255,.45);font-size:12.5px;text-align:center;margin-top:16px}
+
+.foot{
+  margin-top:clamp(48px,8vw,72px);
+  padding-top:24px;
+  border-top:1px solid rgba(231,153,156,.18);
+  display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+}
+.foot span{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .reveal{opacity:1 !important;transform:none !important}
+  html{scroll-behavior:auto}
+}
 </style>
 </head>
 <body>
-<div class="card">
-  <div class="logo">LUMINATE MEDIA</div>
-  <h1>Boka din onboarding call</h1>
-  <p class="subtitle">Välj en tid som passar dig — samtalet tar ca 15–20 min.</p>
 
-  <div class="input-section">
-    <label class="label">Ditt namn</label>
-    <input type="text" id="name" placeholder="Förnamn Efternamn">
+<div class="glow" aria-hidden="true"></div>
+
+<div class="wrap">
+  <div class="top">
+    <a class="brand" href="/" aria-label="Luminate Media — till startsidan">
+      <svg viewBox="0 0 400 435" aria-hidden="true"><g transform="translate(0,435) scale(0.1,-0.1)"><path fill="currentColor" d="M62 2174 l3 -2119 1230 -2 c677 -2 1243 1 1259 5 29 8 29 8 -140 183 -93 96 -232 240 -309 320 l-140 147 -655 1 -655 0 -3 1499 -2 1500 -291 288 c-159 159 -292 291 -295 293 -2 2 -3 -949 -2 -2115z M3694 2953 c-136 -142 -386 -400 -554 -573 -168 -173 -387 -399 -485 -502 -98 -104 -182 -188 -185 -188 -4 0 -42 37 -86 83 -517 538 -911 945 -1141 1177 l-243 245 0 -459 0 -458 88 -92 c48 -51 247 -261 442 -467 315 -331 791 -834 891 -941 49 -53 20 -76 400 329 189 202 390 414 446 472 l102 106 1 -811 0 -812 23 -6 c12 -3 142 -6 290 -6 l267 0 0 1580 c0 869 -2 1580 -4 1580 -2 0 -115 -116 -252 -257z"/></g></svg>
+      <b>Luminate</b>
+    </a>
+    <a class="back" href="/">← Till startsidan</a>
   </div>
 
-  <div class="input-section">
-    <label class="label">Hur vill du bli kontaktad?</label>
+  <span class="label reveal">Onboarding</span>
+  <h1 class="reveal">Boka din <mark>onboarding&nbsp;call</mark></h1>
+  <p class="sub reveal">Välj en tid som passar dig — samtalet tar ca 15–20 minuter.</p>
+
+  <div class="section reveal">
+    <label class="f-label" for="name">Ditt namn</label>
+    <input type="text" id="name" placeholder="Förnamn Efternamn" autocomplete="name">
+  </div>
+
+  <div class="section reveal">
+    <span class="f-label">Hur vill du bli kontaktad?</span>
     <div class="method-row">
-      <button type="button" class="method-btn" id="btn-phone" onclick="selectMethod('phone')">Telefon</button>
-      <button type="button" class="method-btn" id="btn-meet" onclick="selectMethod('meet')">Google Meet</button>
+      <button type="button" class="method-btn" id="btn-phone">Telefon</button>
+      <button type="button" class="method-btn" id="btn-meet">Google Meet</button>
     </div>
-    <input type="tel" id="phone" placeholder="07X-XXX XX XX" style="margin-top:10px; display:none;">
+    <input type="tel" id="phone" placeholder="07X-XXX XX XX" autocomplete="tel">
   </div>
 
-  <div id="days"></div>
+  <div class="section reveal">
+    <span class="f-label">Välj en tid</span>
+    <div id="days"></div>
+  </div>
 
   <p class="error" id="error"></p>
-
-  <a href="#" class="confirm-btn" id="confirm-btn" onclick="return submitBooking()">Boka tid</a>
+  <button type="button" class="confirm-btn" id="confirm-btn">Boka tid →</button>
   <p class="note">Din bokning skickas direkt till Luminate Media.</p>
+
+  <div class="foot">
+    <span>© 2026 Luminate Media</span>
+    <span>Lund — Sverige</span>
+  </div>
 </div>
 
 <script>
-  var DAYS = [
-    { label: "Måndag 6 juli", date: "6/7", slots: (function(){
-        var s = [];
-        for (var h = 9; h < 19; h++) {
-          if (h === 12) continue;
-          s.push(String(h).padStart(2,'0') + ':00');
-          s.push(String(h).padStart(2,'0') + ':30');
-        }
-        return s;
-      })() },
-    { label: "Tisdag 7 juli", date: "7/7", slots: ["14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30"] },
-    { label: "Onsdag 8 juli", date: "8/7", slots: ["16:30","17:00","17:30","18:00","18:30"] },
-    { label: "Torsdag 9 juli", date: "9/7", slots: (function(){
-        var s = [];
-        for (var h = 10; h < 19; h++) { s.push(String(h).padStart(2,'0') + ':00'); s.push(String(h).padStart(2,'0') + ':30'); }
-        return s;
-      })() },
-    { label: "Fredag 10 juli", date: "10/7", slots: (function(){
-        var s = [];
-        for (var h = 10; h < 19; h++) { s.push(String(h).padStart(2,'0') + ':00'); s.push(String(h).padStart(2,'0') + ':30'); }
-        return s;
-      })() },
-    { label: "Söndag 12 juli", date: "12/7", slots: ["12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30"] },
-    { label: "Måndag 13 juli", date: "13/7", slots: ["13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30"] }
-  ];
+/* Kommande 7 dagar (utan lördagar), 09:00–18:30, lunch 12:00–12:30 borttagen. */
+var WEEKDAYS = ['Söndag','Måndag','Tisdag','Onsdag','Torsdag','Fredag','Lördag'];
+var MONTHS = ['januari','februari','mars','april','maj','juni','juli','augusti','september','oktober','november','december'];
 
-  var selectedSlot = null;
-  var selectedMethod = null;
+function buildDays(){
+  var days = [], d = new Date();
+  d.setDate(d.getDate() + 1);
+  while (days.length < 7) {
+    if (d.getDay() !== 6) {
+      var slots = [];
+      for (var h = 9; h < 19; h++) {
+        if (h === 12) continue;
+        slots.push(String(h).padStart(2,'0') + ':00');
+        slots.push(String(h).padStart(2,'0') + ':30');
+      }
+      days.push({
+        label: WEEKDAYS[d.getDay()] + ' ' + d.getDate() + ' ' + MONTHS[d.getMonth()],
+        date: d.getDate() + '/' + (d.getMonth() + 1),
+        slots: slots
+      });
+    }
+    d.setDate(d.getDate() + 1);
+  }
+  return days;
+}
 
-  var daysEl = document.getElementById('days');
-  DAYS.forEach(function(day) {
-    var section = document.createElement('div');
-    section.className = 'day-section';
-    var title = document.createElement('div');
-    title.className = 'day-title';
-    title.textContent = day.label;
-    section.appendChild(title);
-    var grid = document.createElement('div');
-    grid.className = 'slot-grid';
-    day.slots.forEach(function(time) {
-      var btn = document.createElement('div');
-      btn.className = 'slot';
-      btn.textContent = time;
-      btn.onclick = function() {
-        document.querySelectorAll('.slot').forEach(function(s) { s.classList.remove('selected'); });
-        btn.classList.add('selected');
-        selectedSlot = { date: day.date, label: day.label, time: time };
-        updateConfirmState();
-      };
-      grid.appendChild(btn);
-    });
-    section.appendChild(grid);
-    daysEl.appendChild(section);
+var selectedSlot = null;
+var selectedMethod = null;
+
+var daysEl = document.getElementById('days');
+buildDays().forEach(function(day){
+  var section = document.createElement('div');
+  section.className = 'day';
+  var title = document.createElement('div');
+  title.className = 'day-title';
+  title.textContent = day.label;
+  section.appendChild(title);
+  var grid = document.createElement('div');
+  grid.className = 'slot-grid';
+  day.slots.forEach(function(time){
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'slot';
+    btn.textContent = time;
+    btn.onclick = function(){
+      document.querySelectorAll('.slot').forEach(function(s){ s.classList.remove('selected'); });
+      btn.classList.add('selected');
+      selectedSlot = { date: day.date, label: day.label, time: time };
+      updateConfirmState();
+    };
+    grid.appendChild(btn);
   });
+  section.appendChild(grid);
+  daysEl.appendChild(section);
+});
 
-  function selectMethod(method) {
-    selectedMethod = method;
-    document.getElementById('btn-phone').classList.toggle('selected', method === 'phone');
-    document.getElementById('btn-meet').classList.toggle('selected', method === 'meet');
-    document.getElementById('phone').style.display = method === 'phone' ? 'block' : 'none';
-    updateConfirmState();
-  }
+function selectMethod(method){
+  selectedMethod = method;
+  document.getElementById('btn-phone').classList.toggle('selected', method === 'phone');
+  document.getElementById('btn-meet').classList.toggle('selected', method === 'meet');
+  document.getElementById('phone').style.display = method === 'phone' ? 'block' : 'none';
+  updateConfirmState();
+}
+document.getElementById('btn-phone').onclick = function(){ selectMethod('phone'); };
+document.getElementById('btn-meet').onclick = function(){ selectMethod('meet'); };
 
-  function updateConfirmState() {
-    var name = document.getElementById('name').value.trim();
-    var phone = document.getElementById('phone').value.trim();
-    var ok = name && selectedSlot && selectedMethod && (selectedMethod !== 'phone' || phone);
-    document.getElementById('confirm-btn').classList.toggle('active', ok);
-  }
+function updateConfirmState(){
+  var name = document.getElementById('name').value.trim();
+  var phone = document.getElementById('phone').value.trim();
+  var ok = name && selectedSlot && selectedMethod && (selectedMethod !== 'phone' || phone);
+  document.getElementById('confirm-btn').classList.toggle('active', !!ok);
+}
+document.getElementById('name').addEventListener('input', updateConfirmState);
+document.getElementById('phone').addEventListener('input', updateConfirmState);
 
-  document.getElementById('name').addEventListener('input', updateConfirmState);
-  document.getElementById('phone').addEventListener('input', updateConfirmState);
+document.getElementById('confirm-btn').onclick = function(){
+  var name = document.getElementById('name').value.trim();
+  var phone = document.getElementById('phone').value.trim();
+  var errorEl = document.getElementById('error');
+  errorEl.textContent = '';
 
-  function submitBooking() {
-    var name = document.getElementById('name').value.trim();
-    var phone = document.getElementById('phone').value.trim();
-    var errorEl = document.getElementById('error');
-    errorEl.textContent = '';
+  if (!name) { errorEl.textContent = 'Skriv ditt namn först!'; return; }
+  if (!selectedSlot) { errorEl.textContent = 'Välj en tid!'; return; }
+  if (!selectedMethod) { errorEl.textContent = 'Välj telefon eller Google Meet!'; return; }
+  if (selectedMethod === 'phone' && !phone) { errorEl.textContent = 'Skriv in ditt telefonnummer!'; return; }
 
-    if (!name) { errorEl.textContent = 'Skriv ditt namn först!'; return false; }
-    if (!selectedSlot) { errorEl.textContent = 'Välj en tid!'; return false; }
-    if (!selectedMethod) { errorEl.textContent = 'Välj telefon eller Google Meet!'; return false; }
-    if (selectedMethod === 'phone' && !phone) { errorEl.textContent = 'Skriv in ditt telefonnummer!'; return false; }
+  var methodText = selectedMethod === 'phone' ? ('Telefon: ' + phone) : 'Google Meet';
+  var subject = encodeURIComponent('Onboarding-bokning: ' + name + ' – ' + selectedSlot.label + ' ' + selectedSlot.time);
+  var body = encodeURIComponent(
+    'Namn: ' + name + '\n' +
+    'Tid: ' + selectedSlot.label + ' kl ' + selectedSlot.time + '\n' +
+    'Kontakt: ' + methodText + '\n'
+  );
+  window.location.href = 'mailto:luminatemediarecruiting@gmail.com?subject=' + subject + '&body=' + body;
+};
 
-    var methodText = selectedMethod === 'phone' ? ('Telefon: ' + phone) : 'Google Meet';
-    var subject = encodeURIComponent('Onboarding-bokning: ' + name + ' – ' + selectedSlot.label + ' ' + selectedSlot.time);
-    var body = encodeURIComponent(
-      'Namn: ' + name + '\n' +
-      'Tid: ' + selectedSlot.label + ' kl ' + selectedSlot.time + '\n' +
-      'Kontakt: ' + methodText + '\n'
-    );
-    window.location.href = 'mailto:luminatemediarecruiting@gmail.com?subject=' + subject + '&body=' + body;
-    return false;
-  }
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, {threshold:.1});
+document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
 </script>
 </body>
 </html>
