@@ -1,0 +1,23 @@
+name: Uppdatera TikTok-statistik
+
+on:
+  schedule:
+    - cron: "30 4 * * *"   # varje natt 04:30 UTC (06:30 svensk sommartid)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  stats:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Hamta statistik fran TikTok
+        run: python3 scripts/fetch_stats.py
+      - name: Committa om nagot andrats
+        run: |
+          git config user.name "luminate-stats-bot"
+          git config user.email "github-actions@github.com"
+          git add data/stats.json
+          git diff --cached --quiet || { git commit -m "stats: nattlig TikTok-uppdatering"; git push; }
