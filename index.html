@@ -1042,14 +1042,15 @@ addEventListener('keydown', e => { if (e.key === 'Escape' && bmodal.classList.co
 
 /* campaign builder — tiers speglar det verkliga nätverket (27 prissatta + 3 på köpet = 30) */
 const TIERS = [
-  {key:'topp',   label:'Toppkreatör',   range:'250K+ följare',    max:1,  price:10000, views:69000},
-  {key:'stor',   label:'Stor kreatör',  range:'100–250K följare', max:5,  price:8800,  views:39000},
-  {key:'mellan', label:'Mellankreatör', range:'50–100K följare',  max:7,  price:6600,  views:44000},
-  {key:'micro',  label:'Microkreatör',  range:'10–50K följare',   max:14, price:4100,  views:36000}
+  {key:'storst', label:'Störst',        range:'190–300K följare', max:2,  price:9300, views:55000},
+  {key:'topp',   label:'Toppkreatör',   range:'90–150K följare',  max:4,  price:6800, views:41000},
+  {key:'stor',   label:'Stor kreatör',  range:'60–90K följare',   max:6,  price:6600, views:46000},
+  {key:'mellan', label:'Mellankreatör', range:'20–60K följare',   max:11, price:4500, views:35000},
+  {key:'micro',  label:'Microkreatör',  range:'5–20K följare',    max:4,  price:2900, views:33000}
 ];
 const KM_MAX = TIERS.reduce((s,t)=>s+t.max,0);            /* 27 */
 const KM_FREE = {count:3, views:21000};                    /* 3 minsta följer med utan kostnad */
-const MIX = { bred:[.10,.20,.30,.40], topp:null, micro:null };
+const MIX = { bred:[.10,.15,.20,.35,.20], topp:null, micro:null };
 const kmodal = document.getElementById('kmodal');
 let kmVideos = 1, kmFocus = 'bred', kmState = null;
 
@@ -1058,9 +1059,9 @@ const fmtViews = n => n >= 1e6 ? (Math.round(n/1e5)/10).toLocaleString('sv-SE') 
 
 function kmAlloc(n, focus){
   n = Math.min(n, KM_MAX);
-  const counts = [0,0,0,0], caps = TIERS.map(t=>t.max);
+  const counts = TIERS.map(()=>0), caps = TIERS.map(t=>t.max);
   if (focus === 'topp' || focus === 'micro') {
-    const order = focus === 'topp' ? [0,1,2,3] : [3,2,1,0];
+    const order = focus === 'topp' ? [0,1,2,3,4] : [4,3,2,1,0];
     let left = n;
     for (const i of order) { const take = Math.min(left, caps[i]); counts[i] = take; left -= take; }
     return counts;
@@ -1069,7 +1070,7 @@ function kmAlloc(n, focus){
   const w = MIX.bred;
   w.forEach((x,i)=>{ counts[i] = Math.min(Math.floor(x*n), caps[i]); });
   let left = n - counts.reduce((a,b)=>a+b,0);
-  for (const i of [3,2,1,0]) { while (left > 0 && counts[i] < caps[i]) { counts[i]++; left--; } }
+  for (const i of [3,4,2,1,0]) { while (left > 0 && counts[i] < caps[i]) { counts[i]++; left--; } }
   return counts;
 }
 /* rabatten växer med antalet videos — max 18 % vid hela nätverket, 1 video var (27 videos) */
