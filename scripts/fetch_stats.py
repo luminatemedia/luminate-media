@@ -21,7 +21,8 @@ HANDLES = [
     "jacquelineekenstedt", "astridholmstromming", "linneafknahlqvist",
     "nezzysf", "svea.engstrom", "shoppargalet", "ellenkb", "alice.almm",
     "norvellan", "diihhva", "minoue.ranta", "tjejenshemlighet",
-    "superhemligtmg",
+    "superhemligtmg", "emmalisenz", "elissves", "leabelge_",
+    "byshannah_", "isabellamensahh",
 ]
 UA = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
@@ -61,7 +62,7 @@ data = {
     "totals": {
         "followers": sum(c["followers"] for c in creators.values()),
         "likes": sum(c["likes"] for c in creators.values()),
-        "creators": 30,
+        "creators": len(creators),
     },
     "creators": creators,
 }
