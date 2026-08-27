@@ -14,15 +14,14 @@ import urllib.request
 
 HANDLES = [
     "aotterud", "michel1egrwm", "veira.larsson", "lovisa.haeger",
-    "electrakarlsson200", "tildesundb", "vildavilma2", "user126282815",
+    "electrakarlsson200", "tildesundb", "vildavilma2",
     "elsa41612", "amandasundiin", "mirandaomatilda_westerbe",
     "bellawesterfelt", "coolneliaaa", "juliaberglunnd", "filippaiwar2",
     "ellaaxman", "lunamaarkovic", "ebbasimonsbacka", "jessprivatastory",
     "jacquelineekenstedt", "astridholmstromming", "linneafknahlqvist",
     "nezzysf", "svea.engstrom", "shoppargalet", "ellenkb", "alice.almm",
     "norvellan", "diihhva", "minoue.ranta", "tjejenshemlighet",
-    "superhemligtmg", "emmalisenz", "elissves", "leabelge_",
-    "byshannah_", "isabellamensahh",
+    "superhemligtmg", "emmalisenz", "leabelge_", "isabellamensahh",
 ]
 UA = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
