@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /boka.html
+
+Sitemap: https://luminatemedia.se/sitemap.xml
