@@ -15,9 +15,16 @@ jobs:
       - uses: actions/checkout@v4
       - name: Hamta statistik fran TikTok
         run: python3 scripts/fetch_stats.py
+      - name: Installera yt-dlp
+        run: pip install --quiet --upgrade yt-dlp
+      - name: Rakna snittvisningar per kreator
+        continue-on-error: true
+        run: python3 scripts/fetch_views.py
+      - name: Bygg benchmark-sidan
+        run: python3 scripts/build_benchmark.py
       - name: Committa om nagot andrats
         run: |
           git config user.name "luminate-stats-bot"
           git config user.email "github-actions@github.com"
-          git add data/stats.json data/history.json
+          git add data/stats.json data/history.json data/views.json benchmark.html
           git diff --cached --quiet || { git commit -m "stats: nattlig TikTok-uppdatering"; git push; }
