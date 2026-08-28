@@ -151,7 +151,7 @@ display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}}
       <span>så mycket räckvidd ger<br>en video från ett toppkonto</span>
     </div>
     <div class="key-body">
-      <p class="key-line"><strong>{sv(big["views"])}</strong> visningar från ett konto i toppklassen. <strong>{sv(small["views"])}</strong> från ett mikrokonto. Samma räckvidd med små konton kräver tre samarbeten, tre manus och tre tidplaner — en inspelning blir tre.</p>
+      <p class="key-line"><strong>{sv(big["views"])}</strong> visningar från ett konto i toppklassen. <strong>{sv(small["views"])}</strong> från ett mikrokonto. För att nå lika långt behövs alltså tre mikrokonton — tre samarbeten, tre manus och tre tidplaner i stället för ett.</p>
       <p class="key-sub">Toppkontona bär dessutom igenkänning. En profil publiken redan känner konverterar annorlunda när videon förstärks som Spark Ad, och det är där annonsbudgeten betalar sig.</p>
     </div>
   </div>
@@ -167,7 +167,7 @@ display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}}
     </tbody>
   </table>
   </div>
-  <p class="note"><strong>Metod:</strong> {n_total} svenska TikTok-kreatörer inom mode, beauty och lifestyle — samtliga i Luminate Medias nätverk. Snittvisningar räknas på de senaste 20 videorna per kreatör, hämtade direkt från TikTok {datum}. Vi visar median i varje klass så att en enskild viral video inte drar upp resultatet. Hela nätverkets median: {sv(med_views)} visningar per video. Kolumnen längst till höger visar visningar per följare — små konton ligger högre där, men når färre personer totalt, och det är totalen som avgör en kampanjs räckvidd. Underlaget är vårt eget nätverk, inte ett slumpmässigt urval av svenska konton — läs siffrorna som en branschindikation, inte som officiell statistik.</p>
+  <p class="note"><strong>Metod:</strong> {n_total} svenska TikTok-kreatörer inom mode, beauty och lifestyle — samtliga i Luminate Medias nätverk. Snittvisningar räknas på de senaste 20 videorna per kreatör, hämtade direkt från TikTok {datum}. Vi visar median i varje klass så att en enskild viral video inte drar upp resultatet. Hela nätverkets median: {sv(med_views)} visningar per video. Kolumnen längst till höger visar visningar per följare — mikrokonton ligger högre där, men når färre personer totalt, och det är totalen som avgör en kampanjs räckvidd. Underlaget är vårt eget nätverk, inte ett slumpmässigt urval av svenska konton — läs siffrorna som en branschindikation, inte som officiell statistik.</p>
 
   <div class="cta">
     <a class="book" href="https://calendar.app.google/8vFghCDtFN2itfJU8" target="_blank" rel="noopener">Boka möte →</a>
