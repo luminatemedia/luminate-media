@@ -122,7 +122,7 @@ nav.scrolled{
   padding:clamp(110px,16vh,180px) var(--pad) clamp(60px,9vh,110px);
   position:relative;overflow:hidden;
 }
-#hero-fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+#hero-fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;filter:blur(14px);transform:translateZ(0)}
 .hero > *:not(#hero-fx){position:relative;z-index:1}
 
 .hero .label{margin-bottom:24px}
@@ -196,7 +196,7 @@ nav.scrolled{
 
 /* ---------- stats ---------- */
 .stats{
-  background:linear-gradient(to bottom, transparent calc(100% - 130px), #E7999C 100%), linear-gradient(180deg,var(--plum) 0%,var(--plum-2) 100%);
+  background:linear-gradient(to bottom, transparent calc(100% - 130px), #FFFFFF 100%), linear-gradient(180deg,var(--plum) 0%,var(--plum-2) 100%);
   padding:clamp(80px,11vw,150px) var(--pad);
   position:relative;overflow:hidden;
 }
@@ -247,7 +247,7 @@ nav.scrolled{
 }
 
 /* ---------- services ---------- */
-.services{padding:clamp(80px,11vw,150px) var(--pad);background:linear-gradient(to bottom, transparent calc(100% - 130px), var(--plum-2) 100%)}
+.services{padding:clamp(80px,11vw,150px) var(--pad)}
 .services .label{display:block;margin-bottom:14px}
 .services h2{
   font-family:var(--black);font-size:clamp(30px,5.6vw,72px);
@@ -359,7 +359,7 @@ nav.scrolled{
 }
 
 /* ---------- team ---------- */
-.team{padding:clamp(80px,11vw,150px) var(--pad);background:linear-gradient(to bottom, transparent calc(100% - 130px), var(--plum) 100%)}
+.team{padding:clamp(80px,11vw,150px) var(--pad);background:linear-gradient(to bottom, transparent calc(100% - 130px), var(--plum-2) 100%)}
 .team .label{display:block;margin-bottom:14px}
 .team h2{
   font-family:var(--black);font-size:clamp(30px,5.6vw,72px);
@@ -674,13 +674,17 @@ body.bm-open{overflow:hidden}
 .cc-more span{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pink)}
 
 /* ---------- case ---------- */
-.case{background:linear-gradient(to bottom, transparent calc(100% - 130px), #FFFFFF 100%), var(--plum-2);padding:clamp(80px,11vw,150px) var(--pad);position:relative;overflow:hidden}
+.case{background:linear-gradient(to bottom, transparent calc(100% - 130px), var(--plum) 100%), var(--plum-2);padding:clamp(80px,11vw,150px) var(--pad);position:relative;overflow:hidden}
 .case::before{content:"";position:absolute;width:55vw;height:55vw;min-width:460px;min-height:460px;border-radius:50%;filter:blur(130px);background:rgba(231,153,156,.09);top:-25%;left:-15%;pointer-events:none}
-.cn-row{display:flex;align-items:baseline;gap:clamp(14px,2.5vw,28px);padding:clamp(8px,1.4vw,16px) 0;border-bottom:1px solid rgba(231,153,156,.16)}
+.cn-row{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px clamp(14px,2.5vw,28px);padding:clamp(10px,1.4vw,16px) 0;border-bottom:1px solid rgba(231,153,156,.16)}
 .cn-row:first-of-type{border-top:1px solid rgba(231,153,156,.16)}
-.case-num{font-family:var(--black);font-weight:400;font-size:clamp(46px,9.5vw,132px);line-height:1;color:var(--white);letter-spacing:-.01em;font-variant-numeric:tabular-nums;white-space:nowrap}
-.cn-row span{font-size:clamp(13px,1.6vw,18px);font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--pink)}
-.case-line{margin:26px 0 30px;max-width:600px;font-size:clamp(15px,1.8vw,19px);font-weight:500;color:rgba(255,255,255,.8)}
+.case-num{font-family:var(--black);font-weight:400;font-size:clamp(40px,8.6vw,132px);line-height:1;color:var(--white);letter-spacing:-.01em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cn-row span{font-size:clamp(12px,1.6vw,18px);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--pink);max-width:100%}
+.case-intro{margin:0 0 clamp(24px,4vw,40px);font-size:clamp(15px,1.8vw,19px);font-weight:500;color:rgba(255,255,255,.7)}
+.case h2{font-family:var(--black);font-size:clamp(30px,5.6vw,72px);text-transform:uppercase;line-height:1.05;margin-bottom:14px}
+.case h2 .acc{color:var(--pink)}
+.case-note{font-size:12px;color:rgba(255,255,255,.42);max-width:620px;margin-bottom:26px}
+.case-line{margin:26px 0 14px;max-width:600px;font-size:clamp(15px,1.8vw,19px);font-weight:500;color:rgba(255,255,255,.8)}
 .case .book{background:var(--pink);color:var(--plum)}
 
 /* ---------- sektionsrad med nummer ---------- */
@@ -729,8 +733,8 @@ body.bm-open{overflow:hidden}
   </a>
   <div class="nav-links">
     <a href="#siffror">Siffror</a>
-    <a href="#tjanster">Tjänster</a>
     <a href="#kreatorer">Kreatörer</a>
+    <a href="#tjanster">Tjänster</a>
     <a href="#team">Team</a>
     <a class="nav-cta js-book" href="https://calendar.app.google/8vFghCDtFN2itfJU8" target="_blank" rel="noopener">Boka möte</a>
   </div>
@@ -791,8 +795,43 @@ body.bm-open{overflow:hidden}
   <p class="stat-note reveal">Aggregerad statistik från våra kreatörers TikTok-konton — hämtas automatiskt varje natt.</p>
 </section>
 
+<section class="creators sec-light" id="kreatorer">
+  <div class="sec-row reveal"><span class="label">Kreatörerna</span><span class="sec-no">02</span></div>
+  <h2 class="reveal">Handplockade. <em class="acc">Datagranskade.</em></h2>
+  <p class="lead reveal">Ett urval ur nätverket — varje kreatör är granskad på färska siffror innan hon föreslås i en kampanj. Följarsiffrorna hämtas direkt från TikTok och uppdateras automatiskt varje natt.</p>
+
+  <div class="crail-wrap reveal">
+  <div class="crail" id="crail">
+    <a class="ccard" data-handle="aotterud" href="https://www.tiktok.com/@aotterud" target="_blank" rel="noopener"><img src="assets/creators/aotterud.jpg" alt="Alicia Otterud" loading="lazy" width="400" height="500"><div class="cc-info"><b>Alicia Otterud</b><span class="cc-h">@aotterud</span><span class="cc-f">261K följare</span></div></a>
+    <a class="ccard" data-handle="veira.larsson" href="https://www.tiktok.com/@veira.larsson" target="_blank" rel="noopener"><img src="assets/creators/veira.larsson.jpg" alt="Veira Larsson" loading="lazy" width="400" height="500"><div class="cc-info"><b>Veira Larsson</b><span class="cc-h">@veira.larsson</span><span class="cc-f">146K följare</span></div></a>
+    <a class="ccard" data-handle="lovisa.haeger" href="https://www.tiktok.com/@lovisa.haeger" target="_blank" rel="noopener"><img src="assets/creators/lovisa.haeger.jpg" alt="Lovisa Haeger" loading="lazy" width="400" height="500"><div class="cc-info"><b>Lovisa Haeger</b><span class="cc-h">@lovisa.haeger</span><span class="cc-f">129K följare</span></div></a>
+    <a class="ccard" data-handle="electrakarlsson200" href="https://www.tiktok.com/@electrakarlsson200" target="_blank" rel="noopener"><img src="assets/creators/electrakarlsson200.jpg" alt="Electra Karlsson" loading="lazy" width="400" height="500"><div class="cc-info"><b>Electra Karlsson</b><span class="cc-h">@electrakarlsson200</span><span class="cc-f">122K följare</span></div></a>
+    <a class="ccard" data-handle="tildesundb" href="https://www.tiktok.com/@tildesundb" target="_blank" rel="noopener"><img src="assets/creators/tildesundb.jpg" alt="Tilde Sundberg" loading="lazy" width="400" height="500"><div class="cc-info"><b>Tilde Sundberg</b><span class="cc-h">@tildesundb</span><span class="cc-f">92,1K följare</span></div></a>
+    <a class="ccard" data-handle="tjejenshemlighet" href="https://www.tiktok.com/@tjejenshemlighet" target="_blank" rel="noopener"><img src="assets/creators/tjejenshemlighet.jpg" alt="Maja Stjärnerfält" loading="lazy" width="400" height="500"><div class="cc-info"><b>Maja Stjärnerfält</b><span class="cc-h">@tjejenshemlighet</span><span class="cc-f">69,4K följare</span></div></a>
+    <a class="ccard" data-handle="elsa41612" href="https://www.tiktok.com/@elsa41612" target="_blank" rel="noopener"><img src="assets/creators/elsa41612.jpg" alt="Elsa Grahn" loading="lazy" width="400" height="500"><div class="cc-info"><b>Elsa Grahn</b><span class="cc-h">@elsa41612</span><span class="cc-f">68,8K följare</span></div></a>
+    <a class="ccard" data-handle="mirandaomatilda_westerbe" href="https://www.tiktok.com/@mirandaomatilda_westerbe" target="_blank" rel="noopener"><img src="assets/creators/mirandaomatilda_westerbe.jpg" alt="Miranda & Matilda" loading="lazy" width="400" height="500"><div class="cc-info"><b>Miranda &amp; Matilda</b><span class="cc-h">@mirandaomatilda_westerbe</span><span class="cc-f">64,2K följare</span></div></a>
+    <a class="ccard" data-handle="ellaaxman" href="https://www.tiktok.com/@ellaaxman" target="_blank" rel="noopener"><img src="assets/creators/ellaaxman.jpg" alt="Ella Axman" loading="lazy" width="400" height="500"><div class="cc-info"><b>Ella Axman</b><span class="cc-h">@ellaaxman</span><span class="cc-f">49,2K följare</span></div></a>
+    <a class="ccard" data-handle="filippaiwar2" href="https://www.tiktok.com/@filippaiwar2" target="_blank" rel="noopener"><img src="assets/creators/filippaiwar2.jpg" alt="Filippa Iwar" loading="lazy" width="400" height="500"><div class="cc-info"><b>Filippa Iwar</b><span class="cc-h">@filippaiwar2</span><span class="cc-f">45,8K följare</span></div></a>
+    <a class="ccard" data-handle="lunamaarkovic" href="https://www.tiktok.com/@lunamaarkovic" target="_blank" rel="noopener"><img src="assets/creators/lunamaarkovic.jpg" alt="Luna Markovic" loading="lazy" width="400" height="500"><div class="cc-info"><b>Luna Markovic</b><span class="cc-h">@lunamaarkovic</span><span class="cc-f">44K följare</span></div></a>
+    <a class="ccard" data-handle="jessprivatastory" href="https://www.tiktok.com/@jessprivatastory" target="_blank" rel="noopener"><img src="assets/creators/jessprivatastory.jpg" alt="Jessica" loading="lazy" width="400" height="500"><div class="cc-info"><b>Jessica</b><span class="cc-h">@jessprivatastory</span><span class="cc-f">37,5K följare</span></div></a>
+    <a class="ccard" data-handle="jacquelineekenstedt" href="https://www.tiktok.com/@jacquelineekenstedt" target="_blank" rel="noopener"><img src="assets/creators/jacquelineekenstedt.jpg" alt="Jacqueline Ekenstedt" loading="lazy" width="400" height="500"><div class="cc-info"><b>Jacqueline Ekenstedt</b><span class="cc-h">@jacquelineekenstedt</span><span class="cc-f">31,4K följare</span></div></a>
+    <a class="ccard" data-handle="superhemligtmg" href="https://www.tiktok.com/@superhemligtmg" target="_blank" rel="noopener"><img src="assets/creators/superhemligtmg.jpg" alt="Minja Gustafsson" loading="lazy" width="400" height="500"><div class="cc-info"><b>Minja Gustafsson</b><span class="cc-h">@superhemligtmg</span><span class="cc-f">26,8K följare</span></div></a>
+    <a class="ccard" data-handle="astridholmstromming" href="https://www.tiktok.com/@astridholmstromming" target="_blank" rel="noopener"><img src="assets/creators/astridholmstromming.jpg" alt="Astrid Holmström" loading="lazy" width="400" height="500"><div class="cc-info"><b>Astrid Holmström</b><span class="cc-h">@astridholmstromming</span><span class="cc-f">25,9K följare</span></div></a>
+    <a class="ccard" data-handle="linneafknahlqvist" href="https://www.tiktok.com/@linneafknahlqvist" target="_blank" rel="noopener"><img src="assets/creators/linneafknahlqvist.jpg" alt="Linnea Ahlqvist" loading="lazy" width="400" height="500"><div class="cc-info"><b>Linnea Ahlqvist</b><span class="cc-h">@linneafknahlqvist</span><span class="cc-f">24,4K följare</span></div></a>
+    <a class="ccard" data-handle="svea.engstrom" href="https://www.tiktok.com/@svea.engstrom" target="_blank" rel="noopener"><img src="assets/creators/svea.engstrom.jpg" alt="Svea Engström" loading="lazy" width="400" height="500"><div class="cc-info"><b>Svea Engström</b><span class="cc-h">@svea.engstrom</span><span class="cc-f">18,4K följare</span></div></a>
+    <a class="ccard" data-handle="ellenkb" href="https://www.tiktok.com/@ellenkb" target="_blank" rel="noopener"><img src="assets/creators/ellenkb.jpg" alt="Ellen" loading="lazy" width="400" height="500"><div class="cc-info"><b>Ellen</b><span class="cc-h">@ellenkb</span><span class="cc-f">17K följare</span></div></a>
+    <a class="ccard" data-handle="norvellan" href="https://www.tiktok.com/@norvellan" target="_blank" rel="noopener"><img src="assets/creators/norvellan.jpg" alt="Sigrid Norvell" loading="lazy" width="400" height="500"><div class="cc-info"><b>Sigrid Norvell</b><span class="cc-h">@norvellan</span><span class="cc-f">12,2K följare</span></div></a>
+    <a class="ccard cc-more js-proposal" href="mailto:hello@luminatemedia.se?subject=Rosterf%C3%B6rslag"><b>+15 till</b><span>Bygg er kampanj →</span></a>
+  </div>
+  </div>
+
+  <div class="creators-cta reveal">
+    <a class="book js-proposal" href="mailto:hello@luminatemedia.se?subject=Rosterf%C3%B6rslag">Bygg er kampanj — få pris direkt →</a>
+  </div>
+</section>
+
 <section class="services" id="tjanster">
-  <div class="sec-row reveal"><span class="label">Vad vi gör</span><span class="sec-no">02</span></div>
+  <div class="sec-row reveal"><span class="label">Vad vi gör</span><span class="sec-no">03</span></div>
   <h2 class="reveal">En partner, <em class="acc">hela vägen</em></h2>
 
   <div class="svc reveal">
@@ -886,54 +925,11 @@ body.bm-open{overflow:hidden}
   </div>
 </section>
 
-<section class="case" id="case">
-  <div class="sec-row reveal"><span class="label">Bevisat — case: JBJ Clothing</span><span class="sec-no">03</span></div>
-  <div class="case-nums">
-    <div class="cn-row reveal"><b class="case-num" data-cn="968800" data-suf="">0</b><span>visningar</span></div>
-    <div class="cn-row reveal" style="transition-delay:.08s"><b class="case-num" data-cn="8.8" data-dec="1" data-suf=" %">0</b><span>engagemang</span></div>
-    <div class="cn-row reveal" style="transition-delay:.16s"><b class="case-num" data-cn="900" data-suf=" €">0</b><span>total mediabudget</span></div>
-  </div>
-  <p class="case-line reveal">Fyra creator-videos för JBJ Clothing. En bråkdel av vad motsvarande räckvidd kostar som köpt annons — och med en trovärdighet ingen banner kan köpa.</p>
-  <div class="reveal"><a class="book js-book" href="https://calendar.app.google/8vFghCDtFN2itfJU8" target="_blank" rel="noopener">Vi gör samma sak för er →</a></div>
-</section>
 
-<section class="creators sec-light" id="kreatorer">
-  <div class="sec-row reveal"><span class="label">Kreatörerna</span><span class="sec-no">04</span></div>
-  <h2 class="reveal">Handplockade. <em class="acc">Datagranskade.</em></h2>
-  <p class="lead reveal">Ett urval ur nätverket — varje kreatör är granskad på färska siffror innan hon föreslås i en kampanj. Följarsiffrorna hämtas direkt från TikTok och uppdateras automatiskt varje natt.</p>
 
-  <div class="crail-wrap reveal">
-  <div class="crail" id="crail">
-    <a class="ccard" data-handle="aotterud" href="https://www.tiktok.com/@aotterud" target="_blank" rel="noopener"><img src="assets/creators/aotterud.jpg" alt="Alicia Otterud" loading="lazy" width="400" height="500"><div class="cc-info"><b>Alicia Otterud</b><span class="cc-h">@aotterud</span><span class="cc-f">261K följare</span></div></a>
-    <a class="ccard" data-handle="veira.larsson" href="https://www.tiktok.com/@veira.larsson" target="_blank" rel="noopener"><img src="assets/creators/veira.larsson.jpg" alt="Veira Larsson" loading="lazy" width="400" height="500"><div class="cc-info"><b>Veira Larsson</b><span class="cc-h">@veira.larsson</span><span class="cc-f">146K följare</span></div></a>
-    <a class="ccard" data-handle="lovisa.haeger" href="https://www.tiktok.com/@lovisa.haeger" target="_blank" rel="noopener"><img src="assets/creators/lovisa.haeger.jpg" alt="Lovisa Haeger" loading="lazy" width="400" height="500"><div class="cc-info"><b>Lovisa Haeger</b><span class="cc-h">@lovisa.haeger</span><span class="cc-f">129K följare</span></div></a>
-    <a class="ccard" data-handle="electrakarlsson200" href="https://www.tiktok.com/@electrakarlsson200" target="_blank" rel="noopener"><img src="assets/creators/electrakarlsson200.jpg" alt="Electra Karlsson" loading="lazy" width="400" height="500"><div class="cc-info"><b>Electra Karlsson</b><span class="cc-h">@electrakarlsson200</span><span class="cc-f">122K följare</span></div></a>
-    <a class="ccard" data-handle="tildesundb" href="https://www.tiktok.com/@tildesundb" target="_blank" rel="noopener"><img src="assets/creators/tildesundb.jpg" alt="Tilde Sundberg" loading="lazy" width="400" height="500"><div class="cc-info"><b>Tilde Sundberg</b><span class="cc-h">@tildesundb</span><span class="cc-f">92,1K följare</span></div></a>
-    <a class="ccard" data-handle="tjejenshemlighet" href="https://www.tiktok.com/@tjejenshemlighet" target="_blank" rel="noopener"><img src="assets/creators/tjejenshemlighet.jpg" alt="Maja Stjärnerfält" loading="lazy" width="400" height="500"><div class="cc-info"><b>Maja Stjärnerfält</b><span class="cc-h">@tjejenshemlighet</span><span class="cc-f">69,4K följare</span></div></a>
-    <a class="ccard" data-handle="elsa41612" href="https://www.tiktok.com/@elsa41612" target="_blank" rel="noopener"><img src="assets/creators/elsa41612.jpg" alt="Elsa Grahn" loading="lazy" width="400" height="500"><div class="cc-info"><b>Elsa Grahn</b><span class="cc-h">@elsa41612</span><span class="cc-f">68,8K följare</span></div></a>
-    <a class="ccard" data-handle="mirandaomatilda_westerbe" href="https://www.tiktok.com/@mirandaomatilda_westerbe" target="_blank" rel="noopener"><img src="assets/creators/mirandaomatilda_westerbe.jpg" alt="Miranda & Matilda" loading="lazy" width="400" height="500"><div class="cc-info"><b>Miranda &amp; Matilda</b><span class="cc-h">@mirandaomatilda_westerbe</span><span class="cc-f">64,2K följare</span></div></a>
-    <a class="ccard" data-handle="ellaaxman" href="https://www.tiktok.com/@ellaaxman" target="_blank" rel="noopener"><img src="assets/creators/ellaaxman.jpg" alt="Ella Axman" loading="lazy" width="400" height="500"><div class="cc-info"><b>Ella Axman</b><span class="cc-h">@ellaaxman</span><span class="cc-f">49,2K följare</span></div></a>
-    <a class="ccard" data-handle="filippaiwar2" href="https://www.tiktok.com/@filippaiwar2" target="_blank" rel="noopener"><img src="assets/creators/filippaiwar2.jpg" alt="Filippa Iwar" loading="lazy" width="400" height="500"><div class="cc-info"><b>Filippa Iwar</b><span class="cc-h">@filippaiwar2</span><span class="cc-f">45,8K följare</span></div></a>
-    <a class="ccard" data-handle="lunamaarkovic" href="https://www.tiktok.com/@lunamaarkovic" target="_blank" rel="noopener"><img src="assets/creators/lunamaarkovic.jpg" alt="Luna Markovic" loading="lazy" width="400" height="500"><div class="cc-info"><b>Luna Markovic</b><span class="cc-h">@lunamaarkovic</span><span class="cc-f">44K följare</span></div></a>
-    <a class="ccard" data-handle="jessprivatastory" href="https://www.tiktok.com/@jessprivatastory" target="_blank" rel="noopener"><img src="assets/creators/jessprivatastory.jpg" alt="Jessica" loading="lazy" width="400" height="500"><div class="cc-info"><b>Jessica</b><span class="cc-h">@jessprivatastory</span><span class="cc-f">37,5K följare</span></div></a>
-    <a class="ccard" data-handle="jacquelineekenstedt" href="https://www.tiktok.com/@jacquelineekenstedt" target="_blank" rel="noopener"><img src="assets/creators/jacquelineekenstedt.jpg" alt="Jacqueline Ekenstedt" loading="lazy" width="400" height="500"><div class="cc-info"><b>Jacqueline Ekenstedt</b><span class="cc-h">@jacquelineekenstedt</span><span class="cc-f">31,4K följare</span></div></a>
-    <a class="ccard" data-handle="superhemligtmg" href="https://www.tiktok.com/@superhemligtmg" target="_blank" rel="noopener"><img src="assets/creators/superhemligtmg.jpg" alt="Minja Gustafsson" loading="lazy" width="400" height="500"><div class="cc-info"><b>Minja Gustafsson</b><span class="cc-h">@superhemligtmg</span><span class="cc-f">26,8K följare</span></div></a>
-    <a class="ccard" data-handle="astridholmstromming" href="https://www.tiktok.com/@astridholmstromming" target="_blank" rel="noopener"><img src="assets/creators/astridholmstromming.jpg" alt="Astrid Holmström" loading="lazy" width="400" height="500"><div class="cc-info"><b>Astrid Holmström</b><span class="cc-h">@astridholmstromming</span><span class="cc-f">25,9K följare</span></div></a>
-    <a class="ccard" data-handle="linneafknahlqvist" href="https://www.tiktok.com/@linneafknahlqvist" target="_blank" rel="noopener"><img src="assets/creators/linneafknahlqvist.jpg" alt="Linnea Ahlqvist" loading="lazy" width="400" height="500"><div class="cc-info"><b>Linnea Ahlqvist</b><span class="cc-h">@linneafknahlqvist</span><span class="cc-f">24,4K följare</span></div></a>
-    <a class="ccard" data-handle="svea.engstrom" href="https://www.tiktok.com/@svea.engstrom" target="_blank" rel="noopener"><img src="assets/creators/svea.engstrom.jpg" alt="Svea Engström" loading="lazy" width="400" height="500"><div class="cc-info"><b>Svea Engström</b><span class="cc-h">@svea.engstrom</span><span class="cc-f">18,4K följare</span></div></a>
-    <a class="ccard" data-handle="ellenkb" href="https://www.tiktok.com/@ellenkb" target="_blank" rel="noopener"><img src="assets/creators/ellenkb.jpg" alt="Ellen" loading="lazy" width="400" height="500"><div class="cc-info"><b>Ellen</b><span class="cc-h">@ellenkb</span><span class="cc-f">17K följare</span></div></a>
-    <a class="ccard" data-handle="norvellan" href="https://www.tiktok.com/@norvellan" target="_blank" rel="noopener"><img src="assets/creators/norvellan.jpg" alt="Sigrid Norvell" loading="lazy" width="400" height="500"><div class="cc-info"><b>Sigrid Norvell</b><span class="cc-h">@norvellan</span><span class="cc-f">12,2K följare</span></div></a>
-    <a class="ccard cc-more js-proposal" href="mailto:hello@luminatemedia.se?subject=Rosterf%C3%B6rslag"><b>+15 till</b><span>Bygg er kampanj →</span></a>
-  </div>
-  </div>
-
-  <div class="creators-cta reveal">
-    <a class="book js-proposal" href="mailto:hello@luminatemedia.se?subject=Rosterf%C3%B6rslag">Bygg er kampanj — få pris direkt →</a>
-  </div>
-</section>
 
 <section class="team" id="team">
-  <div class="sec-row reveal"><span class="label">Folket bakom Luminate</span><span class="sec-no">05</span></div>
+  <div class="sec-row reveal"><span class="label">Folket bakom Luminate</span><span class="sec-no">04</span></div>
   <h2 class="reveal">Teamet</h2>
   <div class="reveal">
   <a class="member" href="mailto:willemfinne@luminatemedia.se">
@@ -961,6 +957,20 @@ body.bm-open{overflow:hidden}
     <span class="m-mail">hjalmarelf@luminatemedia.se</span>
   </a>
   </div>
+</section>
+
+<section class="case" id="case">
+  <div class="sec-row reveal"><span class="label">Case</span><span class="sec-no">05</span></div>
+  <h2 class="reveal">Räknat på <em class="acc">riktiga resultat</em></h2>
+  <p class="case-intro reveal">JBJ Clothing — fyra creator-videos, en höstkampanj.</p>
+  <div class="case-nums">
+    <div class="cn-row reveal"><b class="case-num" data-cn="968800" data-suf="">0</b><span>organiska visningar</span></div>
+    <div class="cn-row reveal" style="transition-delay:.08s"><b class="case-num" data-cn="8.8" data-dec="1" data-suf=" %">0</b><span>engagemang — mot 4–5 % branschsnitt</span></div>
+    <div class="cn-row reveal" style="transition-delay:.16s"><b class="case-num">5–10×</b><span>lägre kostnad per visning än köpt räckvidd</span></div>
+  </div>
+  <p class="case-line reveal">Samma räckvidd köpt som annons hade kostat mångdubbelt — och en rekommendation från en creator väger tyngre än en banner. Innehållet ägs dessutom vidare och kan förstärkas som Spark Ads i efterhand.</p>
+  <p class="case-note reveal">Jämförelsen utgår från publicerade CPM-nivåer för TikTok-annonsering 2026 (ca 4–13 USD per 1 000 visningar). Engagemangssnittet avser sponsrat innehåll på plattformen.</p>
+  <div class="reveal"><a class="book js-book" href="https://calendar.app.google/8vFghCDtFN2itfJU8" target="_blank" rel="noopener">Vi gör samma sak för er →</a></div>
 </section>
 
 <section class="contact" id="kontakt">
@@ -1331,20 +1341,13 @@ Promise.all([
   }
 }).catch(() => {});
 
-/* hero-canvas: flödande färgfält som följer pekaren */
+/* hero-canvas: flödande färgfält som följer pekaren.
+   Ritas i låg upplösning med förrenderade sprites och skalas upp av CSS —
+   mjuka gradienter tål det, och kostnaden per bildruta blir minimal. */
 (function(){
   const cv = document.getElementById('hero-fx');
   if (!cv) return;
-  const hero = cv.parentElement, ctx = cv.getContext('2d');
-  let W, H;
-  function size(){
-    const dpr = matchMedia('(max-width: 820px)').matches ? 1 : Math.min(devicePixelRatio || 1, 1.5);
-    W = hero.clientWidth; H = hero.clientHeight;
-    cv.width = W * dpr; cv.height = H * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-  size(); addEventListener('resize', size);
-  const mob = matchMedia('(max-width: 820px)').matches;
+  const hero = cv.parentElement, ctx = cv.getContext('2d', {alpha:true});
   const BLOBS = [
     {c:'255,255,255', a:.50, sp:.00016, ph:0.0, rx:.34, ry:.30, r:.34},
     {c:'126,61,78',   a:.36, sp:.00021, ph:2.1, rx:.40, ry:.26, r:.30},
@@ -1352,33 +1355,66 @@ Promise.all([
     {c:'176,86,97',   a:.28, sp:.00025, ph:1.2, rx:.38, ry:.32, r:.28},
     {c:'255,255,255', a:.32, sp:.00019, ph:3.3, rx:.26, ry:.38, r:.22}
   ];
+  const mob = matchMedia('(max-width: 820px)').matches;
   const ACTIVE = mob ? BLOBS.slice(0, 4) : BLOBS;
-  let px = .5, py = .42, tx = .5, ty = .42, run = true, fr = 0;
+  const MAXW = mob ? 320 : 520;          /* buffertbredd — CSS skalar upp */
+  const SPRITE = 128;                    /* sprite-storlek i px */
+  let W, H, sprites = [];
+
+  function makeSprites(){
+    sprites = ACTIVE.map(b => {
+      const s = document.createElement('canvas');
+      s.width = s.height = SPRITE;
+      const c2 = s.getContext('2d');
+      const g = c2.createRadialGradient(SPRITE/2, SPRITE/2, 0, SPRITE/2, SPRITE/2, SPRITE/2);
+      g.addColorStop(0, 'rgba(' + b.c + ',' + b.a + ')');
+      g.addColorStop(1, 'rgba(' + b.c + ',0)');
+      c2.fillStyle = g;
+      c2.fillRect(0, 0, SPRITE, SPRITE);
+      return s;
+    });
+  }
+  function size(){
+    const w = hero.clientWidth, h = hero.clientHeight;
+    const scale = Math.min(1, MAXW / Math.max(1, w));
+    W = Math.max(1, Math.round(w * scale));
+    H = Math.max(1, Math.round(h * scale));
+    cv.width = W; cv.height = H;
+  }
+  makeSprites(); size();
+  addEventListener('resize', size);
+
+  let px = .5, py = .42, tx = .5, ty = .42, run = true, last = 0;
   hero.addEventListener('pointermove', e => {
     const b = hero.getBoundingClientRect();
     tx = (e.clientX - b.left) / b.width; ty = (e.clientY - b.top) / b.height;
-  });
+  }, {passive:true});
+
+  function frame(t){
+    if (!run || reduced) return;
+    requestAnimationFrame(frame);
+    if (t - last < 33) return;           /* ~30 fps räcker för mjuka fält */
+    last = t;
+    draw(t);
+  }
   function draw(t){
-    if (mob && (fr++ & 1)) { if (run && !reduced) requestAnimationFrame(draw); return; }
-    px += (tx - px) * .05; py += (ty - py) * .05;
+    px += (tx - px) * .06; py += (ty - py) * .06;
     ctx.clearRect(0, 0, W, H);
-    ACTIVE.forEach((b, i) => {
+    const base = Math.max(W, H);
+    for (let i = 0; i < ACTIVE.length; i++) {
+      const b = ACTIVE[i];
       const cx = W * (.5 + b.rx * Math.sin(t * b.sp + b.ph)) + (px - .5) * W * .24 * (i % 2 ? 1 : -1);
       const cy = H * (.45 + b.ry * Math.cos(t * b.sp * 1.27 + b.ph)) + (py - .5) * H * .24 * (i % 2 ? -1 : 1);
-      const r = Math.max(W, H) * b.r;
-      const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
-      g.addColorStop(0, 'rgba(' + b.c + ',' + b.a + ')');
-      g.addColorStop(1, 'rgba(' + b.c + ',0)');
-      ctx.fillStyle = g;
-      ctx.fillRect(cx - r, cy - r, r * 2, r * 2);
-    });
-    if (run && !reduced) requestAnimationFrame(draw);
+      const r = base * b.r;
+      ctx.drawImage(sprites[i], cx - r, cy - r, r * 2, r * 2);
+    }
   }
   new IntersectionObserver(en => {
     const was = run; run = en[0].isIntersecting;
-    if (run && !was && !reduced) requestAnimationFrame(draw);
+    if (run && !was && !reduced) requestAnimationFrame(frame);
   }).observe(hero);
   draw(0);
+  if (!reduced) requestAnimationFrame(frame);
 })();
 
 /* scramble-in på rubriker */
@@ -1485,7 +1521,22 @@ const cio = new IntersectionObserver(entries => {
     })(start);
   });
 }, {threshold:.6});
-document.querySelectorAll('.case-num').forEach(el => cio.observe(el));
+document.querySelectorAll('.case-num[data-cn]').forEach(el => cio.observe(el));
+
+/* skyddsnät: om IntersectionObserver aldrig levererar (äldre/strypta webbläsare)
+   får ingen text bli permanent osynlig — visa allt efter några sekunder. */
+addEventListener('load', () => setTimeout(() => {
+  if (document.querySelector('.reveal.in')) return;
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+  document.querySelectorAll('.stat-num[data-target], .case-num[data-cn]').forEach(el => {
+    if (el.dataset.done) return;
+    if (el.dataset.target !== undefined) countUp(el);
+    else {
+      const t = parseFloat(el.dataset.cn), d = parseInt(el.dataset.dec || '0', 10);
+      el.textContent = (d ? t.toFixed(d).replace('.', ',') : Math.round(t).toLocaleString('sv-SE')) + (el.dataset.suf || '');
+    }
+  });
+}, 3500));
 
 /* accordions — one open at a time */
 document.querySelectorAll('.svc-btn').forEach(btn => {
