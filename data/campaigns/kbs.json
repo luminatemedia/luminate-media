@@ -1,0 +1,20 @@
+{
+ "slug": "kbs",
+ "client": "Kids Brand Store",
+ "title": "Höstkampanj — period 1",
+ "publish_from": "2026-09-08",
+ "expected_videos": 8,
+ "match": ["kids brand store", "kidsbrandstore", "kids brand", "#kbs", "kbs "],
+ "creators": [
+  {"handle": "veira.larsson", "name": "Veira Larsson"},
+  {"handle": "filippaiwar2", "name": "Filippa Iwar"},
+  {"handle": "lunamaarkovic", "name": "Luna Markovic"},
+  {"handle": "ebbasimonsbacka", "name": "Ebba Simonsbacka"},
+  {"handle": "tildesundb", "name": "Tilde Sundberg"},
+  {"handle": "elsa41612", "name": "Elsa Grahn"},
+  {"handle": "mirandaomatilda_westerbe", "name": "Miranda & Matilda Westerberg"},
+  {"handle": "juliaberglunnd", "name": "Julia Berglund"}
+ ],
+ "videos": [],
+ "exclude": []
+}

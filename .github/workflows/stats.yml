@@ -22,9 +22,14 @@ jobs:
         run: python3 scripts/fetch_views.py
       - name: Bygg benchmark-sidan
         run: python3 scripts/build_benchmark.py
+      - name: Hamta kampanjsiffror
+        continue-on-error: true
+        run: python3 scripts/fetch_campaign.py
+      - name: Bygg kampanjrapporter
+        run: python3 scripts/build_report.py
       - name: Committa om nagot andrats
         run: |
           git config user.name "luminate-stats-bot"
           git config user.email "github-actions@github.com"
-          git add data/stats.json data/history.json data/views.json benchmark.html
+          git add data/stats.json data/history.json data/views.json data/campaigns benchmark.html rapport-*.html
           git diff --cached --quiet || { git commit -m "stats: nattlig TikTok-uppdatering"; git push; }

@@ -565,6 +565,17 @@ body.bm-open{overflow:hidden}
 }
 .km-budget-input::placeholder{color:rgba(255,255,255,.35)}
 .km-budget-input:focus{border-color:var(--pink)}
+.km-periods{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.km-periods button{
+  flex:1;min-width:88px;padding:11px 8px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(231,153,156,.28);border-radius:999px;
+  color:rgba(255,255,255,.8);font-size:11.5px;font-weight:700;letter-spacing:.06em;cursor:pointer;
+  transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease);
+}
+.km-periods button:hover{border-color:var(--pink)}
+.km-periods button.selected{background:rgba(231,153,156,.9);color:var(--plum);border-color:var(--pink)}
+.km-hint{margin-top:12px;font-size:12.5px;color:rgba(255,255,255,.55);max-width:520px}
+.km-priceline.km-spark{color:var(--white)}
 .km-generate{width:100%;text-align:center;background:var(--pink);color:var(--plum);border:none;cursor:pointer;margin-top:6px}
 .km-genanim{
   display:flex;align-items:center;justify-content:center;min-height:260px;
@@ -1150,6 +1161,21 @@ body.bm-open{overflow:hidden}
         </div>
 
         <div class="km-field">
+          <span class="f-label">Rättigheter</span>
+          <div class="km-toggle" id="km-rights">
+            <button type="button" data-r="org" class="selected">Bara organiskt</button>
+            <button type="button" data-r="spark">+ Spark Ads</button>
+          </div>
+          <div class="km-periods" id="km-periods" hidden>
+            <button type="button" data-p="0" class="selected">30 dagar</button>
+            <button type="button" data-p="1">90 dagar</button>
+            <button type="button" data-p="2">6 månader</button>
+            <button type="button" data-p="3">12 månader</button>
+          </div>
+          <p class="km-hint" id="km-rights-hint">Videon publiceras i kreatörens egna kanaler. Ni kan köpa Spark Ads i efterhand — ni har 14 dagar från publicering på er att bestämma, med de organiska siffrorna framför er.</p>
+        </div>
+
+        <div class="km-field">
           <label class="f-label" for="km-budget">Budget i kr — valfritt, vi anpassar förslaget</label>
           <input class="km-budget-input" type="text" inputmode="numeric" id="km-budget" placeholder="t.ex. 50 000">
         </div>
@@ -1170,7 +1196,8 @@ body.bm-open{overflow:hidden}
           <div class="km-mini"><b id="km-vidcount">–</b><span>Videos totalt</span></div>
         </div>
         <div class="km-pricebox">
-          <div class="km-priceline"><span>Ordinarie pris</span><s id="km-list">–</s></div>
+          <div class="km-priceline"><span>Kreatörer — organiskt</span><s id="km-list">–</s></div>
+          <div class="km-priceline km-spark" id="km-sparkline" hidden><span id="km-sparklabel">Spark Ads-rättigheter</span><span id="km-sparkval">–</span></div>
           <div class="km-priceline km-disc"><span id="km-disclabel">Volymrabatt</span><span id="km-discount">–</span></div>
           <div class="km-total"><span>Rabatterat pris<br>genom Luminate</span><b id="km-final">–</b></div>
         </div>
@@ -1182,7 +1209,7 @@ body.bm-open{overflow:hidden}
           <li>Spark Ads-rättigheter köps först när ni sett vilken video som levererar</li>
           <li>Manus- och videogodkännande i två steg — ni har alltid sista ordet</li>
         </ul>
-        <p class="km-note">Estimat baserat på kreatörernas faktiska snittpriser och snittvisningar — senaste 20 videos per kreatör, verifierade direkt från TikTok. Rabatten växer med antalet videos — upp till 18 % när hela nätverket bokas. Slutgiltigt förslag med namngivna kreatörer och exakta priser får ni inom två arbetsdagar efter ett möte.</p>
+        <p class="km-note">Estimat baserat på kreatörernas faktiska snittpriser och snittvisningar — senaste 20 videos per kreatör, verifierade direkt från TikTok. Rabatten växer med antalet videos — upp till 18 % när hela nätverket bokas. Spark Ads köps separat och omfattas därför inte av volymrabatten; ni bestämmer först efter publicering, med de organiska siffrorna framför er. Slutgiltigt förslag med namngivna kreatörer och exakta priser får ni inom två arbetsdagar efter ett möte.</p>
         <div class="km-ctas">
           <button type="button" class="book" id="km-book">Boka möte →</button>
           <a class="book ghost" id="km-mail" href="mailto:hello@luminatemedia.se?subject=Kampanjf%C3%B6rslag">Mejla mig förslaget</a>
@@ -1279,7 +1306,14 @@ const KM_MAX = TIERS.reduce((s,t)=>s+t.max,0);            /* 27 */
 const KM_FREE = {count:3, views:22000};                    /* 3 minsta följer med utan kostnad */
 const MIX = { bred:[.15,.22,.25,.26,.12], topp:null, micro:null };
 const kmodal = document.getElementById('kmodal');
-let kmVideos = 1, kmFocus = 'bred', kmState = null;
+/* Spark Ads-rättigheter: påslag på kreatörernas grundpris, samma trappa som i våra offerter. */
+const SPARK = [
+  {label:'30 dagar',   up:.25},
+  {label:'90 dagar',   up:.45},
+  {label:'6 månader',  up:.70},
+  {label:'12 månader', up:.90}
+];
+let kmVideos = 1, kmFocus = 'bred', kmRights = false, kmPeriod = 0, kmState = null;
 
 const fmtKr = n => Math.round(n).toLocaleString('sv-SE') + ' kr';
 const fmtViews = n => n >= 1e6 ? (Math.round(n/1e5)/10).toLocaleString('sv-SE') + ' M' : Math.round(n/1e3).toLocaleString('sv-SE') + 'K';
@@ -1319,13 +1353,17 @@ function kmAlloc(n, focus){
 function kmDiscount(videos){
   return videos>=26?18 : videos>=20?15 : videos>=15?12 : videos>=10?9 : videos>=6?6 : videos>=3?3 : 0;
 }
-function kmCalc(n, v, focus){
+function kmCalc(n, v, focus, rights, period){
   const counts = kmAlloc(n, focus);
   n = counts.reduce((a,b)=>a+b,0);
   const list = counts.reduce((s,c,i)=>s + c*TIERS[i].price, 0) * v;
   const views = (counts.reduce((s,c,i)=>s + c*TIERS[i].views, 0) + KM_FREE.views) * v;
   const disc = kmDiscount(n * v);
-  return {n, v, focus, counts, list, disc, saved:list*disc/100, final:list*(1-disc/100), views};
+  /* Spark Ads köps separat och omfattas därför inte av volymrabatten. */
+  const spark = rights ? list * SPARK[period].up : 0;
+  const saved = list * disc / 100;
+  return {n, v, focus, counts, list, disc, saved, spark, period,
+          final: list * (1 - disc/100) + spark, views};
 }
 function kmRender(st){
   kmState = st;
@@ -1335,6 +1373,12 @@ function kmRender(st){
   document.getElementById('km-views').textContent = '≈ ' + fmtViews(st.views);
   document.getElementById('km-vidcount').textContent = (st.n + KM_FREE.count) * st.v + ' videos · ' + KM_FREE.count * st.v + ' på köpet';
   document.getElementById('km-list').textContent = fmtKr(st.list);
+  const sl = document.getElementById('km-sparkline');
+  sl.hidden = !st.spark;
+  if (st.spark) {
+    document.getElementById('km-sparklabel').textContent = 'Spark Ads-rättigheter · ' + SPARK[st.period].label + ' (+' + Math.round(SPARK[st.period].up * 100) + ' %)';
+    document.getElementById('km-sparkval').textContent = '+' + fmtKr(st.spark);
+  }
   document.getElementById('km-disclabel').textContent = 'Volymrabatt −' + st.disc + ' %';
   document.getElementById('km-discount').textContent = '−' + fmtKr(st.saved);
   document.getElementById('km-final').textContent = fmtKr(st.final);
@@ -1342,7 +1386,9 @@ function kmRender(st){
   const mailBody =
     'Hej Luminate!\n\nVi har byggt ett kampanjförslag på er hemsida och vill veta mer:\n\n' +
     st.counts.map((c,i)=>c?`${c} × ${TIERS[i].label} (${TIERS[i].range})`:'').filter(Boolean).join('\n') +
-    `\n${KM_FREE.count} × mindre kreatörer på köpet\n${(st.n+KM_FREE.count)*st.v} videos totalt\nEstimat: ${fmtKr(st.final)} (efter ${st.disc} % volymrabatt)\n\nFöretag:\nKontaktperson:\nTelefon:`;
+    `\n${KM_FREE.count} × mindre kreatörer på köpet\n${(st.n+KM_FREE.count)*st.v} videos totalt` +
+    `\nRättigheter: ${st.spark ? 'Spark Ads ' + SPARK[st.period].label : 'Bara organiskt'}` +
+    `\nEstimat: ${fmtKr(st.final)} (efter ${st.disc} % volymrabatt)\n\nFöretag:\nKontaktperson:\nTelefon:`;
   document.getElementById('km-mail').href = 'mailto:hello@luminatemedia.se?subject=' +
     encodeURIComponent('Kampanjförslag från hemsidan') + '&body=' + encodeURIComponent(mailBody);
 }
@@ -1380,6 +1426,19 @@ document.querySelectorAll('#km-focus button').forEach(b => b.addEventListener('c
   document.querySelectorAll('#km-focus button').forEach(x => x.classList.remove('selected'));
   b.classList.add('selected'); kmFocus = b.dataset.f;
 }));
+document.querySelectorAll('#km-rights button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('#km-rights button').forEach(x => x.classList.remove('selected'));
+  b.classList.add('selected');
+  kmRights = b.dataset.r === 'spark';
+  document.getElementById('km-periods').hidden = !kmRights;
+  document.getElementById('km-rights-hint').textContent = kmRights
+    ? 'Videon får användas som annons från ert eget annonskonto under vald period. Ni äger annonskontot och mediebudgeten — vi sätter upp och optimerar för 15 % av mediespenden.'
+    : 'Videon publiceras i kreatörens egna kanaler. Ni kan köpa Spark Ads i efterhand — ni har 14 dagar från publicering på er att bestämma, med de organiska siffrorna framför er.';
+}));
+document.querySelectorAll('#km-periods button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('#km-periods button').forEach(x => x.classList.remove('selected'));
+  b.classList.add('selected'); kmPeriod = +b.dataset.p;
+}));
 
 document.getElementById('km-generate').addEventListener('click', () => {
   let n = +document.getElementById('km-count').value;
@@ -1388,7 +1447,7 @@ document.getElementById('km-generate').addEventListener('click', () => {
   adapt.hidden = true;
   if (budget && budget >= 2000) {
     let best = 1;
-    for (let i = 1; i <= 26; i++) { if (kmCalc(i, kmVideos, kmFocus).final <= budget) best = i; }
+    for (let i = 1; i <= 26; i++) { if (kmCalc(i, kmVideos, kmFocus, kmRights, kmPeriod).final <= budget) best = i; }
     if (best !== n) {
       n = best;
       document.getElementById('km-count').value = n;
@@ -1397,7 +1456,7 @@ document.getElementById('km-generate').addEventListener('click', () => {
       adapt.hidden = false;
     }
   }
-  kmRender(kmCalc(n, kmVideos, kmFocus));
+  kmRender(kmCalc(n, kmVideos, kmFocus, kmRights, kmPeriod));
   if (reduced) { kmShow('km-step2'); return; }
   kmShow('km-loading');
   const msgs = ['Analyserar nätverket …','Matchar kreatörer mot ert fokus …','Räknar på snittvisningar …','Förhandlar fram er rabatt …'];
