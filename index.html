@@ -11,10 +11,12 @@
 <meta name="theme-color" content="#E7999C">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://luminatemedia.se/">
-<meta property="og:image" content="https://luminatemedia.se/assets/luminate-icon-512.png">
+<meta property="og:image" content="https://luminatemedia.se/assets/og-share.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:title" content="Luminate Media — nordisk TikTok-creatorbyrå">
 <meta property="og:description" content="Ett kurerat nätverk av nordiska TikTok-kreatörer: 2 miljoner följare, 120+ miljoner likes. Urval, förhandling, produktion och rapport i ett paket.">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"Luminate Media","url":"https://luminatemedia.se","email":"hello@luminatemedia.se","logo":"https://luminatemedia.se/assets/luminate-icon-512.png","address":{"@type":"PostalAddress","addressLocality":"Lund","addressCountry":"SE"},"description":"Creator marketing-byrå med ett kurerat nätverk av nordiska TikTok-kreatörer."}
 </script>
@@ -194,7 +196,7 @@ nav.scrolled{
 
 /* ---------- stats ---------- */
 .stats{
-  background:linear-gradient(180deg,var(--plum) 0%,var(--plum-2) 100%);
+  background:linear-gradient(to bottom, transparent calc(100% - 130px), #E7999C 100%), linear-gradient(180deg,var(--plum) 0%,var(--plum-2) 100%);
   padding:clamp(80px,11vw,150px) var(--pad);
   position:relative;overflow:hidden;
 }
@@ -245,7 +247,7 @@ nav.scrolled{
 }
 
 /* ---------- services ---------- */
-.services{padding:clamp(80px,11vw,150px) var(--pad)}
+.services{padding:clamp(80px,11vw,150px) var(--pad);background:linear-gradient(to bottom, transparent calc(100% - 130px), var(--plum-2) 100%)}
 .services .label{display:block;margin-bottom:14px}
 .services h2{
   font-family:var(--black);font-size:clamp(30px,5.6vw,72px);
@@ -296,7 +298,7 @@ nav.scrolled{
 
 /* ---------- creators (light section) ---------- */
 .creators{
-  background:var(--white);color:var(--plum);
+  background:linear-gradient(to bottom, transparent calc(100% - 130px), var(--pink) 100%), var(--white);color:var(--plum);
   padding:clamp(80px,11vw,150px) var(--pad);
 }
 .creators .label{display:block;margin-bottom:14px;color:var(--rose)}
@@ -357,7 +359,7 @@ nav.scrolled{
 }
 
 /* ---------- team ---------- */
-.team{padding:clamp(80px,11vw,150px) var(--pad)}
+.team{padding:clamp(80px,11vw,150px) var(--pad);background:linear-gradient(to bottom, transparent calc(100% - 130px), var(--plum) 100%)}
 .team .label{display:block;margin-bottom:14px}
 .team h2{
   font-family:var(--black);font-size:clamp(30px,5.6vw,72px);
@@ -671,6 +673,41 @@ body.bm-open{overflow:hidden}
 .cc-more b{font-family:var(--black);font-size:26px;text-transform:uppercase;line-height:1.1}
 .cc-more span{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pink)}
 
+/* ---------- case ---------- */
+.case{background:linear-gradient(to bottom, transparent calc(100% - 130px), #FFFFFF 100%), var(--plum-2);padding:clamp(80px,11vw,150px) var(--pad);position:relative;overflow:hidden}
+.case::before{content:"";position:absolute;width:55vw;height:55vw;min-width:460px;min-height:460px;border-radius:50%;filter:blur(130px);background:rgba(231,153,156,.09);top:-25%;left:-15%;pointer-events:none}
+.cn-row{display:flex;align-items:baseline;gap:clamp(14px,2.5vw,28px);padding:clamp(8px,1.4vw,16px) 0;border-bottom:1px solid rgba(231,153,156,.16)}
+.cn-row:first-of-type{border-top:1px solid rgba(231,153,156,.16)}
+.case-num{font-family:var(--black);font-weight:400;font-size:clamp(46px,9.5vw,132px);line-height:1;color:var(--white);letter-spacing:-.01em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cn-row span{font-size:clamp(13px,1.6vw,18px);font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--pink)}
+.case-line{margin:26px 0 30px;max-width:600px;font-size:clamp(15px,1.8vw,19px);font-weight:500;color:rgba(255,255,255,.8)}
+.case .book{background:var(--pink);color:var(--plum)}
+
+/* ---------- sektionsrad med nummer ---------- */
+.sec-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.28);padding-top:16px;margin-bottom:14px}
+.creators .sec-row{border-top-color:rgba(42,26,29,.16)}
+.sec-row .label{margin-bottom:0}
+.sec-no{margin-left:auto;font-family:var(--black);font-size:12px;opacity:.45;letter-spacing:.1em}
+.track-note{font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.hero-meta{position:absolute;bottom:26px;right:var(--pad);font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
+@media (max-width:640px){.hero-meta{display:none}}
+
+/* ---------- tillväxt ---------- */
+.chip-growth{background:var(--pink);color:var(--plum);border-color:var(--pink);font-family:var(--black);letter-spacing:.04em}
+.cc-d{display:inline-block;margin:10px 0 0 6px;font-size:11.5px;font-weight:700;color:var(--rose)}
+
+/* ---------- videokort ---------- */
+.cc-media{position:relative;overflow:hidden}
+.cc-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .35s var(--ease);pointer-events:none}
+.ccard.playing .cc-video{opacity:1}
+.cc-media::after{
+  content:"▶";position:absolute;top:10px;right:10px;width:26px;height:26px;border-radius:50%;
+  background:rgba(42,26,29,.55);color:#fff;font-size:9px;
+  display:flex;align-items:center;justify-content:center;padding-left:2px;
+  transition:opacity .3s var(--ease);
+}
+.ccard.playing .cc-media::after{opacity:0}
+
 /* ---------- motion prefs ---------- */
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation:none !important;transition:none !important}
@@ -712,6 +749,7 @@ body.bm-open{overflow:hidden}
     <a class="book ghost" href="#siffror">Se nätverket ↓</a>
   </div>
   <div class="hero-scroll" aria-hidden="true"><i>↓</i> Scrolla</div>
+  <div class="hero-meta" aria-hidden="true">Lund · 55.70°N 13.19°E — est. 2026</div>
 </header>
 
 <div class="marquee" aria-hidden="true">
@@ -724,7 +762,7 @@ body.bm-open{overflow:hidden}
 <main id="main">
 
 <section class="stats" id="siffror">
-  <div class="stats-top reveal"><span class="label">Nätverket i siffror</span><span class="live-badge" id="live-badge"><i></i>Live från TikTok</span></div>
+  <div class="sec-row stats-top reveal"><span class="label">Nätverket i siffror</span><span class="live-badge" id="live-badge"><i></i>Live från TikTok</span><span class="track-note" id="track-note"></span><span class="sec-no">01</span></div>
   <h2 class="reveal">Räckvidd man inte kan <mark>ignorera</mark></h2>
   <div class="stat-grid">
     <div class="stat reveal">
@@ -745,6 +783,7 @@ body.bm-open{overflow:hidden}
     </div>
   </div>
   <div class="stat-chips reveal">
+    <span class="chip chip-growth" id="growth-chip" hidden></span>
     <span class="chip">4M+ visningar senaste 7 dagarna</span>
     <span class="chip">11 kreatörer med videor över 1M visningar</span>
     <span class="chip">Mode · Beauty · Lifestyle</span>
@@ -753,7 +792,7 @@ body.bm-open{overflow:hidden}
 </section>
 
 <section class="services" id="tjanster">
-  <span class="label reveal">Vad vi gör</span>
+  <div class="sec-row reveal"><span class="label">Vad vi gör</span><span class="sec-no">02</span></div>
   <h2 class="reveal">En partner, <em class="acc">hela vägen</em></h2>
 
   <div class="svc reveal">
@@ -847,8 +886,19 @@ body.bm-open{overflow:hidden}
   </div>
 </section>
 
+<section class="case" id="case">
+  <div class="sec-row reveal"><span class="label">Bevisat — case: JBJ Clothing</span><span class="sec-no">03</span></div>
+  <div class="case-nums">
+    <div class="cn-row reveal"><b class="case-num" data-cn="968800" data-suf="">0</b><span>visningar</span></div>
+    <div class="cn-row reveal" style="transition-delay:.08s"><b class="case-num" data-cn="8.8" data-dec="1" data-suf=" %">0</b><span>engagemang</span></div>
+    <div class="cn-row reveal" style="transition-delay:.16s"><b class="case-num" data-cn="900" data-suf=" €">0</b><span>total mediabudget</span></div>
+  </div>
+  <p class="case-line reveal">Fyra creator-videos för JBJ Clothing. En bråkdel av vad motsvarande räckvidd kostar som köpt annons — och med en trovärdighet ingen banner kan köpa.</p>
+  <div class="reveal"><a class="book js-book" href="https://calendar.app.google/8vFghCDtFN2itfJU8" target="_blank" rel="noopener">Vi gör samma sak för er →</a></div>
+</section>
+
 <section class="creators sec-light" id="kreatorer">
-  <span class="label reveal">Kreatörerna</span>
+  <div class="sec-row reveal"><span class="label">Kreatörerna</span><span class="sec-no">04</span></div>
   <h2 class="reveal">Handplockade. <em class="acc">Datagranskade.</em></h2>
   <p class="lead reveal">Ett urval ur nätverket — varje kreatör är granskad på färska siffror innan hon föreslås i en kampanj. Följarsiffrorna hämtas direkt från TikTok och uppdateras automatiskt varje natt.</p>
 
@@ -883,7 +933,7 @@ body.bm-open{overflow:hidden}
 </section>
 
 <section class="team" id="team">
-  <span class="label reveal">Folket bakom Luminate</span>
+  <div class="sec-row reveal"><span class="label">Folket bakom Luminate</span><span class="sec-no">05</span></div>
   <h2 class="reveal">Teamet</h2>
   <div class="reveal">
   <a class="member" href="mailto:willemfinne@luminatemedia.se">
@@ -914,7 +964,7 @@ body.bm-open{overflow:hidden}
 </section>
 
 <section class="contact" id="kontakt">
-  <span class="label reveal">Kontakt</span>
+  <div class="sec-row reveal"><span class="label">Kontakt</span><span class="sec-no">06</span></div>
   <h2 class="reveal">Redo att synas där era kunder <mark>redan är?</mark></h2>
   <p class="cline reveal">Mejla <a href="mailto:hello@luminatemedia.se">hello@luminatemedia.se</a> — ni får svar inom 24 timmar, och ett första rosterförslag inom dagar.</p>
   <div class="contact-ctas reveal">
@@ -927,8 +977,8 @@ body.bm-open{overflow:hidden}
 
 <footer>
   <svg class="mark-sm" viewBox="0 0 400 435" aria-hidden="true"><g transform="translate(0,435) scale(0.1,-0.1)"><path fill="currentColor" d="M62 2174 l3 -2119 1230 -2 c677 -2 1243 1 1259 5 29 8 29 8 -140 183 -93 96 -232 240 -309 320 l-140 147 -655 1 -655 0 -3 1499 -2 1500 -291 288 c-159 159 -292 291 -295 293 -2 2 -3 -949 -2 -2115z M3694 2953 c-136 -142 -386 -400 -554 -573 -168 -173 -387 -399 -485 -502 -98 -104 -182 -188 -185 -188 -4 0 -42 37 -86 83 -517 538 -911 945 -1141 1177 l-243 245 0 -459 0 -458 88 -92 c48 -51 247 -261 442 -467 315 -331 791 -834 891 -941 49 -53 20 -76 400 329 189 202 390 414 446 472 l102 106 1 -811 0 -812 23 -6 c12 -3 142 -6 290 -6 l267 0 0 1580 c0 869 -2 1580 -4 1580 -2 0 -115 -116 -252 -257z"/></g></svg>
-  <span class="label">© 2026 Luminate Media</span>
-  <span class="label">Lund — Sverige</span>
+  <span class="label">© 2026 Luminate Media · Org.nr 969804-5599</span>
+  <span class="label">Raketgatan 12 · Lund — Sverige</span>
 </footer>
 
 <div class="bmodal" id="bmodal" role="dialog" aria-modal="true" aria-label="Boka möte">
@@ -1224,8 +1274,13 @@ document.getElementById('km-redo').addEventListener('click', () => kmShow('km-st
 document.getElementById('km-book').addEventListener('click', () => { closeProposal(); openBooking(); });
 
 /* live-statistik från TikTok (data/stats.json uppdateras nattligen av GitHub Action) */
-fetch('data/stats.json', {cache:'no-store'}).then(r => r.ok ? r.json() : null).then(d => {
+Promise.all([
+  fetch('data/stats.json', {cache:'no-store'}).then(r => r.ok ? r.json() : null),
+  fetch('data/history.json', {cache:'no-store'}).then(r => r.ok ? r.json() : null).catch(() => null)
+]).then(([d, H]) => {
   if (!d || !d.totals) return;
+  const tn = document.getElementById('track-note');
+  if (tn && d.totals.creators) tn.textContent = '· ' + d.totals.creators + ' konton spåras';
   const fe = document.getElementById('stat-followers'), le = document.getElementById('stat-likes');
   const fv = Math.round(d.totals.followers / 1e5) / 10, lv = Math.floor(d.totals.likes / 5e6) * 5;
   fe.dataset.target = fv; le.dataset.target = lv;
@@ -1245,6 +1300,35 @@ fetch('data/stats.json', {cache:'no-store'}).then(r => r.ok ? r.json() : null).t
     const v = c.followers;
     p.textContent = (v >= 1e5 ? Math.round(v/1e3) : ((Math.round(v/100)/10) + '').replace('.', ',')) + 'K följare';
   });
+  /* tillväxt sedan tidigare snapshots */
+  if (H && H.length >= 2) {
+    const latest = H[H.length - 1];
+    const cutoff = new Date(Date.now() - 30*864e5).toISOString().slice(0,10);
+    let base = H[0];
+    for (const e of H) { if (e.date >= cutoff) { base = e; break; } }
+    if (base.date !== latest.date) {
+      let delta = 0;
+      for (const h in d.creators) {
+        if (base.followers[h] != null && latest.followers[h] != null) delta += latest.followers[h] - base.followers[h];
+      }
+      const days = Math.max(1, Math.round((new Date(latest.date) - new Date(base.date)) / 864e5));
+      if (delta >= 50) {
+        const g = document.getElementById('growth-chip');
+        g.textContent = '▲ +' + delta.toLocaleString('sv-SE') + ' följare ' + (days <= 1 ? 'sedan igår' : 'senaste ' + days + ' dagarna');
+        g.hidden = false;
+      }
+      document.querySelectorAll('.ccard[data-handle]').forEach(card => {
+        const h = card.dataset.handle;
+        if (base.followers[h] == null || latest.followers[h] == null) return;
+        const dd = latest.followers[h] - base.followers[h];
+        if (dd < 100) return;
+        const s = document.createElement('span');
+        s.className = 'cc-d';
+        s.textContent = '▲ +' + (dd >= 1000 ? ((Math.round(dd/100)/10) + '').replace('.', ',') + 'K' : dd);
+        card.querySelector('.cc-info').appendChild(s);
+      });
+    }
+  }
 }).catch(() => {});
 
 /* hero-canvas: flödande färgfält som följer pekaren */
@@ -1321,6 +1405,59 @@ function scramble(el){
   })(start);
 }
 
+/* videokort: håll på profilen → 4 sek av kreatörens mest sedda klipp */
+(function(){
+  const HAS = ["aotterud", "astridholmstromming", "electrakarlsson200", "ellaaxman", "ellenkb", "elsa41612", "filippaiwar2", "jacquelineekenstedt", "jessprivatastory", "linneafknahlqvist", "lovisa.haeger", "lunamaarkovic", "mirandaomatilda_westerbe", "norvellan", "superhemligtmg", "svea.engstrom", "tildesundb", "tjejenshemlighet", "veira.larsson"];
+  const fine = matchMedia('(pointer:fine)').matches;
+  document.querySelectorAll('.ccard[data-handle]').forEach(card => {
+    const h = card.dataset.handle;
+    if (!HAS.includes(h)) return;
+    const img = card.querySelector('img');
+    const wrap = document.createElement('div'); wrap.className = 'cc-media';
+    img.replaceWith(wrap); wrap.append(img);
+    const v = document.createElement('video');
+    v.muted = true; v.playsInline = true; v.setAttribute('playsinline',''); v.preload = 'none';
+    v.src = 'assets/creators/video/' + h + '.mp4'; v.className = 'cc-video';
+    wrap.append(v);
+    let stopTimer = null, holdTimer = null, held = false;
+    const tryPlay = () => {
+      if (!card.classList.contains('playing')) return;
+      const p = v.play();
+      if (p && p.catch) p.catch(() => {});
+    };
+    const start = () => {
+      if (stopTimer) return;
+      card.classList.add('playing');
+      v.style.opacity = '1';
+      if (v.readyState === 0) v.load();
+      try { v.currentTime = 0; } catch (e) {}
+      tryPlay();
+      v.addEventListener('canplay', tryPlay);
+      stopTimer = setTimeout(stop, 4000);
+    };
+    const stop = () => {
+      clearTimeout(stopTimer); stopTimer = null;
+      v.removeEventListener('canplay', tryPlay);
+      v.style.opacity = '';
+      v.pause(); card.classList.remove('playing');
+    };
+    v.addEventListener('ended', stop);
+    if (fine) {
+      card.addEventListener('mouseenter', start);
+      card.addEventListener('mouseleave', stop);
+    } else {
+      card.addEventListener('touchstart', () => {
+        held = false;
+        holdTimer = setTimeout(() => { held = true; start(); }, 220);
+      }, {passive:true});
+      const release = () => { clearTimeout(holdTimer); if (held) stop(); };
+      card.addEventListener('touchend', release, {passive:true});
+      card.addEventListener('touchcancel', release, {passive:true});
+      card.addEventListener('click', e => { if (held) { e.preventDefault(); held = false; } });
+    }
+  });
+})();
+
 /* kreatörsrail: drag för att scrolla */
 (function(){
   const rail = document.getElementById('crail');
@@ -1331,6 +1468,24 @@ function scramble(el){
   addEventListener('pointerup', () => { down = false; rail.classList.remove('dragging'); });
   rail.addEventListener('click', e => { if (moved > 6) { e.preventDefault(); e.stopPropagation(); } }, true);
 })();
+
+/* case-räknare */
+const cio = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    cio.unobserve(e.target);
+    const el = e.target, target = parseFloat(el.dataset.cn), dec = parseInt(el.dataset.dec || '0', 10), suf = el.dataset.suf || '';
+    const show = v => { el.textContent = (dec ? v.toFixed(dec).replace('.', ',') : Math.round(v).toLocaleString('sv-SE')) + suf; };
+    if (reduced) { show(target); return; }
+    const dur = 1900, start = performance.now();
+    (function tick(now){
+      const p = Math.min(1, (now - start) / dur);
+      show(target * (1 - Math.pow(1 - p, 4)));
+      if (p < 1) requestAnimationFrame(tick);
+    })(start);
+  });
+}, {threshold:.6});
+document.querySelectorAll('.case-num').forEach(el => cio.observe(el));
 
 /* accordions — one open at a time */
 document.querySelectorAll('.svc-btn').forEach(btn => {

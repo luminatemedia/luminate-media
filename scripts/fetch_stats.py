@@ -66,5 +66,16 @@ data = {
     "creators": creators,
 }
 out.write_text(json.dumps(data, ensure_ascii=False, indent=1) + "\n")
+
+# Daglig snapshot till history.json (en post per datum, max 400 dagar)
+hist_path = root / "data" / "history.json"
+hist = json.loads(hist_path.read_text()) if hist_path.exists() else []
+today = datetime.date.today().isoformat()
+hist = [e for e in hist if e["date"] != today]
+hist.append({"date": today, "totals": data["totals"],
+             "followers": {h: c["followers"] for h, c in creators.items()}})
+hist.sort(key=lambda e: e["date"])
+hist_path.write_text(json.dumps(hist[-400:], ensure_ascii=False) + "\n")
+
 print(f"{ok}/{len(HANDLES)} profiler, {data['totals']['followers']:,} foljare, "
       f"{data['totals']['likes']:,} likes -> {out}")
