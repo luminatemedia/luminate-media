@@ -1269,7 +1269,7 @@ const TIERS = [
 ];
 const KM_MAX = TIERS.reduce((s,t)=>s+t.max,0);            /* 27 */
 const KM_FREE = {count:3, views:22000};                    /* 3 minsta följer med utan kostnad */
-const MIX = { bred:[.10,.15,.20,.35,.20], topp:null, micro:null };
+const MIX = { bred:[.15,.22,.25,.26,.12], topp:null, micro:null };
 const kmodal = document.getElementById('kmodal');
 let kmVideos = 1, kmFocus = 'bred', kmState = null;
 
@@ -1289,7 +1289,7 @@ function kmAlloc(n, focus){
   const w = MIX.bred;
   w.forEach((x,i)=>{ counts[i] = Math.min(Math.floor(x*n), caps[i]); });
   let left = n - counts.reduce((a,b)=>a+b,0);
-  for (const i of [3,4,2,1,0]) { while (left > 0 && counts[i] < caps[i]) { counts[i]++; left--; } }
+  for (const i of [2,1,3,0,4]) { while (left > 0 && counts[i] < caps[i]) { counts[i]++; left--; } }
   return counts;
 }
 /* rabatten växer med antalet videos — max 18 % vid hela nätverket, 1 video var (26 videos) */

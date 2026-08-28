@@ -35,25 +35,26 @@ all_views = [vw[h]["avg"] for h in vw if h in cre]
 all_ratio = [vw[h]["avg"] / cre[h]["followers"] for h in vw
              if h in cre and cre[h]["followers"] > 1000]
 med_views, med_ratio = int(statistics.median(all_views)), statistics.median(all_ratio)
-best, worst = rows[0], rows[-1]
-factor = round(best["ratio"] / worst["ratio"], 1)
+small, big = rows[0], rows[-1]            # minsta resp. storsta klassen
+reach_x = big["views"] / small["views"]   # sa mycket mer racvidd ett toppkonto ger
 
 MON = ["januari", "februari", "mars", "april", "maj", "juni", "juli",
        "augusti", "september", "oktober", "november", "december"]
 d = datetime.datetime.fromisoformat(S["updated"].replace("Z", "+00:00"))
 datum = f"{d.day} {MON[d.month - 1]} {d.year}"
-mx = max(r["ratio"] for r in rows)
+mxv = max(r["views"] for r in rows)
 
 sv = lambda n: f"{n:,}".replace(",", " ")
 komma = lambda x: f"{x:.2f}".replace(".", ",")
+komma1 = lambda x: f"{x:.1f}".replace(".", ",")
 
 bars = "\n".join(
     f'''      <tr>
         <th scope="row">{r["band"]}</th>
-        <td class="num">{sv(r["views"])}</td>
-        <td class="num">{komma(r["ratio"])}×</td>
-        <td class="bar"><span style="width:{max(4, round(r["ratio"] / mx * 100))}%"></span></td>
+        <td class="num big">{sv(r["views"])}</td>
+        <td class="bar"><span style="width:{max(4, round(r["views"] / mxv * 100))}%"></span></td>
         <td class="num dim">{r["n"]}</td>
+        <td class="num dim">{komma(r["ratio"])}×</td>
       </tr>''' for r in rows)
 
 html = f'''<!DOCTYPE html>
@@ -62,14 +63,14 @@ html = f'''<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TikTok-benchmark: mode &amp; beauty i Sverige — Luminate Media</title>
-<meta name="description" content="Hur mycket räckvidd ger en svensk TikTok-kreatör per följare? Median­visningar per video och räckvidd per följare, uppdelat på storleksklass. Mätt på {n_total} svenska kreatörer, {datum}.">
+<meta name="description" content="Hur många visningar ger en svensk TikTok-kreatör per video? Medianvisningar per storleksklass — ett toppkonto når {komma1(reach_x)}× så många som ett mikrokonto. Mätt på {n_total} svenska kreatörer inom mode och beauty, {datum}.">
 <link rel="icon" href="/assets/luminate-icon-64.png" sizes="64x64">
 <link rel="apple-touch-icon" href="/assets/luminate-icon-180.png">
 <meta name="theme-color" content="#2A1A1D">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://luminatemedia.se/benchmark.html">
 <meta property="og:title" content="TikTok-benchmark: mode &amp; beauty i Sverige">
-<meta property="og:description" content="Mikro-kreatörer får {komma(best["ratio"])}× sitt följarantal i visningar per video. De största får {komma(worst["ratio"])}×. Mätt på {n_total} svenska kreatörer.">
+<meta property="og:description" content="En video från ett toppkonto når {komma1(reach_x)}× så många som en video från ett mikrokonto — {sv(big["views"])} mot {sv(small["views"])} visningar. Mätt på {n_total} svenska kreatörer.">
 <meta property="og:image" content="https://luminatemedia.se/assets/og-share.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -95,11 +96,17 @@ a{{color:inherit}}
 h1{{font-family:var(--black);font-weight:400;font-size:clamp(30px,6.2vw,66px);line-height:1.04;text-transform:uppercase;margin-bottom:18px}}
 h1 em{{font-family:"Instrument Serif",Georgia,serif;font-style:italic;text-transform:none;color:var(--pink);font-size:1.06em}}
 .lead{{font-size:clamp(16px,1.9vw,20px);font-weight:500;color:rgba(255,255,255,.8);max-width:660px;margin-bottom:clamp(34px,5vw,54px)}}
-.key{{border:1px solid rgba(231,153,156,.35);background:rgba(231,153,156,.08);border-radius:20px;
-padding:clamp(22px,3.5vw,34px);margin-bottom:clamp(34px,5vw,54px)}}
-.key b{{display:block;font-family:var(--black);font-weight:400;font-size:clamp(26px,5vw,54px);line-height:1.05;margin-bottom:10px}}
-.key b span{{color:var(--pink)}}
-.key p{{color:rgba(255,255,255,.8);font-weight:500;max-width:620px}}
+.key{{border:1px solid rgba(231,153,156,.35);background:rgba(231,153,156,.08);border-radius:22px;
+padding:clamp(24px,4vw,40px);margin-bottom:clamp(34px,5vw,54px);
+display:grid;grid-template-columns:minmax(0,auto) 1fr;gap:clamp(22px,4vw,44px);align-items:center}}
+@media (max-width:760px){{.key{{grid-template-columns:1fr;gap:20px}}}}
+.key-fig{{display:flex;flex-direction:column;gap:8px;border-right:1px solid rgba(231,153,156,.28);padding-right:clamp(22px,4vw,44px)}}
+@media (max-width:760px){{.key-fig{{border-right:0;border-bottom:1px solid rgba(231,153,156,.28);padding:0 0 18px}}}}
+.key-fig b{{font-family:var(--black);font-weight:400;font-size:clamp(64px,12vw,132px);line-height:.85;color:var(--pink);letter-spacing:-.02em}}
+.key-fig span{{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.6);line-height:1.6}}
+.key-line{{font-family:var(--black);font-weight:400;font-size:clamp(17px,2.3vw,25px);line-height:1.35;text-transform:none;margin-bottom:12px}}
+.key-line strong{{color:var(--pink);font-weight:400;white-space:nowrap}}
+.key-sub{{color:rgba(255,255,255,.68);font-weight:500;font-size:14.5px}}
 h2{{font-family:var(--black);font-weight:400;font-size:clamp(20px,3vw,30px);text-transform:uppercase;margin:0 0 16px}}
 .scroller{{overflow-x:auto}}
 table{{width:100%;border-collapse:collapse;min-width:560px}}
@@ -107,6 +114,7 @@ th,td{{text-align:left;padding:14px 12px;border-bottom:1px solid rgba(231,153,15
 thead th{{font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);border-bottom-color:rgba(231,153,156,.35)}}
 tbody th{{font-family:var(--black);font-weight:400;font-size:16px;white-space:nowrap}}
 .num{{font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap}}
+.num.big{{font-family:var(--black);font-weight:400;font-size:clamp(17px,2.3vw,23px)}}
 .dim{{color:rgba(255,255,255,.45);font-weight:500}}
 .bar{{width:34%}}
 .bar span{{display:block;height:9px;border-radius:999px;background:var(--pink)}}
@@ -135,25 +143,31 @@ display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}}
 
   <span class="label">Benchmark · uppdaterad {datum}</span>
   <h1>Så mycket räckvidd ger en svensk <em>TikTok-kreatör</em></h1>
-  <p class="lead">Vi mäter våra kreatörers konton varje natt. Här är siffrorna öppet, uppdelat på storleksklass — medianvisningar per video och hur många visningar varje följare faktiskt ger.</p>
+  <p class="lead">Vi mäter våra kreatörers konton varje natt. Här är siffrorna öppet, uppdelat på storleksklass — medianvisningar per video, räknat på de senaste 20 videorna.</p>
 
   <div class="key">
-    <b>Mikro-kreatörer får <span>{komma(best["ratio"])}×</span> sitt följarantal i visningar.<br>De största får <span>{komma(worst["ratio"])}×</span>.</b>
-    <p>Skillnaden är {komma(factor).replace(",00", "")} gånger. Räckvidd följer alltså inte följarantalet — det är därför ett urval byggt på färska siffror slår ett urval byggt på storlek.</p>
+    <div class="key-fig">
+      <b>{komma1(reach_x)}×</b>
+      <span>så mycket räckvidd ger<br>en video från ett toppkonto</span>
+    </div>
+    <div class="key-body">
+      <p class="key-line"><strong>{sv(big["views"])}</strong> visningar från ett konto i toppklassen. <strong>{sv(small["views"])}</strong> från ett mikrokonto. Samma räckvidd med små konton kräver tre samarbeten, tre manus och tre tidplaner — en inspelning blir tre.</p>
+      <p class="key-sub">Toppkontona bär dessutom igenkänning. En profil publiken redan känner konverterar annorlunda när videon förstärks som Spark Ad, och det är där annonsbudgeten betalar sig.</p>
+    </div>
   </div>
 
   <h2>Per storleksklass</h2>
   <div class="scroller">
   <table>
     <thead>
-      <tr><th scope="col">Följare</th><th scope="col">Median visningar/video</th><th scope="col">Visningar per följare</th><th scope="col">&nbsp;</th><th scope="col">Kreatörer</th></tr>
+      <tr><th scope="col">Följare</th><th scope="col">Median visningar/video</th><th scope="col">&nbsp;</th><th scope="col">Kreatörer</th><th scope="col">Per följare</th></tr>
     </thead>
     <tbody>
 {bars}
     </tbody>
   </table>
   </div>
-  <p class="note"><strong>Metod:</strong> {n_total} svenska TikTok-kreatörer inom mode, beauty och lifestyle — samtliga i Luminate Medias nätverk. Snittvisningar räknas på de senaste 20 videorna per kreatör, hämtade direkt från TikTok {datum}. Vi visar median i varje klass så att en enskild viral video inte drar upp resultatet. Hela nätverkets median: {sv(med_views)} visningar per video och {komma(med_ratio)}× följarantalet. Underlaget är vårt eget nätverk, inte ett slumpmässigt urval av svenska konton — läs siffrorna som en branschindikation, inte som officiell statistik.</p>
+  <p class="note"><strong>Metod:</strong> {n_total} svenska TikTok-kreatörer inom mode, beauty och lifestyle — samtliga i Luminate Medias nätverk. Snittvisningar räknas på de senaste 20 videorna per kreatör, hämtade direkt från TikTok {datum}. Vi visar median i varje klass så att en enskild viral video inte drar upp resultatet. Hela nätverkets median: {sv(med_views)} visningar per video. Kolumnen längst till höger visar visningar per följare — små konton ligger högre där, men når färre personer totalt, och det är totalen som avgör en kampanjs räckvidd. Underlaget är vårt eget nätverk, inte ett slumpmässigt urval av svenska konton — läs siffrorna som en branschindikation, inte som officiell statistik.</p>
 
   <div class="cta">
     <a class="book" href="https://calendar.app.google/8vFghCDtFN2itfJU8" target="_blank" rel="noopener">Boka möte →</a>
