@@ -87,7 +87,11 @@ def build(cfg_path):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{cfg["client"]} × Luminate — kampanjrapport</title>
 <meta name="robots" content="noindex, nofollow">
-<link rel="icon" href="/assets/luminate-icon-64.png" sizes="64x64">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" href="/assets/luminate-icon-96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/assets/luminate-icon-192.png" sizes="192x192">
+<link rel="icon" type="image/svg+xml" href="/assets/luminate-icon.svg">
+<link rel="apple-touch-icon" href="/assets/luminate-icon-180.png">
 <meta name="theme-color" content="#2A1A1D">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
