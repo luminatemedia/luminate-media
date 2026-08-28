@@ -750,7 +750,9 @@ body.bm-open{overflow:hidden}
 .cn-row:first-of-type{border-top:1px solid rgba(231,153,156,.16)}
 .case-num{font-family:var(--black);font-weight:400;font-size:clamp(40px,8.6vw,132px);line-height:1;color:var(--white);letter-spacing:-.01em;font-variant-numeric:tabular-nums;white-space:nowrap}
 .cn-row span{font-size:clamp(12px,1.6vw,18px);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--pink);max-width:100%}
-.case-intro{margin:0 0 clamp(24px,4vw,40px);font-size:clamp(15px,1.8vw,19px);font-weight:500;color:rgba(255,255,255,.7)}
+.case-item{margin-bottom:clamp(36px,6vw,64px)}
+.case-item:last-of-type{margin-bottom:clamp(24px,4vw,40px)}
+.case-intro{margin:0 0 clamp(18px,3vw,28px);font-family:var(--black);font-weight:400;text-transform:uppercase;letter-spacing:.02em;font-size:clamp(15px,1.8vw,19px);font-weight:500;color:rgba(255,255,255,.7)}
 .case h2{font-family:var(--black);font-size:clamp(30px,5.6vw,72px);text-transform:uppercase;line-height:1.05;margin-bottom:14px}
 .case h2 .acc{color:var(--pink)}
 .case-note{font-size:12px;color:rgba(255,255,255,.42);max-width:620px;margin-bottom:26px}
@@ -1060,14 +1062,28 @@ body.bm-open{overflow:hidden}
 <section class="case" id="case">
   <div class="sec-row reveal"><span class="label">Case</span><span class="sec-no">05</span></div>
   <h2 class="reveal">Räknat på <em class="acc">riktiga resultat</em></h2>
-  <p class="case-intro reveal">JBJ Clothing — fyra creator-videos, en höstkampanj.</p>
-  <div class="case-nums">
-    <div class="cn-row reveal"><b class="case-num" data-cn="968800" data-suf="">968 800</b><span>organiska visningar</span></div>
-    <div class="cn-row reveal" style="transition-delay:.08s"><b class="case-num" data-cn="8.8" data-dec="1" data-suf=" %">8,8 %</b><span>engagemang — mot 4–5 % branschsnitt</span></div>
-    <div class="cn-row reveal" style="transition-delay:.16s"><b class="case-num">5–10×</b><span>lägre kostnad per visning än köpt räckvidd</span></div>
+
+  <div class="case-item">
+    <p class="case-intro reveal">JBJ Clothing — fyra creator-videos, en höstkampanj.</p>
+    <div class="case-nums">
+      <div class="cn-row reveal"><b class="case-num" data-cn="968800" data-suf="">968 800</b><span>organiska visningar</span></div>
+      <div class="cn-row reveal" style="transition-delay:.08s"><b class="case-num" data-cn="8.8" data-dec="1" data-suf=" %">8,8 %</b><span>engagemang — mot 4–5 % branschsnitt</span></div>
+      <div class="cn-row reveal" style="transition-delay:.16s"><b class="case-num">5–10×</b><span>lägre kostnad per visning än köpt räckvidd</span></div>
+    </div>
+    <p class="case-line reveal">Samma räckvidd köpt som annons hade kostat mångdubbelt — och en rekommendation från en creator väger tyngre än en banner. Innehållet ägs dessutom vidare och kan förstärkas som Spark Ads i efterhand.</p>
   </div>
-  <p class="case-line reveal">Samma räckvidd köpt som annons hade kostat mångdubbelt — och en rekommendation från en creator väger tyngre än en banner. Innehållet ägs dessutom vidare och kan förstärkas som Spark Ads i efterhand.</p>
-  <p class="case-note reveal">Jämförelsen utgår från publicerade CPM-nivåer för TikTok-annonsering 2026 (ca 4–13 USD per 1 000 visningar). Engagemangssnittet avser sponsrat innehåll på plattformen.</p>
+
+  <div class="case-item">
+    <p class="case-intro reveal">The Perfume Brand — produktsamarbete, ingen kronersättning.</p>
+    <div class="case-nums">
+      <div class="cn-row reveal"><b class="case-num" data-cn="108617" data-suf="">108 617</b><span>visningar</span></div>
+      <div class="cn-row reveal" style="transition-delay:.08s"><b class="case-num" data-cn="7.5" data-dec="1" data-suf=" %">7,5 %</b><span>likes i förhållande till visningar</span></div>
+      <div class="cn-row reveal" style="transition-delay:.16s"><b class="case-num">0 kr</b><span>i kreatörsersättning</span></div>
+    </div>
+    <p class="case-line reveal">Kreatörerna fick parfym i stället för arvode. Varumärkets enda kostnad var produkterna de ändå tillverkar — och fyra publicerade videor gav över hundra tusen visningar. Upplägget passar när produkten i sig är attraktiv nog att bära samarbetet.</p>
+  </div>
+
+  <p class="case-note reveal">JBJ-jämförelsen utgår från publicerade CPM-nivåer för TikTok-annonsering 2026 (ca 4–13 USD per 1 000 visningar); engagemangssnittet avser sponsrat innehåll på plattformen. Perfume Brand-siffrorna avser de fyra publicerade videor vi kan belägga i efterhand, mätta direkt på TikTok — likes i förhållande till visningar redovisas separat eftersom vi inte har kommentarer och delningar för den kampanjen.</p>
   <div class="reveal"><a class="book js-book" href="https://calendar.app.google/8vFghCDtFN2itfJU8" target="_blank" rel="noopener">Vi gör samma sak för er →</a></div>
 </section>
 
