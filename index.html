@@ -1279,17 +1279,32 @@ const fmtViews = n => n >= 1e6 ? (Math.round(n/1e5)/10).toLocaleString('sv-SE') 
 function kmAlloc(n, focus){
   n = Math.min(n, KM_MAX);
   const counts = TIERS.map(()=>0), caps = TIERS.map(t=>t.max);
-  if (focus === 'topp' || focus === 'micro') {
-    const order = focus === 'topp' ? [0,1,2,3,4] : [4,3,2,1,0];
-    let left = n;
-    for (const i of order) { const take = Math.min(left, caps[i]); counts[i] = take; left -= take; }
+  /* Störst och Topp är alltid med — ett stort namn bär kampanjen och
+     ger den räckvidd per video som mindre konton inte når. */
+  if (n >= 1) counts[0] = 1;
+  if (n >= 2) counts[1] = 1;
+  let left = n - counts.reduce((a,b)=>a+b,0);
+  const order = focus === 'micro' ? [4,3,2,1,0]
+              : focus === 'topp'  ? [0,1,2,3,4]
+              : [2,1,3,0,4];
+  if (focus === 'micro' || focus === 'topp') {
+    /* fyller klass för klass i vald riktning */
+    for (const i of order) { const take = Math.min(left, caps[i] - counts[i]); counts[i] += take; left -= take; }
     return counts;
   }
   /* bred: viktad fördelning, cappad mot vad som faktiskt finns i varje tier */
-  const w = MIX.bred;
-  w.forEach((x,i)=>{ counts[i] = Math.min(Math.floor(x*n), caps[i]); });
-  let left = n - counts.reduce((a,b)=>a+b,0);
-  for (const i of [2,1,3,0,4]) { while (left > 0 && counts[i] < caps[i]) { counts[i]++; left--; } }
+  MIX.bred.forEach((x,i)=>{ counts[i] += Math.min(Math.floor(x * left), caps[i] - counts[i]); });
+  left = n - counts.reduce((a,b)=>a+b,0);
+  /* resten varvtals, så mixen håller sig bred i stället för att stapla en klass */
+  let guard = 0;
+  while (left > 0 && guard++ < 200) {
+    let placed = false;
+    for (const i of order) {
+      if (left <= 0) break;
+      if (counts[i] < caps[i]) { counts[i]++; left--; placed = true; }
+    }
+    if (!placed) break;
+  }
   return counts;
 }
 /* rabatten växer med antalet videos — max 18 % vid hela nätverket, 1 video var (26 videos) */
