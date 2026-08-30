@@ -186,7 +186,7 @@ h1 em{{font-family:"Instrument Serif",Georgia,serif;font-style:italic;text-trans
 h2{{font-family:var(--black);font-weight:400;font-size:clamp(20px,3.2vw,32px);text-transform:uppercase;margin:clamp(34px,5vw,54px) 0 8px}}
 h2 em{{font-family:"Instrument Serif",Georgia,serif;font-style:italic;text-transform:none;color:var(--pink);font-size:1.06em}}
 .intro{{color:rgba(255,255,255,.72);font-weight:500;margin-bottom:20px;max-width:660px}}
-.scroller{{overflow-x:auto}}
+.scroller{{overflow-x:auto;position:relative}}
 table{{width:100%;border-collapse:collapse;min-width:480px;margin-bottom:8px}}
 th,td{{text-align:left;padding:14px 12px;border-bottom:1px solid rgba(231,153,156,.16);font-size:15px;vertical-align:top}}
 thead th{{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5);border-bottom-color:rgba(231,153,156,.35)}}
@@ -213,6 +213,14 @@ text-decoration:none;transition:transform .35s var(--ease)}}
 .foot{{margin-top:clamp(48px,8vw,78px);padding-top:22px;border-top:1px solid rgba(231,153,156,.18);
 display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}}
 .foot span,.foot a{{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.4)}}
+@media (max-width:640px){{
+  /* "I nätverket" är sekundär info — vi fäller in den så tabellen ryms utan svep */
+  table{{min-width:0}}
+  table th:nth-child(4),table td:nth-child(4){{display:none}}
+  th,td{{padding:12px 8px;font-size:14px}}
+  thead th{{font-size:9px;letter-spacing:.06em}}
+  tbody th{{font-size:14.5px}}
+}}
 @media (prefers-reduced-motion:reduce){{*{{transition:none!important}}}}
 </style>
 </head>
