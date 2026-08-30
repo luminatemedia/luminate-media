@@ -766,7 +766,10 @@ body.bm-open{overflow:hidden}
 }
 .km-budget-input::placeholder{color:rgba(255,255,255,.35)}
 .km-budget-input:focus{border-color:var(--pink)}
+.km-two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:560px){.km-two{grid-template-columns:1fr}}
 .km-periods{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.km-periods[hidden]{display:none}
 .km-periods button{
   flex:1;min-width:88px;padding:11px 8px;
   background:rgba(255,255,255,.05);border:1px solid rgba(231,153,156,.28);border-radius:999px;
@@ -1461,10 +1464,17 @@ body.bm-open{overflow:hidden}
           <p class="km-hint" id="km-rights-hint">Videon publiceras i kreatörens egna kanaler. Ni kan köpa Spark Ads i efterhand — ni har 14 dagar från publicering på er att bestämma, med de organiska siffrorna framför er.</p>
         </div>
 
-        <div class="km-field">
-          <label class="f-label" for="km-budget">Budget i kr — valfritt, vi anpassar förslaget</label>
-          <input class="km-budget-input" type="text" inputmode="numeric" id="km-budget" placeholder="t.ex. 50 000">
+        <div class="km-field km-two">
+          <div>
+            <label class="f-label" for="km-goal">Önskade visningar — valfritt</label>
+            <input class="km-budget-input" type="text" inputmode="numeric" id="km-goal" placeholder="t.ex. 500 000">
+          </div>
+          <div>
+            <label class="f-label" for="km-budget">Budget i kr — valfritt</label>
+            <input class="km-budget-input" type="text" inputmode="numeric" id="km-budget" placeholder="t.ex. 50 000">
+          </div>
         </div>
+        <p class="km-hint">Fyll i det ni utgår från — ett räckviddsmål, en budget, eller inget alls och styr antalet kreatörer själva. Vi räknar fram resten.</p>
 
         <button type="button" class="book km-generate" id="km-generate">Skapa förslag ✦</button>
       </div>
@@ -1674,6 +1684,7 @@ function kmRender(st){
     st.counts.map((c,i)=>c?`${c} × ${TIERS[i].label} (${TIERS[i].range})`:'').filter(Boolean).join('\n') +
     `\n${KM_FREE.count} × mindre kreatörer på köpet\n${(st.n+KM_FREE.count)*st.v} videos totalt` +
     `\nRättigheter: ${st.spark ? 'Spark Ads ' + SPARK[st.period].label : 'Bara organiskt'}` +
+    `\nEstimerad räckvidd: ${fmtViews(st.views)} visningar` +
     `\nEstimat: ${fmtKr(st.final)} (efter ${st.disc} % volymrabatt)\n\nFöretag:\nKontaktperson:\nTelefon:`;
   document.getElementById('km-mail').href = 'mailto:hello@luminatemedia.se?subject=' +
     encodeURIComponent('Kampanjförslag från hemsidan') + '&body=' + encodeURIComponent(mailBody);
@@ -1729,18 +1740,49 @@ document.querySelectorAll('#km-periods button').forEach(b => b.addEventListener(
 document.getElementById('km-generate').addEventListener('click', () => {
   let n = +document.getElementById('km-count').value;
   const budget = parseInt((document.getElementById('km-budget').value || '').replace(/\D/g,''), 10);
+  const goal = parseInt((document.getElementById('km-goal').value || '').replace(/\D/g,''), 10);
   const adapt = document.getElementById('km-adapt');
   adapt.hidden = true;
-  if (budget && budget >= 2000) {
-    let best = 1;
-    for (let i = 1; i <= 26; i++) { if (kmCalc(i, kmVideos, kmFocus, kmRights, kmPeriod).final <= budget) best = i; }
-    if (best !== n) {
-      n = best;
-      document.getElementById('km-count').value = n;
-      document.getElementById('km-count-out').textContent = n;
-      adapt.textContent = '✦ Anpassat till er budget på ' + fmtKr(budget) + ' — ' + n + ' kreatörer ryms.';
-      adapt.hidden = false;
+  const notes = [];
+
+  /* räckviddsmålet styr i första hand: minsta uppsättning som når dit */
+  let needed = null;
+  if (goal && goal >= 1000) {
+    needed = null;
+    for (let i = 1; i <= 26; i++) {
+      if (kmCalc(i, kmVideos, kmFocus, kmRights, kmPeriod).views >= goal) { needed = i; break; }
     }
+    if (needed === null) {
+      n = 26;
+      notes.push('Hela nätverket ger ' + fmtViews(kmCalc(26, kmVideos, kmFocus, kmRights, kmPeriod).views) +
+                 ' estimerade visningar — för ' + fmtViews(goal) + ' behövs två videor per kreatör eller Spark Ads ovanpå.');
+    } else {
+      n = needed;
+      notes.push('För ' + fmtViews(goal) + ' visningar räcker ' + n + ' kreatör' + (n > 1 ? 'er' : '') + '.');
+    }
+  }
+
+  /* budgeten sätter taket */
+  if (budget && budget >= 2000) {
+    let fits = 0;
+    for (let i = 1; i <= 26; i++) { if (kmCalc(i, kmVideos, kmFocus, kmRights, kmPeriod).final <= budget) fits = i; }
+    if (!fits) {
+      notes.push('Budgeten räcker inte till en hel kreatör i det här upplägget — hör av er så löser vi något.');
+    } else if (needed !== null && fits < needed) {
+      n = fits;
+      notes.push('Budgeten på ' + fmtKr(budget) + ' räcker till ' + fits + ' av dem — förslaget nedan är vad som ryms.');
+    } else if (needed === null) {
+      n = fits;
+      notes.push('Anpassat till er budget på ' + fmtKr(budget) + ' — ' + fits + ' kreatörer ryms.');
+    }
+  }
+
+  if (notes.length) {
+    n = Math.max(1, Math.min(26, n));
+    document.getElementById('km-count').value = n;
+    document.getElementById('km-count-out').textContent = n;
+    adapt.textContent = '✦ ' + notes.join(' ');
+    adapt.hidden = false;
   }
   kmRender(kmCalc(n, kmVideos, kmFocus, kmRights, kmPeriod));
   if (reduced) { kmShow('km-step2'); return; }
