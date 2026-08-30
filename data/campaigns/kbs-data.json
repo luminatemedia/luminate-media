@@ -1,6 +1,6 @@
 {
  "slug": "kbs",
- "updated": "2026-08-29T11:22:15Z",
+ "updated": "2026-08-30T10:07:58Z",
  "videos": {},
  "history": [
   {
@@ -10,6 +10,11 @@
   },
   {
    "date": "2026-08-29",
+   "videos": 0,
+   "views": 0
+  },
+  {
+   "date": "2026-08-30",
    "videos": 0,
    "views": 0
   }
