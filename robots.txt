@@ -3,4 +3,4 @@ Allow: /
 Disallow: /boka.html
 Disallow: /rapport-
 
-Sitemap: https://luminatemedia.se/sitemap.xml
+Sitemap: https://www.luminatemedia.se/sitemap.xml

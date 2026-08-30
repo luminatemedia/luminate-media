@@ -116,7 +116,7 @@ schema = [
                   "acceptedAnswer": {"@type": "Answer", "text": strip(a)}} for q, a in FAQ]},
  {"@context": "https://schema.org", "@type": "Service",
   "name": "Creator marketing på TikTok", "serviceType": "Influencer marketing",
-  "provider": {"@type": "ProfessionalService", "name": "Luminate Media", "@id": "https://luminatemedia.se/#org"},
+  "provider": {"@type": "ProfessionalService", "name": "Luminate Media", "@id": "https://www.luminatemedia.se/#org"},
   "areaServed": {"@type": "Country", "name": "Sverige"},
   "offers": [{"@type": "Offer", "name": f'{t["label"]} — {t["range"]}',
               "price": t["price"], "priceCurrency": "SEK",
@@ -124,8 +124,8 @@ schema = [
              for t in TIERS]},
  {"@context": "https://schema.org", "@type": "BreadcrumbList",
   "itemListElement": [
-   {"@type": "ListItem", "position": 1, "name": "Luminate Media", "item": "https://luminatemedia.se/"},
-   {"@type": "ListItem", "position": 2, "name": "Priser", "item": "https://luminatemedia.se/priser.html"}]},
+   {"@type": "ListItem", "position": 1, "name": "Luminate Media", "item": "https://www.luminatemedia.se/"},
+   {"@type": "ListItem", "position": 2, "name": "Priser", "item": "https://www.luminatemedia.se/priser.html"}]},
 ]
 schema_html = "\n".join('<script type="application/ld+json">\n' + json.dumps(s, ensure_ascii=False, indent=1) + '\n</script>' for s in schema)
 
@@ -149,13 +149,13 @@ html = f'''<!DOCTYPE html>
 <link rel="apple-touch-icon" href="/assets/luminate-icon-180.png">
 <title>Vad kostar influencer marketing i Sverige? Priser 2026 — Luminate Media</title>
 <meta name="description" content="En creator-video kostar {kr(cheapest)}–{kr(priciest)} beroende på räckvidd, och priset sjunker med upp till {LADDER[0][1]} % vid fler videor. Hela prislistan öppet, med volymrabatt, Spark Ads-påslag och räkneexempel.">
-<link rel="canonical" href="https://luminatemedia.se/priser.html">
+<link rel="canonical" href="https://www.luminatemedia.se/priser.html">
 <meta name="theme-color" content="#2A1A1D">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://luminatemedia.se/priser.html">
+<meta property="og:url" content="https://www.luminatemedia.se/priser.html">
 <meta property="og:title" content="Vad kostar influencer marketing i Sverige?">
 <meta property="og:description" content="Hela prislistan öppet: {kr(cheapest)}–{kr(priciest)} per creator-video, volymrabatt upp till {LADDER[0][1]} % och Spark Ads-påslag.">
-<meta property="og:image" content="https://luminatemedia.se/assets/og-share.png">
+<meta property="og:image" content="https://www.luminatemedia.se/assets/og-share.png">
 <meta name="twitter:card" content="summary_large_image">
 {schema_html}
 <link rel="preconnect" href="https://fonts.googleapis.com">

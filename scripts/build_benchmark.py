@@ -71,10 +71,10 @@ html = f'''<!DOCTYPE html>
 <link rel="apple-touch-icon" href="/assets/luminate-icon-180.png">
 <meta name="theme-color" content="#2A1A1D">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://luminatemedia.se/benchmark.html">
+<meta property="og:url" content="https://www.luminatemedia.se/benchmark.html">
 <meta property="og:title" content="TikTok-benchmark: mode &amp; beauty i Sverige">
 <meta property="og:description" content="En video från ett toppkonto når {komma1(reach_x)}× så många som en video från ett mikrokonto — {sv(big["views"])} mot {sv(small["views"])} visningar. Mätt på {n_total} svenska kreatörer.">
-<meta property="og:image" content="https://luminatemedia.se/assets/og-share.png">
+<meta property="og:image" content="https://www.luminatemedia.se/assets/og-share.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
