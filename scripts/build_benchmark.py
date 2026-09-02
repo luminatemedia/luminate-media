@@ -69,6 +69,7 @@ html = f'''<!DOCTYPE html>
 <link rel="icon" type="image/png" href="/assets/luminate-icon-192.png" sizes="192x192">
 <link rel="icon" type="image/svg+xml" href="/assets/luminate-icon.svg">
 <link rel="apple-touch-icon" href="/assets/luminate-icon-180.png">
+<link rel="canonical" href="https://www.luminatemedia.se/benchmark.html">
 <meta name="theme-color" content="#2A1A1D">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.luminatemedia.se/benchmark.html">
@@ -90,10 +91,10 @@ a{{color:inherit}}
 ::selection{{background:var(--pink);color:var(--plum)}}
 .wrap{{max-width:940px;margin:0 auto;padding:clamp(26px,5vw,56px) var(--pad) 90px}}
 .top{{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:clamp(40px,7vw,72px)}}
-.brand{{display:flex;align-items:center;gap:12px;text-decoration:none}}
+.brand{{display:flex;align-items:center;gap:12px;text-decoration:none;min-height:44px}}
 .brand svg{{width:30px;height:auto;color:var(--pink)}}
 .brand b{{font-family:var(--black);font-weight:400;font-size:14px;letter-spacing:.08em;text-transform:uppercase}}
-.back{{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6);text-decoration:none}}
+.back{{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6);text-decoration:none;display:inline-flex;align-items:center;min-height:44px;padding:0 4px}}
 .back:hover{{color:var(--pink)}}
 .label{{display:block;font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:rgba(231,153,156,.9);margin-bottom:14px}}
 h1{{font-family:var(--black);font-weight:400;font-size:clamp(30px,6.2vw,66px);line-height:1.04;text-transform:uppercase;margin-bottom:18px}}
