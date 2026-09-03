@@ -235,6 +235,7 @@
   --plum:   #2A1A1D;
   --plum-2: #211316;
   --plum-3: #180D10;
+  --ink:    #5C2836;
   --accent: #7E3D4E;
   --rose:   #B05661;
   --sand:   #F2E4D8;
@@ -273,7 +274,7 @@ body::after{
 
 .label{
   font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
-  color:var(--accent);
+  color:var(--ink);
 }
 
 .vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
@@ -389,7 +390,7 @@ nav.scrolled{
 }
 .hero-scroll{
   display:flex;align-items:center;gap:10px;
-  font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--accent);
+  font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--ink);
 }
 .hero-scroll i{
   font-style:normal;display:inline-block;animation:bob 1.8s var(--ease) infinite;
@@ -426,6 +427,7 @@ nav.scrolled{
   top:-30%;right:-20%;pointer-events:none;
 }
 .stats .label{display:block;margin-bottom:14px;color:rgba(231,153,156,.9)}
+.case .label{color:rgba(231,153,156,.9)}
 .stats h2{
   font-family:var(--black);font-size:clamp(30px,5.6vw,72px);
   text-transform:uppercase;line-height:1.05;margin-bottom:clamp(40px,6vw,80px);
@@ -492,7 +494,7 @@ nav.scrolled{
   transition:color .3s var(--ease), transform .45s var(--ease);
 }
 .svc-btn .num{
-  flex:none;font-size:clamp(12px,1.4vw,16px);color:var(--accent);
+  flex:none;font-size:clamp(12px,1.4vw,16px);color:var(--ink);
   letter-spacing:.1em;transform:translateY(-.35em);
 }
 .svc-btn .t{flex:1}
@@ -517,7 +519,7 @@ nav.scrolled{
 .sub-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(24px,4vw,56px)}
 @media (max-width:720px){.sub-grid{grid-template-columns:1fr}}
 .sub{border-top:1px solid rgba(255,255,255,.28);padding:20px 0}
-.sub .label{display:block;margin-bottom:8px;color:var(--accent)}
+.sub .label{display:block;margin-bottom:8px;color:var(--ink)}
 .sub p{font-size:15.5px;font-weight:500;line-height:1.7}
 .svc-body .book{margin-top:30px}
 
@@ -602,7 +604,7 @@ nav.scrolled{
 .member:first-of-type{border-top:1px solid rgba(255,255,255,.28)}
 .member:hover{transform:translateX(12px)}
 .member:hover .m-name{color:var(--accent)}
-.m-num{font-family:var(--black);font-size:15px;color:var(--accent)}
+.m-num{font-family:var(--black);font-size:15px;color:var(--ink)}
 .m-photo{
   width:clamp(56px,6vw,84px);height:clamp(56px,6vw,84px);
   border-radius:22%;
@@ -628,7 +630,7 @@ nav.scrolled{
 .m-name small{
   display:block;
   font-family:var(--sans);font-weight:500;text-transform:none;
-  font-size:clamp(13px,1.3vw,15px);color:var(--accent);
+  font-size:clamp(13px,1.3vw,15px);color:var(--ink);
   letter-spacing:.02em;margin-top:4px;
 }
 .m-mail{
@@ -994,10 +996,10 @@ body.bm-open{overflow:hidden}
 .sec-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.28);padding-top:16px;margin-bottom:14px}
 .creators .sec-row{border-top-color:rgba(42,26,29,.16)}
 .sec-row .label{margin-bottom:0}
-.sec-no{margin-left:auto;font-family:var(--black);font-size:12px;color:var(--accent);opacity:.9;letter-spacing:.1em}
+.sec-no{margin-left:auto;font-family:var(--black);font-size:12px;color:var(--ink);opacity:.9;letter-spacing:.1em}
 .stats .sec-no,.case .sec-no,.contact .sec-no{color:rgba(231,153,156,.75)}
 .track-note{font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4)}
-.hero-meta{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+.hero-meta{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink)}
 
 /* ---------- tillväxt ---------- */
 .chip-growth{background:var(--pink);color:var(--plum);border-color:var(--pink);font-family:var(--black);letter-spacing:.04em}
