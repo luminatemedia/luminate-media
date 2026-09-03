@@ -77,9 +77,10 @@ html = f'''<!DOCTYPE html>
 <meta property="og:description" content="En video från ett toppkonto når {komma1(reach_x)}× så många som en video från ett mikrokonto — {sv(big["views"])} mot {sv(small["views"])} visningar. Mätt på {n_total} svenska kreatörer.">
 <meta property="og:image" content="https://www.luminatemedia.se/assets/og-share.png">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Instrument+Serif:ital@1&family=Schibsted+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preload" href="/assets/fonts/archivo-black.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/schibsted-grotesk.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
 <style>
 :root{{--pink:#E7999C;--plum:#2A1A1D;--plum-2:#211316;--plum-3:#180D10;--white:#fff;
 --black:"Archivo Black","Arial Black",sans-serif;--sans:"Schibsted Grotesk","Helvetica Neue",sans-serif;
