@@ -9,6 +9,7 @@ Kors nattligen av .github/workflows/stats.yml.
 import datetime
 import json
 import pathlib
+import re
 import subprocess
 import sys
 import time
@@ -29,6 +30,12 @@ def list_videos(handle):
     return json.loads(p.stdout).get("entries", []) or []
 
 
+def video_id(v):
+    """'https://www.tiktok.com/@x/video/7412345678901234567?x=1' -> '7412345678901234567'."""
+    m = re.search(r"/video/(\d+)", str(v))
+    return m.group(1) if m else str(v).strip().split("?")[0]
+
+
 def run(cfg_path):
     cfg = json.loads(cfg_path.read_text())
     slug = cfg["slug"]
@@ -36,8 +43,9 @@ def run(cfg_path):
     data = json.loads(out.read_text()) if out.exists() else {"videos": {}, "history": []}
     videos = data.get("videos", {})
     words = [w.lower() for w in cfg.get("match", [])]
-    forced = set(str(v) for v in cfg.get("videos", []))
-    excluded = set(str(v) for v in cfg.get("exclude", []))
+    # "videos"/"exclude" i kampanjfilen far vara hela TikTok-lankar eller bara ID:n
+    forced = set(video_id(v) for v in cfg.get("videos", []))
+    excluded = set(video_id(v) for v in cfg.get("exclude", []))
 
     found = 0
     for c in cfg["creators"]:
