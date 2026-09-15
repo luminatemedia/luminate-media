@@ -3,18 +3,54 @@
  "client": "Kids Brand Store",
  "title": "Höstkampanj — period 1",
  "publish_from": "2026-09-08",
- "expected_videos": 8,
- "match": ["kids brand store", "kidsbrandstore", "kids brand", "#kbs", "kbs "],
- "creators": [
-  {"handle": "veira.larsson", "name": "Veira Larsson"},
-  {"handle": "filippaiwar2", "name": "Filippa Iwar"},
-  {"handle": "lunamaarkovic", "name": "Luna Markovic"},
-  {"handle": "ebbasimonsbacka", "name": "Ebba Simonsbacka"},
-  {"handle": "tildesundb", "name": "Tilde Sundberg"},
-  {"handle": "elsa41612", "name": "Elsa Grahn"},
-  {"handle": "mirandaomatilda_westerbe", "name": "Miranda & Matilda Westerberg"},
-  {"handle": "juliaberglunnd", "name": "Julia Berglund"}
+ "expected_videos": 7,
+ "match": [
+  "kids brand store",
+  "kidsbrandstore",
+  "kids brand",
+  "#kbs",
+  "kbs "
  ],
- "videos": [],
- "exclude": []
+ "creators": [
+  {
+   "handle": "veira.larsson",
+   "name": "Veira Larsson"
+  },
+  {
+   "handle": "filippaiwar2",
+   "name": "Filippa Iwar"
+  },
+  {
+   "handle": "lunamaarkovic",
+   "name": "Luna Markovic"
+  },
+  {
+   "handle": "ebbasimonsbacka",
+   "name": "Ebba Simonsbacka"
+  },
+  {
+   "handle": "tildesundb",
+   "name": "Tilde Sundberg"
+  },
+  {
+   "handle": "elsa41612",
+   "name": "Elsa Grahn"
+  },
+  {
+   "handle": "mirandaomatilda_westerbe",
+   "name": "Miranda & Matilda Westerberg"
+  },
+  {
+   "handle": "juliaberglunnd",
+   "name": "Julia Berglund"
+  }
+ ],
+ "videos": [
+  "https://www.tiktok.com/@ebbasimonsbacka/video/7685375918554058006",
+  "https://www.tiktok.com/@mirandaomatilda_westerbe/video/7685406230151466262",
+  "https://www.tiktok.com/@tildesundb/video/7685406038752906518",
+  "https://www.tiktok.com/@elsa41612/video/7685417731180498198"
+ ],
+ "exclude": [],
+ "note": "Veira Larssons period 1 utgar enligt besked fran KBS 14 sep 2026. Lagg in nya videolankar under 'videos' sa fort de publiceras, sa slipper roboten forlita sig pa bildtextmatchning."
 }

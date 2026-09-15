@@ -1,7 +1,40 @@
 {
  "slug": "kbs",
- "updated": "2026-09-13T09:44:56Z",
- "videos": {},
+ "updated": "2026-09-15T10:05:00Z",
+ "videos": {
+  "7685375918554058006": {
+   "handle": "ebbasimonsbacka",
+   "name": "Ebba Simonsbacka",
+   "caption": "Reklam för Kids Brand Store 💗 Vems outfit tyckte ni blev bäst??!🥰 @kidsbrandstore #kidsbrandstore ",
+   "views": 36200,
+   "url": "https://www.tiktok.com/@ebbasimonsbacka/video/7685375918554058006",
+   "first_seen": "2026-09-14"
+  },
+  "7685406230151466262": {
+   "handle": "mirandaomatilda_westerbe",
+   "name": "Miranda & Matilda Westerberg",
+   "caption": "Reklam för Kids Brand Store @kidsbrandstore #kidsbrandstore #foryou #twins #outfitinspo ",
+   "views": 9661,
+   "url": "https://www.tiktok.com/@mirandaomatilda_westerbe/video/7685406230151466262",
+   "first_seen": "2026-09-14"
+  },
+  "7685406038752906518": {
+   "handle": "tildesundb",
+   "name": "Tilde Sundberg",
+   "caption": "@kidsbrandstore ",
+   "views": 34700,
+   "url": "https://www.tiktok.com/@tildesundb/video/7685406038752906518",
+   "first_seen": "2026-09-14"
+  },
+  "7685417731180498198": {
+   "handle": "elsa41612",
+   "name": "Elsa Grahn",
+   "caption": "Vems styling tyckte ni blev bäst?? Kolla tildes tiktok för att kolla när jag blev stylad! #reklam för Kids Brand Store",
+   "views": 16600,
+   "url": "https://www.tiktok.com/@elsa41612/video/7685417731180498198",
+   "first_seen": "2026-09-14"
+  }
+ },
  "history": [
   {
    "date": "2026-08-28",
@@ -87,6 +120,16 @@
    "date": "2026-09-13",
    "videos": 0,
    "views": 0
+  },
+  {
+   "date": "2026-09-14",
+   "videos": 4,
+   "views": 0
+  },
+  {
+   "date": "2026-09-15",
+   "videos": 4,
+   "views": 97161
   }
  ]
 }
