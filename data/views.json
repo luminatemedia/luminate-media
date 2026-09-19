@@ -1,177 +1,177 @@
 {
- "updated": "2026-09-18T09:09:37Z",
+ "updated": "2026-09-19T08:57:07Z",
  "method": "snitt over senaste 20 videos per kreator",
  "fetched_ok": 33,
  "totals": {
   "creators": 33,
-  "avg_views": 47543,
-  "median_views": 30707,
-  "sum_avg_views": 1568944
+  "avg_views": 46353,
+  "median_views": 29518,
+  "sum_avg_views": 1529649
  },
  "creators": {
   "aotterud": {
-   "avg": 76822,
-   "median": 48600,
+   "avg": 77625,
+   "median": 48800,
    "n": 20
   },
   "michel1egrwm": {
-   "avg": 121155,
-   "median": 39150,
+   "avg": 69415,
+   "median": 35850,
    "n": 20
   },
   "veira.larsson": {
-   "avg": 81350,
-   "median": 62600,
+   "avg": 81650,
+   "median": 62800,
    "n": 20
   },
   "lovisa.haeger": {
-   "avg": 20604,
-   "median": 13650,
+   "avg": 20928,
+   "median": 14000,
    "n": 20
   },
   "electrakarlsson200": {
-   "avg": 65495,
-   "median": 40300,
+   "avg": 81720,
+   "median": 52200,
    "n": 20
   },
   "tildesundb": {
-   "avg": 30707,
-   "median": 23550,
+   "avg": 31569,
+   "median": 24000,
    "n": 20
   },
   "vildavilma2": {
-   "avg": 28175,
-   "median": 21100,
+   "avg": 26999,
+   "median": 20400,
    "n": 20
   },
   "elsa41612": {
-   "avg": 55740,
-   "median": 51350,
+   "avg": 56135,
+   "median": 51450,
    "n": 20
   },
   "amandasundiin": {
-   "avg": 122060,
-   "median": 13600,
+   "avg": 123756,
+   "median": 13700,
    "n": 20
   },
   "mirandaomatilda_westerbe": {
-   "avg": 29277,
-   "median": 15900,
+   "avg": 29409,
+   "median": 16000,
    "n": 20
   },
   "bellawesterfelt": {
-   "avg": 29279,
-   "median": 22150,
+   "avg": 29518,
+   "median": 22350,
    "n": 20
   },
   "coolneliaaa": {
-   "avg": 98903,
-   "median": 63000,
+   "avg": 98680,
+   "median": 61250,
    "n": 20
   },
   "juliaberglunnd": {
-   "avg": 24038,
+   "avg": 24115,
    "median": 21900,
    "n": 20
   },
   "filippaiwar2": {
-   "avg": 71585,
-   "median": 33950,
+   "avg": 72270,
+   "median": 34200,
    "n": 20
   },
   "ellaaxman": {
-   "avg": 134105,
-   "median": 51150,
+   "avg": 136055,
+   "median": 51850,
    "n": 20
   },
   "lunamaarkovic": {
-   "avg": 44346,
-   "median": 23750,
+   "avg": 43545,
+   "median": 19650,
    "n": 20
   },
   "ebbasimonsbacka": {
-   "avg": 117615,
-   "median": 68250,
+   "avg": 120370,
+   "median": 72850,
    "n": 20
   },
   "jessprivatastory": {
-   "avg": 14380,
-   "median": 7011,
+   "avg": 14329,
+   "median": 6398,
    "n": 20
   },
   "jacquelineekenstedt": {
-   "avg": 21655,
-   "median": 6837,
+   "avg": 21697,
+   "median": 6882,
    "n": 20
   },
   "astridholmstromming": {
-   "avg": 20191,
-   "median": 14600,
+   "avg": 20283,
+   "median": 14900,
    "n": 20
   },
   "linneafknahlqvist": {
-   "avg": 3833,
-   "median": 2363,
+   "avg": 4027,
+   "median": 2392,
    "n": 20
   },
   "nezzysf": {
-   "avg": 36571,
-   "median": 18600,
+   "avg": 36931,
+   "median": 18650,
    "n": 20
   },
   "svea.engstrom": {
-   "avg": 40345,
-   "median": 17300,
+   "avg": 40454,
+   "median": 17350,
    "n": 20
   },
   "shoppargalet": {
-   "avg": 87767,
-   "median": 26550,
+   "avg": 86559,
+   "median": 23150,
    "n": 20
   },
   "ellenkb": {
-   "avg": 13753,
-   "median": 10272,
+   "avg": 15875,
+   "median": 11400,
    "n": 20
   },
   "alice.almm": {
-   "avg": 6261,
-   "median": 3887,
+   "avg": 5779,
+   "median": 3935,
    "n": 20
   },
   "norvellan": {
-   "avg": 18791,
-   "median": 7553,
+   "avg": 18969,
+   "median": 7100,
    "n": 20
   },
   "diihhva": {
-   "avg": 12855,
-   "median": 7279,
+   "avg": 12960,
+   "median": 7351,
    "n": 20
   },
   "minoue.ranta": {
-   "avg": 2511,
-   "median": 2391,
+   "avg": 2552,
+   "median": 2407,
    "n": 20
   },
   "superhemligtmg": {
-   "avg": 35144,
-   "median": 14150,
+   "avg": 20618,
+   "median": 12100,
    "n": 20
   },
   "emmalisenz": {
-   "avg": 19013,
-   "median": 19550,
+   "avg": 19167,
+   "median": 19700,
    "n": 20
   },
   "leabelge_": {
-   "avg": 62483,
-   "median": 34050,
+   "avg": 62950,
+   "median": 34150,
    "n": 20
   },
   "isabellamensahh": {
-   "avg": 22135,
-   "median": 6503,
+   "avg": 22740,
+   "median": 6797,
    "n": 20
   }
  }
