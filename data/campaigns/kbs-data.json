@@ -1,12 +1,12 @@
 {
  "slug": "kbs",
- "updated": "2026-09-19T08:59:47Z",
+ "updated": "2026-09-20T09:28:48Z",
  "videos": {
   "7685375918554058006": {
    "handle": "ebbasimonsbacka",
    "name": "Ebba Simonsbacka",
    "caption": "Reklam för Kids Brand Store 💗 Vems outfit tyckte ni blev bäst??!🥰 @ki...",
-   "views": 48500,
+   "views": 49200,
    "url": "https://www.tiktok.com/@ebbasimonsbacka/video/7685375918554058006",
    "first_seen": "2026-09-14"
   },
@@ -14,7 +14,7 @@
    "handle": "mirandaomatilda_westerbe",
    "name": "Miranda & Matilda Westerberg",
    "caption": "Reklam för Kids Brand Store @kidsbrandstore #kidsbrandstore #foryou #...",
-   "views": 13300,
+   "views": 13700,
    "url": "https://www.tiktok.com/@mirandaomatilda_westerbe/video/7685406230151466262",
    "first_seen": "2026-09-14"
   },
@@ -22,7 +22,7 @@
    "handle": "tildesundb",
    "name": "Tilde Sundberg",
    "caption": "@kidsbrandstore ",
-   "views": 44700,
+   "views": 45500,
    "url": "https://www.tiktok.com/@tildesundb/video/7685406038752906518",
    "first_seen": "2026-09-14"
   },
@@ -30,7 +30,7 @@
    "handle": "elsa41612",
    "name": "Elsa Grahn",
    "caption": "Vems styling tyckte ni blev bäst?? Kolla tildes tiktok för att kolla ...",
-   "views": 29300,
+   "views": 37200,
    "url": "https://www.tiktok.com/@elsa41612/video/7685417731180498198",
    "first_seen": "2026-09-14"
   },
@@ -38,7 +38,7 @@
    "handle": "filippaiwar2",
    "name": "Filippa Iwar",
    "caption": "Reklam för Kids Brand Store @kidsbrandstore #kidsbrandstore #outfitin...",
-   "views": 24300,
+   "views": 27400,
    "url": "https://www.tiktok.com/@filippaiwar2/video/7686520713120926998",
    "first_seen": "2026-09-18"
   },
@@ -46,7 +46,7 @@
    "handle": "lunamaarkovic",
    "name": "Luna Markovic",
    "caption": "Reklam för Kids Brand Store #kidsbrandstore #outfitinspo @kidsbrandst...",
-   "views": 13800,
+   "views": 15300,
    "url": "https://www.tiktok.com/@lunamaarkovic/video/7686568475485113622",
    "first_seen": "2026-09-18"
   },
@@ -54,7 +54,7 @@
    "handle": "juliaberglunnd",
    "name": "Julia Berglund",
    "caption": "Reklam för Kids Brand Store @kidsbrandstore #kidsbrandstore #outfitin...",
-   "views": 3894,
+   "views": 4174,
    "url": "https://www.tiktok.com/@juliaberglunnd/video/7686498481736912150",
    "first_seen": "2026-09-18"
   }
@@ -174,6 +174,11 @@
    "date": "2026-09-19",
    "videos": 7,
    "views": 177794
+  },
+  {
+   "date": "2026-09-20",
+   "videos": 7,
+   "views": 192474
   }
  ]
 }
