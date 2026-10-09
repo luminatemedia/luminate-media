@@ -19,7 +19,7 @@ HANDLES = [
     "bellawesterfelt", "coolneliaaa", "juliaberglunnd", "filippaiwar2",
     "ellaaxman", "lunamaarkovic", "ebbasimonsbacka", "jessprivatastory",
     "jacquelineekenstedt", "astridholmstromming", "linneafknahlqvist",
-    "nezzysf", "svea.engstrom", "shoppargalet", "ellenkb", "alice.almm",
+    "nezzysf", "svea.engstrom", "shoppargalet", "alice.almm",
     "norvellan", "diihhva", "minoue.ranta", "tjejenshemlighet",
     "superhemligtmg", "emmalisenz", "leabelge_", "isabellamensahh",
 ]
