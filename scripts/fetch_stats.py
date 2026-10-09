@@ -15,7 +15,7 @@ import urllib.request
 HANDLES = [
     "aotterud", "michel1egrwm", "veira.larsson", "lovisa.haeger",
     "electrakarlsson200", "tildesundb", "vildavilma2",
-    "elsa41612", "amandasundiin", "mirandaomatilda_westerbe",
+    "elsa41612", "mirandaomatilda_westerbe",
     "bellawesterfelt", "coolneliaaa", "juliaberglunnd", "filippaiwar2",
     "ellaaxman", "lunamaarkovic", "ebbasimonsbacka", "jessprivatastory",
     "jacquelineekenstedt", "astridholmstromming", "linneafknahlqvist",
