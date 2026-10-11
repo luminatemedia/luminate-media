@@ -102,7 +102,7 @@ input.t:focus,textarea:focus,.chip:focus-visible,.pick:focus-visible,.send:focus
   <div id="form">
     <span class="label">Awaknd Group × Luminate</span>
     <h1>Välj era <em>kreatörer</em></h1>
-    <p class="sub">Välj märken och kryssa i de kreatörer ni vill köra en kampanj med. Ni får ett skriftligt förslag från oss inom tre arbetsdagar. Inget är bindande förrän ni har sagt ja till förslaget.</p>
+    <p class="sub">Välj märken och kryssa i de kreatörer ni vill köra en kampanj med. Ni får ett skriftligt förslag med exakt pris för just de kreatörerna inom tre arbetsdagar. Inget är bindande förrän ni har sagt ja till förslaget.</p>
 
     <section class="step">
       <h2><span class="n">1</span>Vilka märken?</h2>
@@ -136,13 +136,13 @@ input.t:focus,textarea:focus,.chip:focus-visible,.pick:focus-visible,.send:focus
       <p class="err" id="err" role="alert"></p>
     </section>
 
-    <p class="note">Följare och siffror avlästa på TikTok <span id="avlast"></span>. Median visningar och engagemang för de senaste 90 dagarna, samarbetsvideor borträknade. Pris enligt luminatemedia.se/priser, före volymrabatt och annonsrätt. Frågor: <a href="mailto:hello@luminatemedia.se">hello@luminatemedia.se</a></p>
+    <p class="note">Följare och siffror avlästa på TikTok <span id="avlast"></span>. Median visningar och engagemang för de senaste 90 dagarna, samarbetsvideor borträknade. Frågor: <a href="mailto:hello@luminatemedia.se">hello@luminatemedia.se</a></p>
   </div>
 
   <div class="done" id="done" tabindex="-1">
     <span class="label">Tack!</span>
     <h2>Vi har fått ert val</h2>
-    <p>Ni får ett skriftligt förslag från oss inom tre arbetsdagar.</p>
+    <p>Ni får ett skriftligt förslag med exakt pris inom tre arbetsdagar.</p>
     <ul id="doneList"></ul>
     <p>Vill ni ändra något går det bra att skicka in igen, eller svara på mejlet från oss.</p>
   </div>
@@ -202,7 +202,6 @@ function card(c) {
       el("div", {}, [el("b", { text: c.er }), el("span", { text: "engagemang" })]),
     ]),
     el("p", { class: "wh", text: c.what }),
-    el("div", { class: "pr", text: c.tier + " · " + c.price + " per video" }),
     el("button", { type: "button", class: "pick", "aria-pressed": on ? "true" : "false", text: on ? "✓ Vald" : "Välj " + c.name.split(" ")[0], onclick: () => {
       if (picked.has(c.handle)) picked.delete(c.handle); else { const s = new Set(); defaultFor(c.handle, s); picked.set(c.handle, s); }
       renderGroups(); update();
