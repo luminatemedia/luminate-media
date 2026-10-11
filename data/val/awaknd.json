@@ -1,0 +1,411 @@
+{
+ "kund": "awaknd",
+ "avlast": "11 okt 2026",
+ "marken": [
+  {
+   "id": "hismile",
+   "namn": "Hismile"
+  },
+  {
+   "id": "sundae",
+   "namn": "Sundae Body"
+  },
+  {
+   "id": "neqi",
+   "namn": "NEQI"
+  },
+  {
+   "id": "goddess",
+   "namn": "Goddess Maintenance Co."
+  }
+ ],
+ "grupper": [
+  {
+   "namn": "Hismile",
+   "sub": "GRWM, hauls och bred räckvidd",
+   "forslag": [
+    "hismile"
+   ],
+   "kreatorer": [
+    {
+     "handle": "michel1egrwm",
+     "name": "Michelle Sienkiewicz",
+     "what": "GRWM och hauls i hälften av sina videor.",
+     "followers": "209 400",
+     "median": "48 300",
+     "er": "8,8 %",
+     "tier": "Störst",
+     "price": "9 300 kr",
+     "bild": "/assets/creators/michel1egrwm.webp"
+    },
+    {
+     "handle": "lovisa.haeger",
+     "name": "Lovisa Haeger",
+     "what": "Hår och hauls, #hairtok. Starkt engagemang.",
+     "followers": "129 300",
+     "median": "20 000",
+     "er": "10,0 %",
+     "tier": "Topp",
+     "price": "6 800 kr",
+     "bild": "/assets/creators/lovisa.haeger.webp"
+    },
+    {
+     "handle": "veira.larsson",
+     "name": "Veira Larsson",
+     "what": "Stor och bred publik, nästan 145 000 följare.",
+     "followers": "144 800",
+     "median": "35 200",
+     "er": "6,5 %",
+     "tier": "Topp",
+     "price": "6 800 kr",
+     "bild": "/assets/creators/veira.larsson.webp"
+    },
+    {
+     "handle": "jessprivatastory",
+     "name": "Jessica Ngo",
+     "what": "Collective hauls och Vinted-hauls.",
+     "followers": "37 500",
+     "median": "13 000",
+     "er": "12,3 %",
+     "tier": "Mellan",
+     "price": "4 500 kr",
+     "bild": "/assets/creators/jessprivatastory.webp"
+    },
+    {
+     "handle": "shoppargalet",
+     "name": "Lea Arenklint",
+     "what": "Shoppinghauls är hela kontot.",
+     "followers": "18 100",
+     "median": "6 495",
+     "er": "7,3 %",
+     "tier": "Micro",
+     "price": "2 900 kr",
+     "bild": "/assets/creators/shoppargalet.webp"
+    },
+    {
+     "handle": "lunamaarkovic",
+     "name": "Luna Markovic",
+     "what": "Intervjuformat på stan. Känns inte som reklam.",
+     "followers": "43 500",
+     "median": "12 900",
+     "er": "4,1 %",
+     "tier": "Mellan",
+     "price": "4 500 kr",
+     "bild": "/assets/creators/lunamaarkovic.webp"
+    },
+    {
+     "handle": "mirandaomatilda_westerbe",
+     "name": "Miranda & Matilda Westerberg",
+     "what": "Tvillingar som delar på videon. Högst sparningar i vår senaste kampanj.",
+     "followers": "64 700",
+     "median": "12 750",
+     "er": "9,7 %",
+     "tier": "Stor",
+     "price": "6 100 kr",
+     "bild": "/assets/creators/mirandaomatilda_westerbe.webp"
+    },
+    {
+     "handle": "elissves",
+     "name": "Elina Vesterlund",
+     "what": "Smink och hauls, bland annat sminkrutiner.",
+     "followers": "6 269",
+     "median": "2 222",
+     "er": "7,9 %",
+     "tier": "Micro",
+     "price": "2 900 kr",
+     "bild": null
+    }
+   ]
+  },
+  {
+   "namn": "Goddess och NEQI",
+   "sub": "Hår, styling och skönhet",
+   "forslag": [
+    "goddess",
+    "neqi"
+   ],
+   "kreatorer": [
+    {
+     "handle": "tildesundb",
+     "name": "Tilde Sundberg",
+     "what": "Frisör i Stockholm. Möjlig ambassadör.",
+     "followers": "92 000",
+     "median": "33 950",
+     "er": "8,0 %",
+     "tier": "Topp",
+     "price": "6 800 kr",
+     "bild": "/assets/creators/tildesundb.webp"
+    },
+    {
+     "handle": "aotterud",
+     "name": "Alicia Otterud",
+     "what": "Hårtutorials, bland annat rollers (309 000 visningar).",
+     "followers": "261 100",
+     "median": "47 800",
+     "er": "10,0 %",
+     "tier": "Störst",
+     "price": "9 300 kr",
+     "bild": "/assets/creators/aotterud.webp"
+    },
+    {
+     "handle": "elsa41612",
+     "name": "Elsa Grahn",
+     "what": "Hårvideor och tutorials som når långt.",
+     "followers": "68 600",
+     "median": "50 900",
+     "er": "8,7 %",
+     "tier": "Stor",
+     "price": "6 100 kr",
+     "bild": "/assets/creators/elsa41612.webp"
+    },
+    {
+     "handle": "isabellamensahh",
+     "name": "Isabella Mensah",
+     "what": "Hår och blowouts, #hairtok.",
+     "followers": "31 100",
+     "median": "9 684",
+     "er": "10,9 %",
+     "tier": "Mellan",
+     "price": "4 500 kr",
+     "bild": "/assets/creators/isabellamensahh.webp"
+    },
+    {
+     "handle": "ellaaxman",
+     "name": "Ella Axman",
+     "what": "Hög räckvidd per video. Har hårinnehåll.",
+     "followers": "52 200",
+     "median": "85 100",
+     "er": "4,8 %",
+     "tier": "Mellan",
+     "price": "4 500 kr",
+     "bild": "/assets/creators/ellaaxman.webp"
+    },
+    {
+     "handle": "nezzysf",
+     "name": "Nea Thulin",
+     "what": "Smink, linser och hårinnehåll.",
+     "followers": "22 500",
+     "median": "7 112",
+     "er": "7,7 %",
+     "tier": "Mellan",
+     "price": "4 500 kr",
+     "bild": "/assets/creators/nezzysf.webp"
+    },
+    {
+     "handle": "ellenkb",
+     "name": "Ellen Kallebäck",
+     "what": "Hår, bland annat heatless curls varje kväll.",
+     "followers": "18 200",
+     "median": "13 350",
+     "er": "3,7 %",
+     "tier": "Micro",
+     "price": "2 900 kr",
+     "bild": null
+    },
+    {
+     "handle": "diihhva",
+     "name": "Stina Backenfall",
+     "what": "Smink och hår, GRWM.",
+     "followers": "6 204",
+     "median": "8 844",
+     "er": "8,2 %",
+     "tier": "Micro",
+     "price": "2 900 kr",
+     "bild": "/assets/creators/diihhva.webp"
+    },
+    {
+     "handle": "alice.almm",
+     "name": "Alice Alm",
+     "what": "GRWM, hudvård och #hairtok.",
+     "followers": "7 915",
+     "median": "4 765",
+     "er": "4,5 %",
+     "tier": "Micro",
+     "price": "2 900 kr",
+     "bild": "/assets/creators/alice.almm.webp"
+    },
+    {
+     "handle": "wilmasqvist",
+     "name": "Wilma Sjöqvist",
+     "what": "Hår (#hairtok) och outfits. Ny i nätverket.",
+     "followers": "28 800",
+     "median": "18 100",
+     "er": "8,6 %",
+     "tier": "Mellan",
+     "price": "4 500 kr",
+     "bild": null
+    }
+   ]
+  },
+  {
+   "namn": "Sundae Body",
+   "sub": "Livsstil, doft och bred publik",
+   "forslag": [
+    "sundae"
+   ],
+   "kreatorer": [
+    {
+     "handle": "coolneliaaa",
+     "name": "Cornelia Thoresson",
+     "what": "Högst medianvisningar per video i nätverket.",
+     "followers": "58 400",
+     "median": "98 600",
+     "er": "8,2 %",
+     "tier": "Mellan",
+     "price": "4 500 kr",
+     "bild": "/assets/creators/coolneliaaa.webp"
+    },
+    {
+     "handle": "filippaiwar2",
+     "name": "Filippa Iwar",
+     "what": "Nämner märken naturligt. Högst engagemang i vår senaste kampanj.",
+     "followers": "48 200",
+     "median": "34 100",
+     "er": "9,9 %",
+     "tier": "Mellan",
+     "price": "4 500 kr",
+     "bild": "/assets/creators/filippaiwar2.webp"
+    },
+    {
+     "handle": "bellawesterfelt",
+     "name": "Bella Westerfelt",
+     "what": "Jämn räckvidd, 61 300 följare.",
+     "followers": "61 300",
+     "median": "17 900",
+     "er": "4,7 %",
+     "tier": "Stor",
+     "price": "6 100 kr",
+     "bild": "/assets/creators/bellawesterfelt.webp"
+    },
+    {
+     "handle": "juliaberglunnd",
+     "name": "Julia Berglund",
+     "what": "Jämnast räckvidd i vår senaste kampanj.",
+     "followers": "46 300",
+     "median": "11 700",
+     "er": "6,1 %",
+     "tier": "Mellan",
+     "price": "4 500 kr",
+     "bild": "/assets/creators/juliaberglunnd.webp"
+    },
+    {
+     "handle": "leabelge_",
+     "name": "Lea Belge",
+     "what": "Hög räckvidd per video för sin storlek.",
+     "followers": "27 700",
+     "median": "30 900",
+     "er": "6,7 %",
+     "tier": "Mellan",
+     "price": "4 500 kr",
+     "bild": "/assets/creators/leabelge_.webp"
+    },
+    {
+     "handle": "astridholmstromming",
+     "name": "Astrid Holmström",
+     "what": "Vardagsklipp och hauls.",
+     "followers": "26 700",
+     "median": "24 500",
+     "er": "7,7 %",
+     "tier": "Mellan",
+     "price": "4 500 kr",
+     "bild": "/assets/creators/astridholmstromming.webp"
+    },
+    {
+     "handle": "svea.engstrom",
+     "name": "Svea Engström",
+     "what": "Livsstil, har gjort doftinnehåll.",
+     "followers": "18 300",
+     "median": "17 100",
+     "er": "10,0 %",
+     "tier": "Micro",
+     "price": "2 900 kr",
+     "bild": "/assets/creators/svea.engstrom.webp"
+    },
+    {
+     "handle": "norvellan",
+     "name": "Sigrid Norvell",
+     "what": "Postar ofta och växer.",
+     "followers": "13 300",
+     "median": "17 700",
+     "er": "9,6 %",
+     "tier": "Micro",
+     "price": "2 900 kr",
+     "bild": "/assets/creators/norvellan.webp"
+    },
+    {
+     "handle": "superhemligtmg",
+     "name": "Minja Gustafsson",
+     "what": "Stabil räckvidd över tid.",
+     "followers": "26 600",
+     "median": "15 700",
+     "er": "5,1 %",
+     "tier": "Mellan",
+     "price": "4 500 kr",
+     "bild": "/assets/creators/superhemligtmg.webp"
+    },
+    {
+     "handle": "jacquelineekenstedt",
+     "name": "Jacqueline Ekenstedt",
+     "what": "Skönhet, GRWM och hauls.",
+     "followers": "31 400",
+     "median": "7 356",
+     "er": "6,8 %",
+     "tier": "Mellan",
+     "price": "4 500 kr",
+     "bild": "/assets/creators/jacquelineekenstedt.webp"
+    }
+   ]
+  },
+  {
+   "namn": "Övriga i nätverket",
+   "sub": "Fler profiler att välja bland",
+   "forslag": [],
+   "kreatorer": [
+    {
+     "handle": "olivia3jonsson",
+     "name": "Olivia Jonsson",
+     "what": "Fotboll och sport. Mycket hög räckvidd per video.",
+     "followers": "75 200",
+     "median": "95 300",
+     "er": "5,3 %",
+     "tier": "Stor",
+     "price": "6 100 kr",
+     "bild": "/assets/creators/olivia3jonsson.webp"
+    },
+    {
+     "handle": "user126282815",
+     "name": "Julia Limpár",
+     "what": "Vardag, musik och vänner.",
+     "followers": "67 800",
+     "median": "9 189",
+     "er": "12,6 %",
+     "tier": "Stor",
+     "price": "6 100 kr",
+     "bild": null
+    },
+    {
+     "handle": "linneafknahlqvist",
+     "name": "Linnea Ahlqvist",
+     "what": "Vardagsklipp.",
+     "followers": "24 200",
+     "median": "2 394",
+     "er": "5,6 %",
+     "tier": "Mellan",
+     "price": "4 500 kr",
+     "bild": "/assets/creators/linneafknahlqvist.webp"
+    },
+    {
+     "handle": "minoue.ranta",
+     "name": "Minoue Ranta",
+     "what": "Trender, musik och outfits.",
+     "followers": "3 354",
+     "median": "2 636",
+     "er": "12,2 %",
+     "tier": "Micro",
+     "price": "2 900 kr",
+     "bild": "/assets/creators/minoue.ranta.webp"
+    }
+   ]
+  }
+ ]
+}
