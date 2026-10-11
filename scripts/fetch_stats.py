@@ -22,6 +22,7 @@ HANDLES = [
     "nezzysf", "svea.engstrom", "shoppargalet", "alice.almm",
     "norvellan", "diihhva", "minoue.ranta", "tjejenshemlighet",
     "superhemligtmg", "emmalisenz", "leabelge_", "isabellamensahh",
+    "olivia3jonsson",
 ]
 UA = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
