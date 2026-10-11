@@ -2,5 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /boka.html
 Disallow: /rapport-
+Disallow: /val-
+Disallow: /data/val/
 
 Sitemap: https://www.luminatemedia.se/sitemap.xml

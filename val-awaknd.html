@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Välj kreatörer · Awaknd Group × Luminate</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" href="/assets/luminate-icon-96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/assets/luminate-icon-192.png" sizes="192x192">
+<link rel="icon" type="image/svg+xml" href="/assets/luminate-icon.svg">
+<link rel="apple-touch-icon" href="/assets/luminate-icon-180.png">
+<meta name="theme-color" content="#2A1A1D">
+<link rel="preload" href="/assets/fonts/archivo-black.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/schibsted-grotesk.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Archivo Black';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/archivo-black.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Instrument Serif';font-style:italic;font-weight:400;font-display:swap;src:url(/assets/fonts/instrument-serif-italic.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Schibsted Grotesk';font-style:normal;font-weight:400 700;font-display:swap;src:url(/assets/fonts/schibsted-grotesk.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+</style>
+<style>
+:root{--pink:#E7999C;--plum:#2A1A1D;--plum-3:#180D10;--card:#241519;--line:rgba(231,153,156,.22);--white:#fff;
+--black:"Archivo Black","Arial Black",sans-serif;--sans:"Schibsted Grotesk","Helvetica Neue",sans-serif;
+--pad:clamp(16px,4.5vw,64px)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--sans);background:linear-gradient(180deg,var(--plum) 0%,var(--plum-3) 100%);background-attachment:fixed;
+color:var(--white);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh}
+a{color:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:clamp(26px,5vw,52px) var(--pad) 140px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:clamp(32px,6vw,56px)}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;min-height:44px}
+.brand svg{width:28px;height:auto;color:var(--pink)}
+.brand b{font-family:var(--black);font-weight:400;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.tag{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--pink);border:1px solid rgba(231,153,156,.45);padding:6px 13px;border-radius:999px}
+.label{display:block;font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:rgba(231,153,156,.9);margin-bottom:12px}
+h1{font-family:var(--black);font-weight:400;font-size:clamp(30px,6vw,60px);line-height:1.04;text-transform:uppercase;margin-bottom:14px}
+h1 em{font-family:"Instrument Serif",Georgia,serif;font-style:italic;text-transform:none;color:var(--pink);font-size:1.06em}
+.sub{color:rgba(255,255,255,.72);font-weight:500;max-width:640px;margin-bottom:clamp(32px,5vw,48px)}
+.step{margin-bottom:clamp(36px,6vw,56px)}
+h2{font-family:var(--black);font-weight:400;font-size:clamp(17px,2.4vw,24px);text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:12px}
+h2 .n{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--pink);color:var(--plum);font-size:14px;flex:none}
+.hint{color:rgba(255,255,255,.55);font-size:14px;margin-bottom:18px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{appearance:none;border:1px solid rgba(231,153,156,.5);background:transparent;color:var(--white);font:600 15px var(--sans);
+padding:11px 18px;border-radius:999px;cursor:pointer;min-height:44px;transition:background .15s,color .15s}
+.chip[aria-pressed="true"]{background:var(--pink);color:var(--plum);border-color:var(--pink)}
+.chip.sm{font-size:13px;padding:7px 12px;min-height:36px}
+.group{margin-top:30px}
+.group h3{font-family:var(--black);font-weight:400;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--pink)}
+.group p{font-size:13px;color:rgba(255,255,255,.5);margin-bottom:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.cr{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:10px;transition:border-color .15s,box-shadow .15s}
+.cr.on{border-color:var(--pink);box-shadow:0 0 0 1px var(--pink) inset}
+.hd{display:flex;gap:12px;align-items:center}
+.av{width:48px;height:48px;border-radius:50%;object-fit:cover;flex:none;background:#3a2328;display:grid;place-items:center;font-family:var(--black);color:var(--pink);font-size:16px}
+.nm{min-width:0}
+.nm b{display:block;font-size:15px;line-height:1.2}
+.nm a{font-size:12.5px;color:var(--pink);text-decoration:none;word-break:break-all}
+.st{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.st b{display:block;font-family:var(--black);font-weight:400;font-size:15px;font-variant-numeric:tabular-nums}
+.st span{font-size:10.5px;color:rgba(255,255,255,.45)}
+.wh{font-size:13px;color:rgba(255,255,255,.72);flex:1}
+.pr{font-size:12px;font-weight:700;color:var(--pink)}
+.pick{appearance:none;border:1px solid rgba(231,153,156,.5);background:transparent;color:var(--white);font:700 14px var(--sans);
+border-radius:10px;padding:10px;cursor:pointer;min-height:44px}
+.cr.on .pick{background:var(--pink);color:var(--plum);border-color:var(--pink)}
+.for{display:none;flex-direction:column;gap:8px}
+.cr.on .for{display:flex}
+.for small{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.for .chips{gap:6px}
+.opts{display:grid;gap:10px;max-width:640px}
+.opt{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;background:var(--card)}
+.opt input{margin-top:5px;accent-color:var(--pink);width:18px;height:18px;flex:none}
+.opt b{display:block}.opt span{font-size:13.5px;color:rgba(255,255,255,.6)}
+.fields{display:grid;gap:14px;max-width:640px}
+label.f{display:grid;gap:6px;font-size:13px;font-weight:700;color:rgba(255,255,255,.75)}
+input.t,textarea{width:100%;background:var(--card);border:1px solid rgba(231,153,156,.35);color:var(--white);border-radius:12px;padding:12px 14px;font:16px var(--sans)}
+textarea{min-height:110px;resize:vertical}
+input.t:focus,textarea:focus,.chip:focus-visible,.pick:focus-visible,.send:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
+.bar{position:fixed;left:0;right:0;bottom:0;background:rgba(24,13,16,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);z-index:5}
+.bar .in{max-width:1040px;margin:0 auto;padding:12px var(--pad);display:flex;align-items:center;justify-content:space-between;gap:14px}
+.bar .sum{font-size:14px;color:rgba(255,255,255,.75)}
+.bar .sum b{font-family:var(--black);font-weight:400;font-size:20px;color:var(--white);margin-right:6px}
+.send{appearance:none;border:0;background:var(--pink);color:var(--plum);font:800 15px var(--sans);padding:13px 22px;border-radius:999px;cursor:pointer;min-height:46px;white-space:nowrap}
+.send:disabled{opacity:.45;cursor:not-allowed}
+.err{color:#ffb4b4;font-size:14px;margin-top:10px;max-width:640px}
+.done{display:none;border:1px solid var(--pink);border-radius:20px;padding:clamp(24px,4vw,40px);background:var(--card)}
+.done h2{margin-bottom:12px}.done p{color:rgba(255,255,255,.75);margin-bottom:12px;max-width:620px}
+.done ul{margin:0 0 14px 18px;color:rgba(255,255,255,.85)}
+.note{font-size:12.5px;color:rgba(255,255,255,.45);border-top:1px solid rgba(231,153,156,.18);padding-top:20px;margin-top:10px}
+@media (max-width:520px){#bcnt{display:none}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="brand" href="/"><svg viewBox="0 0 400 435" aria-hidden="true"><g transform="translate(0,435) scale(0.1,-0.1)"><path fill="currentColor" d="M62 2174 l3 -2119 1230 -2 c677 -2 1243 1 1259 5 29 8 29 8 -140 183 -93 96 -232 240 -309 320 l-140 147 -655 1 -655 0 -3 1499 -2 1500 -291 288 c-159 159 -292 291 -295 293 -2 2 -3 -949 -2 -2115z M3694 2953 c-136 -142 -386 -400 -554 -573 -168 -173 -387 -399 -485 -502 -98 -104 -182 -188 -185 -188 -4 0 -42 37 -86 83 -517 538 -911 945 -1141 1177 l-243 245 0 -459 0 -458 88 -92 c48 -51 247 -261 442 -467 315 -331 791 -834 891 -941 49 -53 20 -76 400 329 189 202 390 414 446 472 l102 106 1 -811 0 -812 23 -6 c12 -3 142 -6 290 -6 l267 0 0 1580 c0 869 -2 1580 -4 1580 -2 0 -115 -116 -252 -257z"/></g></svg><b>Luminate</b></a>
+    <span class="tag">Awaknd Group</span>
+  </div>
+
+  <div id="form">
+    <span class="label">Awaknd Group × Luminate</span>
+    <h1>Välj era <em>kreatörer</em></h1>
+    <p class="sub">Välj märken och kryssa i de kreatörer ni vill köra en kampanj med. Ni får ett skriftligt förslag från oss inom tre arbetsdagar. Inget är bindande förrän ni har sagt ja till förslaget.</p>
+
+    <section class="step">
+      <h2><span class="n">1</span>Vilka märken?</h2>
+      <p class="hint">Välj ett eller flera.</p>
+      <div class="chips" id="brands"></div>
+    </section>
+
+    <section class="step">
+      <h2><span class="n">2</span>Vilka kreatörer?</h2>
+      <p class="hint">Sorterade efter vilket märke vi tror att de passar bäst för. Klicka på @namnet för att se profilen på TikTok. Under varje vald kreatör väljer ni märke.</p>
+      <div id="groups"></div>
+    </section>
+
+    <section class="step">
+      <h2><span class="n">3</span>Hur vill ni köra?</h2>
+      <p class="hint">Ni kan ändra det här när förslaget kommer.</p>
+      <div class="opts" id="plan">
+        <label class="opt"><input type="radio" name="plan" value="3 månaders test" checked><div><b>3 månaders test</b><span>En video per kreatör och månad. Kreatörerna ovan är de ni har valt.</span></div></label>
+        <label class="opt"><input type="radio" name="plan" value="En kampanj"><div><b>En enstaka kampanj</b><span>En video per kreatör, till exempel inför Black Friday eller julhandeln.</span></div></label>
+        <label class="opt"><input type="radio" name="plan" value="Vill prata först"><div><b>Vi vill prata först</b><span>Vi hör av oss och bokar ett kort samtal.</span></div></label>
+      </div>
+    </section>
+
+    <section class="step">
+      <h2><span class="n">4</span>Vem skickar vi förslaget till?</h2>
+      <div class="fields">
+        <label class="f">Namn<input class="t" id="namn" autocomplete="name" maxlength="120" required></label>
+        <label class="f">E-post<input class="t" id="epost" type="email" autocomplete="email" maxlength="200" required></label>
+        <label class="f">Något mer vi ska veta? (valfritt)<textarea id="kommentar" maxlength="3000" placeholder="Till exempel datum, produkter eller önskemål om innehållet."></textarea></label>
+      </div>
+      <p class="err" id="err" role="alert"></p>
+    </section>
+
+    <p class="note">Följare och siffror avlästa på TikTok <span id="avlast"></span>. Median visningar och engagemang för de senaste 90 dagarna, samarbetsvideor borträknade. Pris enligt luminatemedia.se/priser, före volymrabatt och annonsrätt. Frågor: <a href="mailto:hello@luminatemedia.se">hello@luminatemedia.se</a></p>
+  </div>
+
+  <div class="done" id="done" tabindex="-1">
+    <span class="label">Tack!</span>
+    <h2>Vi har fått ert val</h2>
+    <p>Ni får ett skriftligt förslag från oss inom tre arbetsdagar.</p>
+    <ul id="doneList"></ul>
+    <p>Vill ni ändra något går det bra att skicka in igen, eller svara på mejlet från oss.</p>
+  </div>
+</div>
+
+<div class="bar" id="bar"><div class="in">
+  <div class="sum"><b id="cnt">0</b><span>kreatörer valda</span><span id="bcnt"></span></div>
+  <button class="send" id="send" disabled>Skicka vårt val</button>
+</div></div>
+
+<script>
+(() => {
+const SB_URL = "https://bdxuftjhcbhyzawdpyyr.supabase.co/rest/v1/kundval";
+const SB_KEY = "sb_publishable_NYXRQv35JZI5VIWTIK9v1w_5foqGNr0";
+const $ = id => document.getElementById(id);
+const el = (t, a = {}, kids = []) => { const e = document.createElement(t); for (const [k, v] of Object.entries(a)) { if (k === "text") e.textContent = v; else if (k.startsWith("on")) e.addEventListener(k.slice(2), v); else e.setAttribute(k, v); } kids.forEach(k => k && e.append(k)); return e; };
+let D, brandsOn = new Set(), picked = new Map(); // handle -> Set(brandIds)
+
+const bname = id => D.marken.find(m => m.id === id).namn;
+
+function chip(text, on, onclick, sm) { return el("button", { type: "button", class: "chip" + (sm ? " sm" : ""), "aria-pressed": on ? "true" : "false", onclick, text }); }
+
+function renderBrands() {
+  const box = $("brands"); box.replaceChildren();
+  D.marken.forEach(m => box.append(chip(m.namn, brandsOn.has(m.id), () => {
+    brandsOn.has(m.id) ? brandsOn.delete(m.id) : brandsOn.add(m.id);
+    for (const s of picked.values()) for (const b of [...s]) if (!brandsOn.has(b)) s.delete(b);
+    picked.forEach((s, h) => { if (!s.size) defaultFor(h, s); });
+    renderBrands(); renderGroups(); update();
+  })));
+}
+
+function defaultFor(handle, set) {
+  const g = D.grupper.find(g => g.kreatorer.some(c => c.handle === handle));
+  const hit = g.forslag.filter(b => brandsOn.has(b));
+  (hit.length ? hit : [...brandsOn].slice(0, 1)).forEach(b => set.add(b));
+}
+
+function card(c) {
+  const on = picked.has(c.handle);
+  const av = c.bild ? el("img", { class: "av", src: c.bild, alt: "", loading: "lazy", width: 48, height: 48 })
+                    : el("div", { class: "av", "aria-hidden": "true", text: c.name.split(/\s+/).map(w => w[0]).slice(0, 2).join("") });
+  const forBox = el("div", { class: "for" });
+  if (on) {
+    forBox.append(el("small", { text: brandsOn.size ? "För vilka märken?" : "Välj märken i steg 1" }));
+    const ch = el("div", { class: "chips" });
+    [...brandsOn].forEach(b => ch.append(chip(bname(b), picked.get(c.handle).has(b), () => {
+      const s = picked.get(c.handle); s.has(b) ? s.delete(b) : s.add(b); renderGroups(); update();
+    }, true)));
+    forBox.append(ch);
+  }
+  return el("article", { class: "cr" + (on ? " on" : "") }, [
+    el("div", { class: "hd" }, [av, el("div", { class: "nm" }, [el("b", { text: c.name }), el("a", { href: "https://www.tiktok.com/@" + c.handle, target: "_blank", rel: "noopener", text: "@" + c.handle })])]),
+    el("div", { class: "st" }, [
+      el("div", {}, [el("b", { text: c.followers }), el("span", { text: "följare" })]),
+      el("div", {}, [el("b", { text: c.median }), el("span", { text: "median visn." })]),
+      el("div", {}, [el("b", { text: c.er }), el("span", { text: "engagemang" })]),
+    ]),
+    el("p", { class: "wh", text: c.what }),
+    el("div", { class: "pr", text: c.tier + " · " + c.price + " per video" }),
+    el("button", { type: "button", class: "pick", "aria-pressed": on ? "true" : "false", text: on ? "✓ Vald" : "Välj " + c.name.split(" ")[0], onclick: () => {
+      if (picked.has(c.handle)) picked.delete(c.handle); else { const s = new Set(); defaultFor(c.handle, s); picked.set(c.handle, s); }
+      renderGroups(); update();
+    } }),
+    forBox,
+  ]);
+}
+
+function renderGroups() {
+  const y = window.scrollY, box = $("groups"); box.replaceChildren();
+  D.grupper.forEach(g => box.append(el("div", { class: "group" }, [el("h3", { text: g.namn }), el("p", { text: g.sub }), el("div", { class: "grid" }, g.kreatorer.map(card))])));
+  window.scrollTo(0, y);
+}
+
+function update() {
+  $("cnt").textContent = picked.size;
+  $("bcnt").textContent = brandsOn.size ? " · " + brandsOn.size + (brandsOn.size === 1 ? " märke" : " märken") : "";
+  $("send").disabled = !picked.size;
+}
+
+function summary() {
+  const all = D.grupper.flatMap(g => g.kreatorer);
+  return [...picked].map(([h, s]) => { const c = all.find(c => c.handle === h); return { handle: h, namn: c.name, marken: [...s].map(bname) }; });
+}
+
+$("send").addEventListener("click", async () => {
+  const err = $("err"); err.textContent = "";
+  const namn = $("namn").value.trim(), epost = $("epost").value.trim(), kommentar = $("kommentar").value.trim();
+  if (!brandsOn.size) { err.textContent = "Välj minst ett märke i steg 1."; $("brands").scrollIntoView({ behavior: "smooth", block: "center" }); return; }
+  if (!namn || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(epost)) { err.textContent = "Fyll i namn och en giltig e-postadress i steg 4."; $("namn").focus(); return; }
+  const val = summary(), plan = document.querySelector('input[name="plan"]:checked').value;
+  const row = { kund: D.kund, namn, epost, marken: [...brandsOn].map(bname), val, manader: plan, kommentar: kommentar || null };
+  const btn = $("send"); btn.disabled = true; btn.textContent = "Skickar…";
+  try {
+    const r = await fetch(SB_URL, { method: "POST", headers: { apikey: SB_KEY, "Content-Type": "application/json", Prefer: "return=minimal" }, body: JSON.stringify(row) });
+    if (!r.ok) throw new Error(r.status);
+    $("doneList").replaceChildren(...val.map(v => el("li", { text: v.namn + (v.marken.length ? " – " + v.marken.join(", ") : "") })));
+    $("form").style.display = "none"; $("bar").style.display = "none"; $("done").style.display = "block";
+    window.scrollTo(0, 0); $("done").focus();
+  } catch (e) {
+    const body = encodeURIComponent("Märken: " + row.marken.join(", ") + "\nUpplägg: " + plan + "\n\nKreatörer:\n" + val.map(v => "- " + v.namn + " (@" + v.handle + "): " + v.marken.join(", ")).join("\n") + "\n\n" + (kommentar ? "Kommentar: " + kommentar + "\n\n" : "") + namn + ", " + epost);
+    err.innerHTML = "";
+    err.append("Det gick inte att skicka just nu. ", el("a", { href: "mailto:hello@luminatemedia.se?subject=" + encodeURIComponent("Awaknd – vårt val av kreatörer") + "&body=" + body, text: "Skicka valet som mejl i stället" }), " så får vi det ändå.");
+    btn.disabled = false; btn.textContent = "Skicka vårt val";
+  }
+});
+
+fetch("/data/val/awaknd.json", { cache: "no-store" }).then(r => r.json()).then(d => {
+  D = d; $("avlast").textContent = d.avlast; renderBrands(); renderGroups(); update();
+}).catch(() => { $("groups").textContent = "Kunde inte ladda listan. Ladda om sidan, eller mejla hello@luminatemedia.se."; });
+})();
+</script>
+</body>
+</html>
