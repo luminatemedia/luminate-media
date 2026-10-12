@@ -33,7 +33,7 @@ UA = {
 root = pathlib.Path(__file__).resolve().parents[1]
 out = root / "data" / "stats.json"
 old = json.loads(out.read_text()) if out.exists() else {}
-creators = dict(old.get("creators", {}))
+creators = {h: c for h, c in old.get("creators", {}).items() if h in HANDLES}  # konton som lamnat natverket faller bort
 
 ok = 0
 for h in HANDLES:

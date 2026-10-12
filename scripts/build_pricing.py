@@ -98,11 +98,11 @@ FAQ = [
  ("Varför kostar en kreatör mer än en annan?",
   "Vi prissätter på vad kontot faktiskt levererar, inte på följarantal. En kreatör med färre följare men högre snittvisningar kan kosta mer än en större kreatör som presterar sämre. Siffrorna hämtas från TikTok varje natt och räknas som snittet över de senaste 20 videorna."),
  ("Vad kostar Spark Ads?",
-  f"Spark Ads-rättigheter är ett påslag på kreatörens grundpris: +{SPARK[0]['up']} % för {SPARK[0]['label']} upp till +{SPARK[-1]['up']} % för {SPARK[-1]['label']}. Ni köper dem först efter publicering, när ni sett vilka videor som presterat organiskt. Mediebudgeten betalar ni själva i ert eget annonskonto."),
+  f"Spark Ads-rättigheter är ett påslag på kreatörens grundpris: +{SPARK[0]['up']} % för {SPARK[0]['label']} upp till +{SPARK[-1]['up']} % för {SPARK[-1]['label']}. Ni köper dem först efter publicering, när ni sett vilka videor som presterat organiskt. Mediebudgeten betalar ni själva i ert eget annonskonto. I höstkampanjen 2026 gav Spark Ads 3,1 gånger den organiska räckvidden på en vecka."),
  ("Finns det någon minsta beställning?",
   f"Nej. Ni kan boka en enskild video, och {FREE_N} mindre kreatörer följer alltid med utan kostnad oavsett hur stor beställningen är. Prisbilden blir dock bättre per video ju fler ni bokar."),
  ("Vad kostar det jämfört med att köpa annonsräckvidd?",
-  "Publicerade CPM-nivåer för TikTok-annonsering 2026 ligger på ungefär 4–13 USD per 1 000 visningar. Organisk räckvidd genom creators har i våra kampanjer legat väsentligt under det, samtidigt som en rekommendation från en kreatör bär en trovärdighet en annons inte har."),
+  "Publicerade CPM-nivåer för TikTok-annonsering 2026 ligger på ungefär 4–13 USD per 1 000 visningar. Organisk räckvidd genom creators har i våra kampanjer legat väsentligt under det, samtidigt som en rekommendation från en kreatör bär en trovärdighet en annons inte har. När vi lade Spark Ads på kampanjvideorna hösten 2026 kostade ett klick 0,75 kr mot runt 10 kr i branschsnitt."),
 ]
 faq_html = "\n".join(f'''    <div class="faq-item">
       <h3>{q}</h3>
@@ -278,6 +278,7 @@ display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}}
   </table>
   </div>
   <p class="note">Mediebudgeten betalar ni själva i ert eget annonskonto och äger den fullt ut. Vill ni att vi sätter upp och optimerar kampanjerna tar vi 15 % av mediespenden.</p>
+  <p class="note">I vår höstkampanj 2026 gav Spark Ads 3,1 gånger den organiska räckvidden på en vecka. Ett klick kostade 0,75 kr mot runt 10 kr i branschsnitt, och en tittare som stannade i sex sekunder 0,06 kr — under TikToks eget pris för en vanlig visning.</p>
 
   <h2>Räkneexempel</h2>
   <p class="intro">Färdiga upplägg med organiska rättigheter, inklusive de {FREE_N} kreatörerna som följer med utan kostnad.</p>
