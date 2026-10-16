@@ -16,7 +16,7 @@ HANDLES = [
     "aotterud", "michel1egrwm", "veira.larsson", "lovisa.haeger",
     "electrakarlsson200", "tildesundb", "vildavilma2",
     "elsa41612", "mirandaomatilda_westerbe",
-    "bellawesterfelt", "coolneliaaa", "juliaberglunnd", "filippaiwar2",
+    "bellawesterfelt", "coolneliaaa", "juliaberglunnd",
     "ellaaxman", "lunamaarkovic", "ebbasimonsbacka", "jessprivatastory",
     "jacquelineekenstedt", "astridholmstromming", "linneafknahlqvist",
     "nezzysf", "svea.engstrom", "shoppargalet", "alice.almm",
