@@ -177,6 +177,14 @@ h1{{font-family:var(--sans);font-weight:700;text-transform:none;letter-spacing:-
 .note,.foot span,.foot a{{color:var(--faint)}}
 .foot{{border-top-color:var(--line)}}
 .foot span,.foot a{{font-size:12px;letter-spacing:.04em}}
+
+/* ---- mer rosa ---- */
+:root{{--line:rgba(176,86,97,.22);--line2:rgba(176,86,97,.12)}}
+.label,.f-label,.ex-n,.row .k,.st span,thead th,.key-fig span,.tile span{{color:var(--rose)}}
+.key,.verdict,.contact{{background:var(--pink-soft)}}
+.st b small{{color:var(--rose)}}
+.num,.row .v,.tile b{{color:var(--txt)}}
+th,td{{border-bottom-color:var(--line)}}
 </style>
 </head>
 <body>
