@@ -78,6 +78,59 @@ text-decoration:none;transition:transform .35s var(--ease)}
 display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .foot span,.foot a{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.4)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* ===== TEMA: minimalt, vit bas (okt 2026) ===== */
+:root{--bg:#FFFFFF;--bg2:#F6F3F1;--txt:#1C1316;--muted:#5F5558;--faint:#756B6F;--line:rgba(28,19,22,.10);--line2:rgba(28,19,22,.06);--rose:#B05661;--ok:#2FB36B;--shadow:0 1px 2px rgba(17,17,17,.06),0 12px 24px -12px rgba(17,17,17,.22)}
+body{background:var(--bg);color:var(--txt)}
+::selection{background:var(--txt);color:#fff}
+.top{border-bottom:1px solid var(--line2);padding-bottom:16px}
+.brand svg{color:var(--txt)}
+.brand b{font-family:var(--sans);font-weight:700;font-size:15px;letter-spacing:-.01em;text-transform:none}
+.back{font-size:14px;font-weight:600;letter-spacing:0;text-transform:none;color:var(--muted)}
+.back:hover{color:var(--txt)}
+.label,.f-label,.ex-n,.row .k,.st span,.model .tag,thead th,.key-fig span{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.label::before{content:"— "}
+h1{font-family:var(--sans);font-weight:700;text-transform:none;letter-spacing:-.03em;line-height:1.04;font-size:clamp(34px,5vw,58px);color:var(--txt)}
+h2{font-family:var(--sans);font-weight:700;text-transform:none;letter-spacing:-.02em;font-size:clamp(22px,2.8vw,30px);color:var(--txt)}
+h1 em,h2 em,.verdict b span,.key-line strong,.answer strong{font-family:inherit;font-style:normal;font-weight:inherit;font-size:inherit;color:inherit}
+.lead,.intro,.answer p,.key-sub,.verdict p,.model p,.points li,.faq-item p,.ex-v{color:var(--muted);font-weight:400}
+.answer{border-left:2px solid var(--txt)}
+.answer p{color:var(--txt);font-weight:500}
+.note,.hint,.dim,.ex-d,.row .v small,.foot span,.foot a,tbody th .sub{color:var(--faint)}
+.foot{border-top-color:var(--line)}
+.foot span,.foot a{font-size:12px;letter-spacing:.04em}
+th,td{border-bottom-color:var(--line);color:var(--txt)}
+thead th{border-bottom-color:var(--line)}
+tbody th{font-family:var(--sans);font-weight:700;text-transform:none;font-size:15px}
+.num,.num.big,.row .v,.ex b,.st b,.verdict b,.key-fig b,.key-line{font-family:var(--sans);font-weight:700;font-variant-numeric:normal;letter-spacing:-.02em}
+.num.big{font-size:clamp(17px,2.2vw,22px)}
+.key{background:var(--bg2);border:0;border-radius:18px}
+.key-fig{border-right-color:var(--line)}
+.key-fig b{color:var(--txt);font-size:clamp(56px,10vw,110px);letter-spacing:-.04em}
+.key-line{font-size:clamp(17px,2.2vw,24px);font-weight:600}
+.bar span{background:var(--txt)}
+.ex,.model{background:#fff;border:1px solid rgba(0,0,0,.07);box-shadow:var(--shadow);border-radius:18px}
+.ex-n{color:var(--faint)}
+.verdict{background:var(--bg2);border:0;border-radius:18px}
+.verdict b{text-transform:none;letter-spacing:-.02em}
+.model .tag{background:var(--bg2);color:var(--txt);border:1px solid var(--line2)}
+.model b,.points b{font-family:var(--sans);font-weight:700;text-transform:none;letter-spacing:-.01em;color:var(--txt)}
+.model li{color:var(--muted)}
+.model li::before{content:"–";color:var(--faint)}
+.points li,.points li:last-child,.row,.row:first-child,.faq-item{border-color:var(--line)}
+.faq-item h3{font-family:var(--sans);font-weight:700;text-transform:none;font-size:18px;letter-spacing:-.01em;color:var(--txt)}
+.stats{gap:14px;background:none;border:0}
+.st{background:#fff;border:1px solid rgba(0,0,0,.07);border-radius:18px;box-shadow:var(--shadow)}
+.st b{color:var(--txt)}
+.st b small{color:var(--rose)}
+.up{color:#176B40}
+.book,.btn{font-family:var(--sans);font-weight:600;font-size:15px;letter-spacing:0;text-transform:none;background:var(--txt);color:#fff;border-radius:12px;padding:14px 22px}
+.book:hover,.btn:hover{transform:none;background:#000}
+.book.ghost,.btn.ghost{background:#fff;color:var(--txt);box-shadow:inset 0 0 0 1px rgba(0,0,0,.16)}
+.book.ghost:hover,.btn.ghost:hover{background:var(--bg2)}
+input{background:#fff;border:1px solid var(--line);color:var(--txt);border-radius:12px}
+input::placeholder{color:var(--faint)}
+input:focus{border-color:var(--txt);outline:none}
 </style>
 </head>
 <body>
