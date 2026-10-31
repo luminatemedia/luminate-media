@@ -14,14 +14,13 @@ import urllib.request
 
 HANDLES = [
     "aotterud", "michel1egrwm", "veira.larsson", "lovisa.haeger",
-    "electrakarlsson200", "tildesundb", "vildavilma2",
-    "elsa41612", "mirandaomatilda_westerbe",
-    "bellawesterfelt", "coolneliaaa", "juliaberglunnd",
+    "electrakarlsson200", "tildesundb",     "elsa41612", "mirandaomatilda_westerbe",
+    "coolneliaaa", "juliaberglunnd",
     "ellaaxman", "lunamaarkovic", "ebbasimonsbacka", "jessprivatastory",
     "jacquelineekenstedt", "astridholmstromming", "linneafknahlqvist",
     "nezzysf", "svea.engstrom", "shoppargalet", "alice.almm",
     "norvellan", "diihhva", "minoue.ranta", "tjejenshemlighet",
-    "superhemligtmg", "emmalisenz", "leabelge_", "isabellamensahh",
+    "superhemligtmg", "leabelge_", "isabellamensahh",
     "olivia3jonsson",
 ]
 UA = {

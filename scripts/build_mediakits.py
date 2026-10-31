@@ -145,6 +145,38 @@ display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}}
 .foot span,.foot a{{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.4)}}
 @media (max-width:700px){{.kit{{grid-template-columns:1fr}} .media{{max-width:340px}}}}
 @media (prefers-reduced-motion:reduce){{*{{transition:none!important}}}}
+
+/* ===== TEMA: minimalt, vit bas + rosa accent (okt 2026) ===== */
+:root{{--bg:#FFFFFF;--bg2:#F6F3F1;--txt:#1C1316;--muted:#5F5558;--faint:#756B6F;--line:rgba(28,19,22,.10);--line2:rgba(28,19,22,.06);--rose:#B05661;--pink-2:#DE8A8F;--pink-soft:#FBEEEF;--pink-line:rgba(231,153,156,.5);--shadow:0 1px 2px rgba(17,17,17,.06),0 12px 24px -12px rgba(17,17,17,.22)}}
+body{{background:var(--bg);color:var(--txt)}}
+::selection{{background:var(--txt);color:#fff}}
+.top{{border-bottom:1px solid var(--line2);padding-bottom:16px}}
+.brand svg{{color:var(--pink)}}
+.brand b{{font-family:var(--sans);font-weight:700;font-size:15px;letter-spacing:-.01em;text-transform:none}}
+.back{{font-size:14px;font-weight:600;letter-spacing:0;text-transform:none;color:var(--muted)}}
+.back:hover{{color:var(--txt)}}
+.media{{border-radius:18px;box-shadow:var(--shadow);background:var(--bg2)}}
+.label{{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}}
+.label::before{{content:"— "}}
+h1{{font-family:var(--sans);font-weight:700;text-transform:none;letter-spacing:-.03em;line-height:1.04;font-size:clamp(32px,4.6vw,52px);color:var(--txt)}}
+.handle{{color:var(--faint);font-weight:500}}
+.tile{{background:#fff;border:1px solid rgba(0,0,0,.07);border-radius:16px;box-shadow:var(--shadow)}}
+.tile b{{font-family:var(--sans);font-weight:700;letter-spacing:-.02em;font-variant-numeric:normal;color:var(--txt)}}
+.tile span{{color:var(--faint);font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}}
+.price{{border-left:2px solid var(--pink-2);color:var(--muted);font-weight:400}}
+.price strong{{color:var(--txt);font-weight:700}}
+.price a{{color:var(--txt);font-weight:600;text-decoration:underline;text-underline-offset:3px}}
+.contact{{background:var(--bg2);border:0;border-radius:18px}}
+.contact h2{{font-family:var(--sans);font-weight:700;text-transform:none;font-size:18px;letter-spacing:-.01em;color:var(--txt)}}
+.contact p{{color:var(--muted);font-weight:400}}
+.mail{{color:var(--txt);text-decoration:underline;text-underline-offset:3px}}
+.book{{font-family:var(--sans);font-weight:600;font-size:15px;letter-spacing:0;text-transform:none;background:var(--pink);color:var(--plum);border-radius:12px;padding:12px 18px}}
+.book:hover{{transform:none;background:var(--pink-2)}}
+.book.ghost{{background:#fff;color:var(--txt);box-shadow:inset 0 0 0 1px rgba(0,0,0,.16)}}
+.book.ghost:hover{{background:var(--pink-soft)}}
+.note,.foot span,.foot a{{color:var(--faint)}}
+.foot{{border-top-color:var(--line)}}
+.foot span,.foot a{{font-size:12px;letter-spacing:.04em}}
 </style>
 </head>
 <body>

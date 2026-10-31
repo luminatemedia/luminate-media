@@ -3,10 +3,10 @@
  "method": "snitt over senaste 20 videos per kreator",
  "fetched_ok": 32,
  "totals": {
-  "creators": 34,
-  "avg_views": 48101,
-  "median_views": 34989,
-  "sum_avg_views": 1635440
+  "creators": 29,
+  "avg_views": 47858,
+  "median_views": 39165,
+  "sum_avg_views": 1387880
  },
  "creators": {
   "aotterud": {
@@ -39,29 +39,14 @@
    "median": 25100,
    "n": 20
   },
-  "vildavilma2": {
-   "avg": 21814,
-   "median": 18700,
-   "n": 20
-  },
   "elsa41612": {
    "avg": 77615,
    "median": 54300,
    "n": 20
   },
-  "amandasundiin": {
-   "avg": 163691,
-   "median": 15900,
-   "n": 20
-  },
   "mirandaomatilda_westerbe": {
    "avg": 39165,
    "median": 11850,
-   "n": 20
-  },
-  "bellawesterfelt": {
-   "avg": 32200,
-   "median": 22950,
    "n": 20
   },
   "coolneliaaa": {
@@ -124,11 +109,6 @@
    "median": 15700,
    "n": 20
   },
-  "ellenkb": {
-   "avg": 11837,
-   "median": 7054,
-   "n": 20
-  },
   "alice.almm": {
    "avg": 3641,
    "median": 3006,
@@ -152,11 +132,6 @@
   "superhemligtmg": {
    "avg": 10559,
    "median": 7523,
-   "n": 20
-  },
-  "emmalisenz": {
-   "avg": 18018,
-   "median": 15500,
    "n": 20
   },
   "leabelge_": {
