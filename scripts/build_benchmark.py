@@ -207,7 +207,7 @@ h1 em,h2 em,.verdict b span,.key-line strong{{color:var(--rose)}}
 .up{{color:#176B40}}
 
 /* ---- mer rosa ---- */
-:root{{--line:rgba(176,86,97,.22);--line2:rgba(176,86,97,.12)}}
+:root{{--line:rgba(176,86,97,.22);--line2:rgba(176,86,97,.12);--rose:#9E4A55}}
 .label,.f-label,.ex-n,.row .k,.st span,thead th,.key-fig span,.tile span{{color:var(--rose)}}
 .key,.verdict,.contact{{background:var(--pink-soft)}}
 .st b small{{color:var(--rose)}}
