@@ -526,6 +526,7 @@ footer{background:var(--plum)}
     <a href="/">Startsidan</a>
     <a href="/priser.html">Priser per video</a>
     <a href="/kreator.html">För kreatörer</a>
+    <a href="/integritet.html">Integritet och cookies</a>
     <button type="button" id="cc-open" hidden>Cookie-inställningar</button>
   </div>
   <div class="fl">
@@ -536,7 +537,7 @@ footer{background:var(--plum)}
 </footer>
 
 <div class="cc" id="cc" role="dialog" aria-modal="false" aria-labelledby="cc-txt" hidden>
-  <p id="cc-txt">Vi använder cookies för att mäta annonser bara om du godkänner. Inget laddas innan du har valt.</p>
+  <p id="cc-txt">Vi använder cookies för att mäta annonser bara om du godkänner. Inget laddas innan du har valt. <a href="/integritet.html">Läs mer</a></p>
   <div class="ctas">
     <button class="book" type="button" id="cc-yes">Godkänn</button>
     <button class="book ghost" type="button" id="cc-no">Endast nödvändiga</button>
@@ -642,7 +643,7 @@ $("form").addEventListener("submit", async e => {
   if (v("webbplats")) { showDone(false); return; } /* fälla för robotar: inget skickas */
 
   const row = { kund: "affiliate", namn, epost, marken: [foretag],
-    val: { webbshop: foretag, produkt: produkt || null, niva, utm, page: "affiliate" },
+    val: [{ webbshop: foretag, produkt: produkt || null, niva, utm, page: "affiliate" }],
     manader: niva, kommentar: kommentar || null };
   const btn = $("send"); btn.disabled = true; btn.textContent = "Skickar…";
   try {
