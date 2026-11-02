@@ -25,6 +25,13 @@ LOGO = ('<svg viewBox="0 0 400 435" aria-hidden="true"><g transform="translate(0
 def build(cfg_path):
     cfg = json.loads(cfg_path.read_text())
     slug = cfg["slug"]
+    if cfg.get("rapport") is False:
+        # Kampanjen har en egen inloggad kundsida (t.ex. /kbs/) som läser appens mätning.
+        old = root / f"rapport-{slug}.html"
+        if old.exists():
+            old.unlink()
+        print(f"rapport-{slug}.html byggs inte (rapport: false)")
+        return
     dpath = camp_dir / f"{slug}-data.json"
     data = json.loads(dpath.read_text()) if dpath.exists() else {"videos": {}, "history": [], "updated": None}
     vids = sorted(data["videos"].values(), key=lambda v: -v["views"])

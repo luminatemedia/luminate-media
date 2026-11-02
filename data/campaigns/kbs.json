@@ -1,7 +1,7 @@
 {
  "slug": "kbs",
  "client": "Kids Brand Store",
- "title": "Höstkampanj — period 1",
+ "title": "Höstkampanj AW26",
  "publish_from": "2026-09-08",
  "expected_videos": 7,
  "match": [
@@ -52,5 +52,7 @@
   "https://www.tiktok.com/@elsa41612/video/7685417731180498198"
  ],
  "exclude": [],
- "note": "Veira Larssons period 1 utgar enligt besked fran KBS 14 sep 2026. Lagg in nya videolankar under 'videos' sa fort de publiceras, sa slipper roboten forlita sig pa bildtextmatchning."
+ "note": "Veira Larssons period 1 utgar enligt besked fran KBS 14 sep 2026. Lagg in nya videolankar under 'videos' sa fort de publiceras, sa slipper roboten forlita sig pa bildtextmatchning.",
+ "rapport": false,
+ "note_rapport": "Kundsidan ar luminatemedia.se/kbs/ (lankskyddad, laser appens matning i Supabase). rapport-kbs.html togs ned 2 nov 2026. Filen kbs-data.json byggs fortfarande for hemsidans kurva."
 }

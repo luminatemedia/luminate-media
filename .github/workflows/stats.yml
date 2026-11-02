@@ -35,5 +35,6 @@ jobs:
         run: |
           git config user.name "luminate-stats-bot"
           git config user.email "github-actions@github.com"
-          git add data/stats.json data/history.json data/views.json data/campaigns benchmark.html priser.html rapport-*.html kreatorer
+          git add data/stats.json data/history.json data/views.json data/campaigns benchmark.html priser.html kreatorer
+          git add -A -- rapport-*.html 2>/dev/null || true
           git diff --cached --quiet || { git commit -m "stats: nattlig TikTok-uppdatering"; git push; }

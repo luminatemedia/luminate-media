@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kampanjstatus — Luminate</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/svg+xml" href="/assets/luminate-icon.svg">
+<meta name="theme-color" content="#2A1A1D">
+<style>
+@font-face{font-family:'Schibsted Grotesk';font-weight:400 700;font-display:swap;src:url(/assets/fonts/schibsted-grotesk.woff2) format('woff2')}
+:root{--bg:#FFFFFF;--bg2:#F6F3F1;--txt:#1C1316;--muted:#5F5558;--faint:#756B6F;--pink:#E7999C;--pink-2:#DE8A8F;--pink-soft:#FBEEEF;
+--pink-line:rgba(231,153,156,.5);--rose:#9E4A55;--plum:#2A1A1D;--line:rgba(176,86,97,.22);--line2:rgba(176,86,97,.12);
+--sans:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;--pad:clamp(16px,4.5vw,64px)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);background:var(--bg);color:var(--txt);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh}
+a{color:inherit}
+.hero{background:linear-gradient(180deg,var(--pink-soft) 0%,#fff 100%)}
+.wrap{max-width:1000px;margin:0 auto;padding:0 var(--pad)}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;height:72px;border-bottom:1px solid var(--line2)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;font-size:15px;letter-spacing:-.01em}
+.brand svg{width:24px;height:auto;color:var(--pink)}
+.live{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--muted);background:#fff;border:1px solid var(--pink-line);padding:6px 13px;border-radius:999px}
+.live i{width:7px;height:7px;border-radius:50%;background:var(--pink-2);animation:p 1.6s ease-in-out infinite}
+@keyframes p{50%{opacity:.35}}
+.head{padding:clamp(40px,7vw,72px) 0 clamp(28px,4vw,40px)}
+.label{display:block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--rose);margin-bottom:12px}
+h1{font-weight:700;font-size:clamp(32px,5.4vw,56px);line-height:1.04;letter-spacing:-.03em;margin-bottom:14px;text-wrap:balance}
+h1 em{font-style:normal;color:var(--rose)}
+.sub{color:var(--muted);font-size:clamp(15px,1.4vw,18px);max-width:640px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:clamp(24px,4vw,36px) 0 clamp(40px,7vw,64px)}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:18px;padding:clamp(16px,2.6vw,22px)}
+.kpi b{display:block;font-weight:700;font-size:clamp(22px,3.2vw,32px);line-height:1.05;letter-spacing:-.02em;white-space:nowrap;font-variant-numeric:tabular-nums}
+.kpi span{display:block;margin-top:6px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+section.period{margin-bottom:clamp(44px,7vw,72px)}
+h2{font-weight:700;font-size:clamp(24px,3.2vw,34px);letter-spacing:-.02em;line-height:1.1;margin-bottom:6px}
+.meta{color:var(--muted);font-size:14.5px;margin-bottom:18px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px}
+.box{border:1px solid var(--line);border-radius:18px;padding:18px 20px;background:#fff}
+.box.spark{background:var(--pink-soft);border-color:var(--pink-line)}
+.box .k{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.box.spark .k{color:var(--rose)}
+.box .v{font-weight:700;font-size:clamp(26px,4vw,38px);letter-spacing:-.02em;line-height:1.1;margin:6px 0 4px;font-variant-numeric:tabular-nums}
+.box p{font-size:13.5px;color:var(--muted)}
+h3{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--rose);margin:26px 0 6px}
+.scroller{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;min-width:300px}
+table.wide{min-width:560px}
+th,td{text-align:right;padding:11px 10px;border-bottom:1px solid var(--line2);font-size:15px;white-space:nowrap;font-variant-numeric:tabular-nums}
+th:first-child,td:first-child{text-align:left;white-space:normal;padding-left:0}
+th:last-child,td:last-child{padding-right:0}
+thead th{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);border-bottom:1px solid var(--line)}
+tbody td:first-child a{font-weight:700;text-decoration:none;border-bottom:1px solid var(--pink-line)}
+tbody td:first-child a:hover{color:var(--rose)}
+td small{display:block;font-size:12.5px;color:var(--faint);font-weight:400}
+tfoot td{font-weight:700;border-bottom:none;border-top:1px solid var(--line)}
+.status{border:1px solid var(--pink-line);border-radius:22px;padding:clamp(22px,4vw,34px);background:var(--pink-soft)}
+.status .txt{color:var(--muted);margin:8px 0 20px;max-width:660px}
+ol.steps{list-style:none;display:grid;gap:12px}
+ol.steps li{display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start}
+ol.steps .dot{width:22px;height:22px;border-radius:50%;border:2px solid rgba(28,19,22,.2);background:#fff;margin-top:1px}
+ol.steps li.klart .dot{background:var(--pink-2);border-color:var(--pink-2)}
+ol.steps li.nu .dot{border-color:var(--pink-2);box-shadow:0 0 0 5px rgba(231,153,156,.3)}
+ol.steps b{display:block;font-weight:700}
+ol.steps span{font-size:14px;color:var(--muted)}
+ol.steps li.nu b{color:var(--rose)}
+.note{margin:44px 0 0;font-size:13px;color:var(--faint);border-top:1px solid var(--line2);padding:20px 0 64px;max-width:760px}
+.msg{border:1px dashed var(--pink-line);border-radius:18px;padding:28px;margin:40px 0;color:var(--muted)}
+@media (max-width:760px){.kpis{grid-template-columns:1fr 1fr}.split{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="hero"><div class="wrap">
+  <div class="top">
+    <a class="brand" href="/"><svg viewBox="0 0 400 435" aria-hidden="true"><g transform="translate(0,435) scale(0.1,-0.1)"><path fill="currentColor" d="M62 2174 l3 -2119 1230 -2 c677 -2 1243 1 1259 5 29 8 29 8 -140 183 -93 96 -232 240 -309 320 l-140 147 -655 1 -655 0 -3 1499 -2 1500 -291 288 c-159 159 -292 291 -295 293 -2 2 -3 -949 -2 -2115z M3694 2953 c-136 -142 -386 -400 -554 -573 -168 -173 -387 -399 -485 -502 -98 -104 -182 -188 -185 -188 -4 0 -42 37 -86 83 -517 538 -911 945 -1141 1177 l-243 245 0 -459 0 -458 88 -92 c48 -51 247 -261 442 -467 315 -331 791 -834 891 -941 49 -53 20 -76 400 329 189 202 390 414 446 472 l102 106 1 -811 0 -812 23 -6 c12 -3 142 -6 290 -6 l267 0 0 1580 c0 869 -2 1580 -4 1580 -2 0 -115 -116 -252 -257z"/></g></svg>Luminate</a>
+    <span class="live"><i></i>Live · uppdateras varje morgon</span>
+  </div>
+  <div class="head" id="head"></div>
+</div></div>
+<div class="wrap"><main id="app"><div class="msg">Hämtar kampanjstatus…</div></main></div>
+<script>
+const SB = "https://bdxuftjhcbhyzawdpyyr.supabase.co/rest/v1/rpc/kund_rapport";
+const SB_KEY = "sb_publishable_NYXRQv35JZI5VIWTIK9v1w_5foqGNr0";   // samma publika nyckel som val-awaknd.html; sätts vid deploy
+const MON = ["jan","feb","mars","april","maj","juni","juli","aug","sep","okt","nov","dec"];
+const n = x => x == null ? "–" : Math.round(x).toLocaleString("sv-SE").replace(/ /g, " ");
+const dag = s => { if (!s) return "–"; const d = new Date(s.length > 10 ? s : s + "T12:00:00"); return d.getDate() + " " + MON[d.getMonth()]; };
+const kl = s => new Date(s).toLocaleTimeString("sv-SE", {hour:"2-digit", minute:"2-digit", timeZone:"Europe/Stockholm"}).replace(":", ".");
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const app = document.getElementById("app");
+
+function period(label) { const m = /P(\d+)/.exec(label); return m ? +m[1] : 0; }
+
+function render(d) {
+  const vids = d.videor || [];
+  const per = {};
+  vids.forEach(v => (per[period(v.kampanj)] ||= []).push(v));
+  const sum = (arr, f) => arr.reduce((a, v) => a + (f(v) || 0), 0);
+  const tot = { v: sum(vids, v => v.nu.visningar), l: sum(vids, v => v.nu.likes), s: sum(vids, v => v.nu.sparningar), d: sum(vids, v => v.nu.delningar) };
+
+  document.title = d.rubrik.split("—")[0].trim() + " — kampanjstatus";
+  document.getElementById("head").innerHTML = `<span class="label">AW26 · kampanjstatus</span>
+  <h1>${esc(d.rubrik).replace("×", "<em>×</em>")}</h1>
+  <p class="sub">Alla publicerade videor med siffror direkt från TikTok, mätta varje dygn. Senast mätt ${dag(d.senast_matt)} kl ${kl(d.senast_matt)}.</p>
+  <div class="kpis">
+    <div class="kpi"><b>${n(tot.v)}</b><span>Visningar totalt</span></div>
+    <div class="kpi"><b>${n(tot.l)}</b><span>Likes</span></div>
+    <div class="kpi"><b>${n(tot.s)}</b><span>Sparningar</span></div>
+    <div class="kpi"><b>${vids.length}</b><span>Publicerade videor</span></div>
+  </div>`;
+  let h = "";
+
+  Object.keys(per).sort().forEach(p => {
+    const arr = per[p];
+    const boost = arr.filter(v => v.spark_boostad !== false);
+    const org = sum(arr, v => v.organiskt.visningar);
+    const harEng = arr.some(v => v.organiskt.likes != null);
+    const orgTill = arr.find(v => v.organiskt.till)?.organiskt.till;
+    const sparkFran = boost.find(v => v.spark_fran)?.spark_fran;
+    const totNu = sum(arr, v => v.nu.visningar);
+    const pubs = arr.map(v => v.publicerad).sort();
+    const utanSpark = arr.filter(v => v.spark_boostad === false).map(v => esc(v.namn));
+
+    const orgRows = arr.slice().sort((a, b) => (b.organiskt.visningar || 0) - (a.organiskt.visningar || 0)).map(v => `
+      <tr><td><a href="${esc(v.url)}" target="_blank" rel="noopener">${esc(v.namn)}</a><small>publicerad ${dag(v.publicerad)}</small></td>
+      <td>${n(v.organiskt.visningar)}</td>${harEng ? `<td>${n(v.organiskt.likes)}</td><td>${n(v.organiskt.sparningar)}</td>` : ""}</tr>`).join("");
+
+    const nuRows = arr.slice().sort((a, b) => b.nu.visningar - a.nu.visningar).map(v => `
+      <tr><td><a href="${esc(v.url)}" target="_blank" rel="noopener">${esc(v.namn)}</a>${v.spark_boostad === false ? "<small>ingen Spark</small>" : ""}</td>
+      <td>${n(v.nu.visningar)}</td><td>${n(v.nu.likes)}</td><td>${n(v.nu.kommentarer)}</td><td>${n(v.nu.delningar)}</td><td>${n(v.nu.sparningar)}</td></tr>`).join("");
+
+    h += `<section class="period">
+      <h2>Period ${p} · video ${p}</h2>
+      <p class="meta">${arr.length} videor publicerade ${dag(pubs[0])}–${dag(pubs[pubs.length - 1])}${sparkFran ? ` · Spark Ads från ${dag(sparkFran)}` : ""}</p>
+      <div class="split">
+        <div class="box"><div class="k">Organiskt${orgTill ? " t.o.m. " + dag(orgTill) : ""}</div><div class="v">${n(org)}</div><p>visningar innan Spark Ads startade</p></div>
+        <div class="box spark"><div class="k">Med Spark · i dag</div><div class="v">${n(totNu)}</div><p>visningar totalt, organiskt och betalt tillsammans</p></div>
+      </div>
+      <h3>Organiskt</h3>
+      <div class="scroller"><table><thead><tr><th>Kreatör</th><th>Visningar</th>${harEng ? "<th>Likes</th><th>Sparningar</th>" : ""}</tr></thead><tbody>${orgRows}</tbody><tfoot><tr><td>Totalt</td><td>${n(org)}</td>${harEng ? `<td>${n(sum(arr, v => v.organiskt.likes))}</td><td>${n(sum(arr, v => v.organiskt.sparningar))}</td>` : ""}</tr></tfoot></table></div>
+      <h3>Med Spark · senaste mätningen</h3>
+      <div class="scroller"><table class="wide"><thead><tr><th>Kreatör</th><th>Visningar</th><th>Likes</th><th>Kommentarer</th><th>Delningar</th><th>Sparningar</th></tr></thead><tbody>${nuRows}</tbody>
+      <tfoot><tr><td>Totalt</td><td>${n(totNu)}</td><td>${n(sum(arr, v => v.nu.likes))}</td><td>${n(sum(arr, v => v.nu.kommentarer))}</td><td>${n(sum(arr, v => v.nu.delningar))}</td><td>${n(sum(arr, v => v.nu.sparningar))}</td></tr></tfoot></table></div>
+      ${utanSpark.length ? `<p class="meta" style="margin-top:10px">${utanSpark.join(", ")} kördes inte som Spark Ads i den här perioden; där är alla visningar organiska, även i dag.</p>` : ""}
+    </section>`;
+  });
+
+  (d.status || []).forEach(s => {
+    const steg = (s.steg || []).map(x => `<li class="${x.klart ? "klart" : x.nu ? "nu" : ""}"><i class="dot"></i><div><b>${esc(x.namn)}</b>${x.datum ? `<span>${esc(x.datum)}</span>` : ""}</div></li>`).join("");
+    h += `<section class="status">
+      <span class="label">Aktuell period · uppdaterad ${dag(s.uppdaterad)}</span>
+      <h2>${esc(s.period)}: ${esc(s.rubrik)}</h2>
+      <p class="txt">${esc(s.text)}</p>
+      ${steg ? `<ol class="steps">${steg}</ol>` : ""}
+    </section>`;
+  });
+
+  h += `<p class="note">Organiskt = videons offentliga visningsräknare på TikTok innan Spark Ads startade (period 1: våra dagliga avläsningar t.o.m. 25 sep). Med Spark = samma räknare vid senaste mätningen, där organiska och betalda visningar räknas ihop. Annonsdata ur Ads Manager visas inte här. Frågor: hör av er till Willem som vanligt.</p>`;
+  app.innerHTML = h;
+}
+
+function fail(t) { app.innerHTML = `<div class="msg">${t}</div>`; }
+
+(async () => {
+  if (window.__RAPPORT__) return render(window.__RAPPORT__);   // lokal förhandsvisning
+  const k = new URLSearchParams(location.hash.slice(1)).get("k");
+  if (!k) return fail("Länken saknar sin nyckel. Använd länken du fått från Luminate.");
+  try {
+    const r = await fetch(SB, { method: "POST", headers: { apikey: SB_KEY, "Content-Type": "application/json" }, body: JSON.stringify({ p_nyckel: k }) });
+    const d = r.ok ? await r.json() : null;
+    if (!d) return fail("Länken gäller inte längre. Hör av dig till Luminate så skickar vi en ny.");
+    render(d);
+  } catch (e) { fail("Kunde inte hämta siffrorna just nu. Försök igen om en stund."); }
+})();
+</script>
+</body>
+</html>
