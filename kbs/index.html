@@ -112,7 +112,7 @@ function render(d) {
   </div>`;
   let h = "";
 
-  Object.keys(per).sort().forEach(p => {
+  Object.keys(per).sort((a, b) => b - a).forEach(p => {
     const arr = per[p];
     const boost = arr.filter(v => v.spark_boostad !== false);
     const org = sum(arr, v => v.organiskt.visningar);
