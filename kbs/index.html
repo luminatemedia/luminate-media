@@ -69,6 +69,14 @@ ol.steps span{font-size:14px;color:var(--muted)}
 ol.steps li.nu b{color:var(--rose)}
 .note{margin:44px 0 0;font-size:13px;color:var(--faint);border-top:1px solid var(--line2);padding:20px 0 64px;max-width:760px}
 .msg{border:1px dashed var(--pink-line);border-radius:18px;padding:28px;margin:40px 0;color:var(--muted)}
+.login{max-width:520px;margin:8px 0 72px}
+.login label{display:block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--rose);margin-bottom:8px}
+.login .row{display:flex;gap:10px;flex-wrap:wrap}
+.login input{flex:1 1 240px;min-width:0;font:inherit;font-size:16px;padding:13px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--txt)}
+.login input:focus{outline:2px solid var(--pink);outline-offset:1px}
+.login button{font:inherit;font-weight:600;font-size:15px;padding:13px 20px;border:0;border-radius:12px;background:var(--pink);color:var(--plum);cursor:pointer}
+.login button:hover{background:var(--pink-2)}
+.login .err{color:var(--rose);font-weight:600;margin-bottom:12px}
 @media (max-width:760px){.kpis{grid-template-columns:1fr 1fr}.split{grid-template-columns:1fr}}
 </style>
 </head>
@@ -163,16 +171,43 @@ function render(d) {
 
 function fail(t) { app.innerHTML = `<div class="msg">${t}</div>`; }
 
-(async () => {
-  if (window.__RAPPORT__) return render(window.__RAPPORT__);   // lokal förhandsvisning
-  const k = new URLSearchParams(location.hash.slice(1)).get("k");
-  if (!k) return fail("Länken saknar sin nyckel. Använd länken du fått från Luminate.");
+const LS = "luminate-kundsida-kbs";
+const mem = { get() { try { return localStorage.getItem(LS) || ""; } catch (e) { return ""; } },
+              set(v) { try { v ? localStorage.setItem(LS, v) : localStorage.removeItem(LS); } catch (e) {} } };
+
+function askCode(msg) {
+  document.getElementById("head").innerHTML = `<span class="label">Kampanjstatus</span><h1>Logga in</h1><p class="sub">Skriv in koden ni fått från Luminate. Webbläsaren kommer ihåg den till nästa gång.</p>`;
+  app.innerHTML = `<form class="login" id="login" autocomplete="off">
+    ${msg ? `<p class="err">${msg}</p>` : ""}
+    <label for="kod">Kod</label>
+    <div class="row"><input id="kod" name="kod" type="text" inputmode="text" spellcheck="false" autocapitalize="off" required>
+    <button type="submit">Visa kampanjen</button></div>
+  </form>`;
+  document.getElementById("login").addEventListener("submit", e => {
+    e.preventDefault();
+    const v = document.getElementById("kod").value.trim().replace(/^.*#k=/, "");
+    if (v) load(v, true);
+  });
+  document.getElementById("kod").focus();
+}
+
+async function load(k, fromForm) {
+  app.innerHTML = `<div class="msg">Hämtar kampanjstatus…</div>`;
   try {
     const r = await fetch(SB, { method: "POST", headers: { apikey: SB_KEY, "Content-Type": "application/json" }, body: JSON.stringify({ p_nyckel: k }) });
     const d = r.ok ? await r.json() : null;
-    if (!d) return fail("Länken gäller inte längre. Hör av dig till Luminate så skickar vi en ny.");
+    if (!d) { mem.set(""); return askCode(fromForm ? "Koden stämmer inte. Kontrollera att hela koden kom med." : "Koden gäller inte längre. Hör av er till Luminate så skickar vi en ny."); }
+    mem.set(k);
+    if (location.hash) history.replaceState(null, "", location.pathname);
     render(d);
   } catch (e) { fail("Kunde inte hämta siffrorna just nu. Försök igen om en stund."); }
+}
+
+(() => {
+  if (window.__RAPPORT__) return render(window.__RAPPORT__);   // lokal förhandsvisning
+  const k = new URLSearchParams(location.hash.slice(1)).get("k") || mem.get();
+  if (!k) return askCode("");
+  load(k, false);
 })();
 </script>
 </body>
