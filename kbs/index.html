@@ -86,8 +86,13 @@ const SB = "https://bdxuftjhcbhyzawdpyyr.supabase.co/rest/v1/rpc/kund_rapport";
 const SB_KEY = "sb_publishable_NYXRQv35JZI5VIWTIK9v1w_5foqGNr0";   // samma publika nyckel som val-awaknd.html; sätts vid deploy
 const MON = ["jan","feb","mars","april","maj","juni","juli","aug","sep","okt","nov","dec"];
 const n = x => x == null ? "–" : Math.round(x).toLocaleString("sv-SE").replace(/ /g, " ");
-const dag = s => { if (!s) return "–"; const d = new Date(s.length > 10 ? s : s + "T12:00:00"); return d.getDate() + " " + MON[d.getMonth()]; };
-const kl = s => new Date(s).toLocaleTimeString("sv-SE", {hour:"2-digit", minute:"2-digit", timeZone:"Europe/Stockholm"}).replace(":", ".");
+const dag = s => {
+  if (!s) return "–";
+  if (s.length <= 10) { const [y, m, d] = s.split("-").map(Number); return d + " " + MON[m - 1]; }
+  const p = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Stockholm", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(s)).split("-").map(Number);
+  return p[2] + " " + MON[p[1] - 1];
+};
+const kl = s => s ? new Date(s).toLocaleTimeString("sv-SE", {hour:"2-digit", minute:"2-digit", timeZone:"Europe/Stockholm"}).replace(":", ".") : "–";
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const app = document.getElementById("app");
 
@@ -112,28 +117,40 @@ function render(d) {
   </div>`;
   let h = "";
 
+  const newest = d.senast_matt ? new Date(d.senast_matt).getTime() : 0;
+  const stale = v => !v.nu.matt || newest - new Date(v.nu.matt).getTime() > 36 * 3600e3;
+  const mattTxt = v => v.nu.matt ? `<small>mätt ${dag(v.nu.matt)}</small>` : "<small>mäts från i natt</small>";
+  const namn = (v, extra) => `<a href="${esc(v.url)}" target="_blank" rel="noopener">${esc(v.namn)}</a>${extra || ""}`;
+  const byNu = (a, b) => (b.nu.visningar || 0) - (a.nu.visningar || 0);
+
   Object.keys(per).sort((a, b) => b - a).forEach(p => {
     const arr = per[p];
+    const split = arr.some(v => v.spark_fran || v.organiskt.visningar != null);   // bara bekräftade gränser
     const boost = arr.filter(v => v.spark_boostad !== false);
     const org = sum(arr, v => v.organiskt.visningar);
     const harEng = arr.some(v => v.organiskt.likes != null);
     const orgTill = arr.find(v => v.organiskt.till)?.organiskt.till;
     const sparkFran = boost.find(v => v.spark_fran)?.spark_fran;
     const totNu = sum(arr, v => v.nu.visningar);
-    const pubs = arr.map(v => v.publicerad).sort();
+    const pubs = arr.map(v => v.publicerad).filter(Boolean).sort();
+    const mattP = arr.map(v => v.nu.matt).filter(Boolean).sort().pop();
     const utanSpark = arr.filter(v => v.spark_boostad === false).map(v => esc(v.namn));
+    const nuNote = v => (v.spark_boostad === false ? "<small>ingen Spark</small>" : "") + (stale(v) ? mattTxt(v) : "");
 
     const orgRows = arr.slice().sort((a, b) => (b.organiskt.visningar || 0) - (a.organiskt.visningar || 0)).map(v => `
-      <tr><td><a href="${esc(v.url)}" target="_blank" rel="noopener">${esc(v.namn)}</a><small>publicerad ${dag(v.publicerad)}</small></td>
+      <tr><td>${namn(v, `<small>publicerad ${dag(v.publicerad)}</small>`)}</td>
       <td>${n(v.organiskt.visningar)}</td>${harEng ? `<td>${n(v.organiskt.likes)}</td><td>${n(v.organiskt.sparningar)}</td>` : ""}</tr>`).join("");
 
-    const nuRows = arr.slice().sort((a, b) => b.nu.visningar - a.nu.visningar).map(v => `
-      <tr><td><a href="${esc(v.url)}" target="_blank" rel="noopener">${esc(v.namn)}</a>${v.spark_boostad === false ? "<small>ingen Spark</small>" : ""}</td>
+    const nuRows = arr.slice().sort(byNu).map(v => `
+      <tr><td>${namn(v, split ? nuNote(v) : `<small>publicerad ${dag(v.publicerad)}</small>` + (stale(v) ? mattTxt(v) : ""))}</td>
       <td>${n(v.nu.visningar)}</td><td>${n(v.nu.likes)}</td><td>${n(v.nu.kommentarer)}</td><td>${n(v.nu.delningar)}</td><td>${n(v.nu.sparningar)}</td></tr>`).join("");
+    const nuFoot = `<tfoot><tr><td>Totalt</td><td>${n(totNu)}</td><td>${n(sum(arr, v => v.nu.likes))}</td><td>${n(sum(arr, v => v.nu.kommentarer))}</td><td>${n(sum(arr, v => v.nu.delningar))}</td><td>${n(sum(arr, v => v.nu.sparningar))}</td></tr></tfoot>`;
+    const nuHead = `<thead><tr><th>Kreatör</th><th>Visningar</th><th>Likes</th><th>Kommentarer</th><th>Delningar</th><th>Sparningar</th></tr></thead>`;
+    const meta = `${arr.length} ${arr.length === 1 ? "video publicerad" : "videor publicerade"} ${pubs.length ? (pubs[0] === pubs[pubs.length - 1] ? dag(pubs[0]) : dag(pubs[0]) + "–" + dag(pubs[pubs.length - 1])) : ""}${split && sparkFran ? ` · Spark Ads från ${dag(sparkFran)}` : ""} · senast mätt ${dag(mattP)}`;
 
-    h += `<section class="period">
+    h += split ? `<section class="period">
       <h2>Period ${p} · video ${p}</h2>
-      <p class="meta">${arr.length} videor publicerade ${dag(pubs[0])}–${dag(pubs[pubs.length - 1])}${sparkFran ? ` · Spark Ads från ${dag(sparkFran)}` : ""}</p>
+      <p class="meta">${meta}</p>
       <div class="split">
         <div class="box"><div class="k">Organiskt${orgTill ? " t.o.m. " + dag(orgTill) : ""}</div><div class="v">${n(org)}</div><p>visningar innan Spark Ads startade</p></div>
         <div class="box spark"><div class="k">Med Spark · i dag</div><div class="v">${n(totNu)}</div><p>visningar totalt, organiskt och betalt tillsammans</p></div>
@@ -141,9 +158,14 @@ function render(d) {
       <h3>Organiskt</h3>
       <div class="scroller"><table><thead><tr><th>Kreatör</th><th>Visningar</th>${harEng ? "<th>Likes</th><th>Sparningar</th>" : ""}</tr></thead><tbody>${orgRows}</tbody><tfoot><tr><td>Totalt</td><td>${n(org)}</td>${harEng ? `<td>${n(sum(arr, v => v.organiskt.likes))}</td><td>${n(sum(arr, v => v.organiskt.sparningar))}</td>` : ""}</tr></tfoot></table></div>
       <h3>Med Spark · senaste mätningen</h3>
-      <div class="scroller"><table class="wide"><thead><tr><th>Kreatör</th><th>Visningar</th><th>Likes</th><th>Kommentarer</th><th>Delningar</th><th>Sparningar</th></tr></thead><tbody>${nuRows}</tbody>
-      <tfoot><tr><td>Totalt</td><td>${n(totNu)}</td><td>${n(sum(arr, v => v.nu.likes))}</td><td>${n(sum(arr, v => v.nu.kommentarer))}</td><td>${n(sum(arr, v => v.nu.delningar))}</td><td>${n(sum(arr, v => v.nu.sparningar))}</td></tr></tfoot></table></div>
+      <div class="scroller"><table class="wide">${nuHead}<tbody>${nuRows}</tbody>${nuFoot}</table></div>
       ${utanSpark.length ? `<p class="meta" style="margin-top:10px">${utanSpark.join(", ")} kördes inte som Spark Ads i den här perioden; där är alla visningar organiska, även i dag.</p>` : ""}
+    </section>` : `<section class="period">
+      <h2>Period ${p} · video ${p}</h2>
+      <p class="meta">${meta}</p>
+      <div class="split"><div class="box spark"><div class="k">Visningar hittills</div><div class="v">${n(totNu)}</div><p>senaste mätningen från TikTok</p></div></div>
+      <h3>Senaste mätningen</h3>
+      <div class="scroller"><table class="wide">${nuHead}<tbody>${nuRows}</tbody>${nuFoot}</table></div>
     </section>`;
   });
 
