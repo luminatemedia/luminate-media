@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Luminate — Logo reveal</title>
+<style>
+@font-face{font-family:'Archivo Black';font-style:normal;font-weight:400;src:url(../../assets/fonts/archivo-black.woff2) format('woff2')}
+@font-face{font-family:'Instrument Serif';font-style:italic;font-weight:400;src:url(../../assets/fonts/instrument-serif-italic.woff2) format('woff2')}
+@font-face{font-family:'Schibsted Grotesk';font-style:normal;font-weight:400 700;src:url(../../assets/fonts/schibsted-grotesk.woff2) format('woff2')}
+html,body{margin:0;height:100%;background:#0b0607;color:#fff;font-family:'Schibsted Grotesk',system-ui,sans-serif}
+body{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+canvas{display:block;max-width:94vw;max-height:82vh;border-radius:10px;box-shadow:0 30px 80px -20px rgba(0,0,0,.8)}
+.ui{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.ui button{font:600 13px/1 'Schibsted Grotesk',sans-serif;color:#fff;background:#2A1A1D;border:1px solid rgba(231,153,156,.35);border-radius:999px;padding:10px 16px;cursor:pointer}
+.ui button.on{background:#E7999C;color:#2A1A1D;border-color:#E7999C}
+body.export{display:block;background:#000}
+body.export .ui{display:none}
+body.export canvas{max-width:none;max-height:none;border-radius:0;box-shadow:none}
+</style>
+</head>
+<body>
+<canvas id="cv"></canvas>
+<div class="ui" id="ui">
+  <button data-f="9x16">9:16 Reels/TikTok</button>
+  <button data-f="4x5">4:5 Feed</button>
+  <button data-f="1x1">1:1</button>
+  <button data-f="16x9">16:9 YouTube</button>
+  <button id="replay">↻ Spela igen</button>
+</div>
+<script>
+/* ------------------------------------------------------------------
+   Luminate Media — logo reveal
+   Deterministisk: render(t) ritar exakt samma bild för samma t, så
+   samma fil används både för förhandsvisning och MP4-export
+   (scripts/render_logo_reveal.js).
+------------------------------------------------------------------- */
+const D_L = "M62 2174 l3 -2119 1230 -2 c677 -2 1243 1 1259 5 29 8 29 8 -140 183 -93 96 -232 240 -309 320 l-140 147 -655 1 -655 0 -3 1499 -2 1500 -291 288 c-159 159 -292 291 -295 293 -2 2 -3 -949 -2 -2115z";
+const D_M = "M3694 2953 c-136 -142 -386 -400 -554 -573 -168 -173 -387 -399 -485 -502 -98 -104 -182 -188 -185 -188 -4 0 -42 37 -86 83 -517 538 -911 945 -1141 1177 l-243 245 0 -459 0 -458 88 -92 c48 -51 247 -261 442 -467 315 -331 791 -834 891 -941 49 -53 20 -76 400 329 189 202 390 414 446 472 l102 106 1 -811 0 -812 23 -6 c12 -3 142 -6 290 -6 l267 0 0 1580 c0 869 -2 1580 -4 1580 -2 0 -115 -116 -252 -257z";
+const P_L = new Path2D(D_L), P_M = new Path2D(D_M);
+
+const PINK = '#E7999C', SAND = '#F2E4D8';
+const FORMATS = {'9x16':[1080,1920],'4x5':[1080,1350],'1x1':[1080,1080],'16x9':[1920,1080]};
+const FPS = 60, DUR = 6.5;
+
+// Tidslinje (sekunder)
+const T = {
+  streakIn:[0.05,0.55], streakOut:[0.55,0.82], flare:[0.7,1.35],
+  draw:[0.62,1.7],
+  slam:[1.42,1.9], impact:1.9,
+  glint1:[2.2,2.95],
+  lift:[2.55,3.35],
+  letters:2.78,
+  media:[3.45,4.05],
+  url:[4.15,4.8],
+  glint2:[5.05,5.8],
+};
+
+/* ---------- utils ---------- */
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const lerp=(a,b,t)=>a+(b-a)*t;
+const prog=(t,[a,b])=>clamp((t-a)/(b-a));
+const eOutExpo=x=>x>=1?1:1-Math.pow(2,-10*x);
+const eInExpo=x=>x<=0?0:Math.pow(2,10*x-10);
+const eOutCubic=x=>1-Math.pow(1-x,3);
+const eInOutCubic=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const eInOutQuint=x=>x<.5?16*x**5:1-Math.pow(-2*x+2,5)/2;
+const eInOutSine=x=>-(Math.cos(Math.PI*x)-1)/2;
+function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+
+function pathLen(d){
+  const NS='http://www.w3.org/2000/svg';
+  const s=document.createElementNS(NS,'svg'), p=document.createElementNS(NS,'path');
+  p.setAttribute('d',d); s.appendChild(p);
+  s.style.cssText='position:absolute;width:0;height:0;visibility:hidden';
+  document.body.appendChild(s); const L=p.getTotalLength(); s.remove(); return L;
+}
+const LEN_L = pathLen(D_L), LEN_M = pathLen(D_M);
+
+/* ---------- canvas & state ---------- */
+const cv=document.getElementById('cv'), ctx=cv.getContext('2d');
+const off=document.createElement('canvas'), octx=off.getContext('2d');
+let W,H,u,grain=[],sparks=[],dust=[];
+
+function setFormat(f){
+  if(!FORMATS[f]) f='9x16';
+  [W,H]=FORMATS[f]; u=Math.min(W,H);
+  cv.width=off.width=W; cv.height=off.height=H;
+  // korn (förberäknat, 4 varianter)
+  grain=[]; const r=rng(7);
+  for(let k=0;k<4;k++){
+    const g=document.createElement('canvas'); g.width=W>>1; g.height=H>>1;
+    const gc=g.getContext('2d'), id=gc.createImageData(g.width,g.height);
+    for(let i=0;i<id.data.length;i+=4){const v=r()*255|0;id.data[i]=id.data[i+1]=id.data[i+2]=v;id.data[i+3]=255;}
+    gc.putImageData(id,0,0); grain.push(g);
+  }
+  // gnistor vid nedslaget
+  const rs=rng(42); sparks=[];
+  for(let i=0;i<130;i++){
+    const a=rs()*Math.PI*2;
+    sparks.push({a, v:(0.5+rs()*rs()*2.4)*u, life:0.45+rs()*1.0, w:0.6+rs()*1.6,
+      pink:rs()<.55, ox:(rs()-.5)*0.08*u, oy:(rs()-.5)*0.08*u});
+  }
+  // svävande ljuspartiklar
+  const rd=rng(9); dust=[];
+  for(let i=0;i<70;i++) dust.push({x:rd()*W,y:rd()*H,s:(0.6+rd()*2.2)*u/1080,v:(0.008+rd()*0.03)*u,ph:rd()*6.28,f:0.6+rd()*1.6});
+  document.querySelectorAll('.ui button[data-f]').forEach(b=>b.classList.toggle('on',b.dataset.f===f));
+}
+
+/* ---------- layout ---------- */
+const LOGO_W = 0.40;            // loggans bredd (andel av u)
+function layout(t){
+  const lp=eInOutQuint(prog(t,T.lift));
+  return {
+    cx:W/2,
+    cy:H/2 + lerp(0, -0.122*u, lp),
+    scale:lerp(1,0.74,lp),
+    textY:H/2 + 0.178*u,
+    mediaY:H/2 + 0.273*u,
+  };
+}
+// matris: kamera * placering * loggans lokala koordinater (400x435 box, y-flip)
+function logoMatrix(cam, x, y, size, rot=0){
+  const s=size/400;
+  return cam.translate(x,y).rotate(rot*180/Math.PI).scale(s,s).translate(-200,-217.5).translate(0,435).scale(0.1,-0.1);
+}
+
+/* ---------- render ---------- */
+function render(t){
+  const c=ctx, imp=T.impact, di=t-imp;
+  c.setTransform(1,0,0,1,0,0); c.globalCompositeOperation='source-over'; c.globalAlpha=1; c.filter='none'; c.shadowBlur=0;
+  const L=layout(t);
+
+  // bakgrund
+  const bg=c.createRadialGradient(L.cx,L.cy,0,L.cx,L.cy,Math.hypot(W,H)*0.6);
+  bg.addColorStop(0,'#2A1A1D'); bg.addColorStop(0.55,'#170C0F'); bg.addColorStop(1,'#080405');
+  c.fillStyle=bg; c.fillRect(0,0,W,H);
+
+  // kamera: långsam push-in + skak vid nedslaget
+  const zoom=1+0.05*eInOutSine(clamp(t/DUR));
+  let sx=0,sy=0,rot=0;
+  if(di>0){const a=0.024*u*Math.exp(-di*8);
+    sx=a*(Math.sin(di*91)+0.5*Math.sin(di*157+1)); sy=a*(Math.cos(di*83)+0.5*Math.sin(di*131+2)); rot=0.012*Math.exp(-di*8)*Math.sin(di*70);}
+  const cam=new DOMMatrix().translate(W/2+sx,H/2+sy).rotate(rot*57.3).scale(zoom,zoom).translate(-W/2,-H/2);
+
+  const glowAfter = di>0 ? 0.13+0.3*Math.exp(-di*2.5) : 0;
+  const pre = 0.06*eOutCubic(prog(t,[0.4,1.8]));
+  // rosa ljusmoln bakom loggan
+  c.setTransform(cam); c.globalCompositeOperation='lighter';
+  {const g=c.createRadialGradient(L.cx,L.cy,0,L.cx,L.cy,0.75*u);
+   const a=glowAfter+pre; g.addColorStop(0,`rgba(231,153,156,${a})`); g.addColorStop(0.5,`rgba(176,86,97,${a*0.35})`); g.addColorStop(1,'rgba(0,0,0,0)');
+   c.fillStyle=g; c.fillRect(L.cx-u,L.cy-u,2*u,2*u);}
+
+  // roterande ljusstrålar
+  if(di>0){
+    const ra=clamp(di/0.5)*(0.8+0.2*Math.sin(t*1.7));
+    c.save(); c.translate(L.cx,L.cy); c.rotate(t*0.09);
+    for(let i=0;i<16;i++){
+      c.save(); c.rotate(i*Math.PI*2/16 + Math.sin(i*3.1)*0.1);
+      const len=1.5*u, hw=0.02+0.025*((i*7)%5)/5;
+      const g=c.createLinearGradient(0,0,len,0);
+      g.addColorStop(0,`rgba(231,153,156,${0.075*ra})`); g.addColorStop(1,'rgba(231,153,156,0)');
+      c.fillStyle=g; c.beginPath(); c.moveTo(0,0); c.lineTo(len,-len*hw); c.lineTo(len,len*hw); c.closePath(); c.fill(); c.restore();
+    }
+    c.restore();
+  }
+
+  // svävande partiklar
+  if(di>-0.3){
+    const da=clamp((di+0.3)/0.8);
+    for(const d of dust){
+      const y=((d.y - d.v*t)%H+H)%H, x=d.x+Math.sin(t*0.6+d.ph)*0.01*u;
+      const tw=0.35+0.65*Math.abs(Math.sin(t*d.f+d.ph));
+      c.fillStyle=`rgba(242,200,200,${0.5*da*tw})`; c.beginPath(); c.arc(x,y,d.s,0,6.283); c.fill();
+    }
+  }
+
+  // 1) ljusstreck som öppnar
+  const p1=prog(t,T.streakIn), p2=prog(t,T.streakOut);
+  if(t<T.streakOut[1]+0.01 && p1>0){
+    const w=W*1.15*eOutExpo(p1)*(1-eInExpo(p2));
+    if(w>1){
+      c.save(); c.translate(L.cx,L.cy); c.scale(w/2,0.035*u);
+      const g=c.createRadialGradient(0,0,0,0,0,1);
+      g.addColorStop(0,'rgba(255,240,240,.55)'); g.addColorStop(.25,'rgba(231,153,156,.28)'); g.addColorStop(1,'rgba(231,153,156,0)');
+      c.fillStyle=g; c.fillRect(-1,-1,2,2); c.restore();
+      const th=Math.max(2,0.0028*u);
+      const lg=c.createLinearGradient(L.cx-w/2,0,L.cx+w/2,0);
+      lg.addColorStop(0,'rgba(255,255,255,0)'); lg.addColorStop(.5,'rgba(255,255,255,1)'); lg.addColorStop(1,'rgba(255,255,255,0)');
+      c.fillStyle=lg; c.fillRect(L.cx-w/2,L.cy-th/2,w,th);
+    }
+  }
+  // flare när strecket kollapsar
+  const pf=prog(t,T.flare);
+  if(pf>0&&pf<1){
+    const I=Math.sin(pf*Math.PI)**1.5;
+    const g=c.createRadialGradient(L.cx,L.cy,0,L.cx,L.cy,0.16*u);
+    g.addColorStop(0,`rgba(255,255,255,${I})`); g.addColorStop(.2,`rgba(255,215,215,${0.6*I})`); g.addColorStop(1,'rgba(231,153,156,0)');
+    c.fillStyle=g; c.fillRect(L.cx-u,L.cy-u,2*u,2*u);
+    c.save(); c.translate(L.cx,L.cy); c.scale(0.55*u*I+1,0.006*u);
+    const a=c.createRadialGradient(0,0,0,0,0,1); a.addColorStop(0,`rgba(255,235,235,${0.9*I})`); a.addColorStop(1,'rgba(231,153,156,0)');
+    c.fillStyle=a; c.fillRect(-1,-1,2,2); c.restore();
+  }
+
+  // logo-storlek med "punch" efter nedslaget
+  const punch = di>0 ? 1+0.085*Math.sin(di*16)*Math.exp(-di*5.5) : 1;
+  const size = LOGO_W*u*L.scale*punch;
+  const Mlogo = logoMatrix(cam,L.cx,L.cy,size);
+  const k = size/400*0.1; // px per path-enhet
+
+  // 2) kontur ritas fram
+  const pd=eInOutCubic(prog(t,T.draw));
+  const outA=1-prog(t,[imp,imp+0.3]);
+  if(pd>0 && outA>0){
+    c.save(); c.setTransform(Mlogo); c.globalCompositeOperation='lighter';
+    c.lineWidth=0.0042*u/k; c.lineJoin='round'; c.lineCap='round';
+    c.shadowColor='rgba(231,153,156,.95)'; c.shadowBlur=0.035*u;
+    c.strokeStyle=`rgba(244,190,192,${outA})`;
+    c.setLineDash([LEN_L*pd,LEN_L+10]); c.stroke(P_L);
+    c.setLineDash([LEN_M*pd,LEN_M+10]); c.stroke(P_M);
+    c.restore();
+  }
+
+  // 3) fyllda delar smäller in (med rörelseoskärpa)
+  const ps=prog(t,T.slam);
+  const pieceOff=(tt,dir)=>{ // dir: -1 = L från vänster, +1 = M från höger/ovan
+    const e=Math.pow(prog(tt,T.slam),2.4), r=1-e;
+    return dir<0 ? {x:-1.05*u*r, y:0.22*u*r, a:-0.5*r} : {x:1.05*u*r, y:-0.42*u*r, a:0.42*r};
+  };
+  const drawPiece=(ctx2,P,o,fill)=>{
+    ctx2.setTransform(logoMatrix(cam,L.cx+o.x,L.cy+o.y,size,o.a)); ctx2.fillStyle=fill; ctx2.fill(P);
+  };
+  if(ps>0 && t<imp){
+    c.save(); c.globalCompositeOperation='lighter';
+    for(let g=7;g>=1;g--){
+      const tt=t-g*0.011; if(tt<T.slam[0]) continue;
+      c.globalAlpha=0.16*(1-g/8);
+      drawPiece(c,P_L,pieceOff(tt,-1),'#F4C4C6'); drawPiece(c,P_M,pieceOff(tt,1),'#F4C4C6');
+    }
+    c.restore();
+    c.save(); c.globalAlpha=clamp(ps/0.12);
+    c.shadowColor='rgba(231,153,156,.9)'; c.shadowBlur=0.03*u;
+    drawPiece(c,P_L,pieceOff(t,-1),'#fff'); drawPiece(c,P_M,pieceOff(t,1),'#fff');
+    c.restore();
+  }
+
+  // 4) nedslag: chockvågor + gnistor
+  if(di>=0){
+    c.save(); c.setTransform(cam); c.globalCompositeOperation='lighter';
+    [[0,1.1,1.05,0.014,'255,225,225'],[0.09,0.95,0.75,0.007,'231,153,156'],[0.2,1.1,0.5,0.004,'255,255,255']].forEach(([dl,du,R,lw,col])=>{
+      const p=prog(t,[imp+dl,imp+dl+du]); if(p<=0||p>=1) return;
+      const e=eOutExpo(p);
+      c.strokeStyle=`rgba(${col},${0.85*Math.pow(1-p,1.6)})`; c.lineWidth=Math.max(0.6,lw*u*(1-p));
+      c.shadowColor=`rgba(${col},.8)`; c.shadowBlur=0.02*u;
+      c.beginPath(); c.arc(L.cx,L.cy,0.05*u+R*u*e,0,6.283); c.stroke();
+    });
+    c.shadowBlur=0; c.lineCap='round';
+    const drag=3.2;
+    for(const s of sparks){
+      if(di>s.life) continue;
+      const lp=di/s.life;
+      const dist=tt=>s.v*(1-Math.exp(-drag*tt))/drag;
+      const d1=dist(di), d0=dist(Math.max(0,di-0.035));
+      const ca=Math.cos(s.a), sa=Math.sin(s.a);
+      const ox=L.cx+s.ox, oy=L.cy+s.oy + 0.05*u*di*di*3; // lite gravitation
+      c.strokeStyle=s.pink?`rgba(231,153,156,${1-lp})`:`rgba(255,240,235,${1-lp})`;
+      c.lineWidth=s.w*u/1080*2.2*(1-lp*0.7);
+      c.beginPath(); c.moveTo(ox+ca*d0,oy+sa*d0); c.lineTo(ox+ca*d1,oy+sa*d1); c.stroke();
+    }
+    c.restore();
+  }
+
+  // 5) färdig logga (kromatisk aberration direkt efter smällen)
+  if(di>=0){
+    const ca=0.016*u*Math.exp(-di*7);
+    if(ca>0.3){
+      c.save(); c.globalCompositeOperation='lighter';
+      c.setTransform(logoMatrix(cam,L.cx-ca,L.cy,size)); c.fillStyle='rgba(255,40,90,.85)'; c.fill(P_L); c.fill(P_M);
+      c.setTransform(logoMatrix(cam,L.cx+ca,L.cy+ca*0.3,size)); c.fillStyle='rgba(60,190,255,.75)'; c.fill(P_L); c.fill(P_M);
+      c.restore();
+    }
+    c.save(); c.setTransform(Mlogo);
+    c.shadowColor=`rgba(231,153,156,${0.45+0.5*Math.exp(-di*2.5)})`; c.shadowBlur=0.07*u*L.scale;
+    c.fillStyle='#fff'; c.fill(P_L); c.fill(P_M);
+    c.restore();
+  }
+
+  // 6) glint-svep över loggan
+  [T.glint1,T.glint2].forEach((G,gi)=>{
+    const p=prog(t,G); if(p<=0||p>=1) return;
+    octx.setTransform(1,0,0,1,0,0); octx.clearRect(0,0,W,H); octx.globalCompositeOperation='source-over';
+    octx.setTransform(Mlogo); octx.fillStyle='#fff'; octx.fill(P_L); octx.fill(P_M);
+    octx.setTransform(1,0,0,1,0,0); octx.globalCompositeOperation='source-in';
+    const cxs=cam.transformPoint(new DOMPoint(L.cx,L.cy)); const half=size*0.75;
+    const x=lerp(-1.3,1.3,eInOutSine(p))*half;
+    const g=octx.createLinearGradient(cxs.x+x-0.25*half,cxs.y+0.6*half,cxs.x+x+0.25*half,cxs.y-0.6*half);
+    g.addColorStop(0,'rgba(255,255,255,0)'); g.addColorStop(.5,'rgba(255,230,230,1)'); g.addColorStop(1,'rgba(255,255,255,0)');
+    octx.fillStyle=g; octx.fillRect(0,0,W,H);
+    c.save(); c.setTransform(1,0,0,1,0,0); c.globalCompositeOperation='lighter';
+    c.filter=`blur(${0.022*u}px)`; c.globalAlpha=gi?0.8:1; c.drawImage(off,0,0);
+    c.filter=`blur(${0.006*u}px)`; c.drawImage(off,0,0);
+    c.filter='none'; c.restore();
+    // stjärnblänk på M:ets topp när svepet passerat
+    const sp=prog(t,[G[0]+(G[1]-G[0])*0.55,G[1]]);
+    if(sp>0&&sp<1){
+      const tip=Mlogo.transformPoint(new DOMPoint(3946,3210));
+      const I=Math.sin(sp*Math.PI), R=0.09*u*I*L.scale+1;
+      c.save(); c.setTransform(1,0,0,1,0,0); c.globalCompositeOperation='lighter'; c.translate(tip.x,tip.y); c.rotate(sp*0.8);
+      for(const [sxs,sys] of [[R,0.035*R],[0.035*R,R]]){
+        c.save(); c.scale(sxs,sys); const gg=c.createRadialGradient(0,0,0,0,0,1);
+        gg.addColorStop(0,`rgba(255,255,255,${I})`); gg.addColorStop(1,'rgba(231,153,156,0)'); c.fillStyle=gg; c.fillRect(-1,-1,2,2); c.restore();
+      }
+      const gg=c.createRadialGradient(0,0,0,0,0,R*0.35); gg.addColorStop(0,`rgba(255,255,255,${I})`); gg.addColorStop(1,'rgba(231,153,156,0)');
+      c.fillStyle=gg; c.fillRect(-R,-R,2*R,2*R); c.restore();
+    }
+  });
+
+  // 7) LUMINATE — bokstav för bokstav ur en maskad "springa"
+  if(t>T.letters-0.05){
+    c.save(); c.setTransform(cam);
+    let fs=0.112*u; c.font=`400 ${fs}px "Archivo Black"`;
+    const word='LUMINATE', trEnd=0.14;
+    const widths=[...word].map(ch=>c.measureText(ch).width);
+    const tot=widths.reduce((a,b)=>a+b,0)+fs*trEnd*(word.length-1);
+    const maxW=Math.min(0.84*W,0.95*u); if(tot>maxW){fs*=maxW/tot; c.font=`400 ${fs}px "Archivo Black"`;}
+    const ws=[...word].map(ch=>c.measureText(ch).width);
+    const tr=lerp(0.34,trEnd,eOutExpo(prog(t,[T.letters,T.letters+1.3])))*fs;
+    const total=ws.reduce((a,b)=>a+b,0)+tr*(word.length-1);
+    let x=L.cx-total/2; const base=L.textY;
+    // under uppgången: maska bokstäverna vid baslinjen; efteråt släpps masken och glöden tonar in
+    const lettersEnd=T.letters+(word.length-1)*0.055+0.65;
+    if(t<lettersEnd){c.beginPath(); c.rect(0,base-fs*1.1,W,fs*1.18); c.clip();}
+    c.textBaseline='alphabetic'; c.fillStyle='#fff';
+    c.shadowColor=`rgba(231,153,156,${0.4*prog(t,[lettersEnd,lettersEnd+0.5])})`; c.shadowBlur=0.03*u;
+    [...word].forEach((ch,i)=>{
+      const p=prog(t,[T.letters+i*0.055,T.letters+i*0.055+0.65]), e=eOutExpo(p);
+      if(p>0){
+        c.globalAlpha=clamp(p*4);
+        c.filter=e<0.98?`blur(${(1-e)*0.012*u}px)`:'none';
+        c.fillText(ch,x,base+(1-e)*fs*1.05);
+      }
+      x+=ws[i]+tr;
+    });
+    c.filter='none'; c.restore();
+  }
+
+  // 8) "Media" + linjer
+  const pm=prog(t,T.media);
+  if(pm>0){
+    const e=eOutCubic(pm);
+    c.save(); c.setTransform(cam);
+    const fs=0.085*u; c.font=`italic 400 ${fs}px "Instrument Serif"`; c.textAlign='center';
+    const tw=c.measureText('Media').width, y=L.mediaY+(1-e)*0.03*u;
+    c.globalAlpha=e; c.filter=e<0.98?`blur(${(1-e)*0.014*u}px)`:'none';
+    c.fillStyle=PINK; c.fillText('Media',L.cx,y); c.filter='none';
+    const le=eOutExpo(prog(t,[T.media[0]+0.12,T.media[1]+0.4]))*0.14*u, gap=0.03*u, ly=y-fs*0.27;
+    c.strokeStyle='rgba(231,153,156,.75)'; c.lineWidth=Math.max(1.5,0.0024*u);
+    c.beginPath(); c.moveTo(L.cx-tw/2-gap,ly); c.lineTo(L.cx-tw/2-gap-le,ly);
+    c.moveTo(L.cx+tw/2+gap,ly); c.lineTo(L.cx+tw/2+gap+le,ly); c.stroke();
+    c.restore();
+  }
+
+  // 9) URL i botten
+  const pu=prog(t,T.url);
+  if(pu>0){
+    const e=eOutCubic(pu);
+    c.save(); c.setTransform(1,0,0,1,0,0);
+    const fs=0.028*u; c.font=`600 ${fs}px "Schibsted Grotesk"`; c.textAlign='center';
+    c.letterSpacing=`${(0.26+0.2*(1-e))*fs}px`;
+    c.fillStyle=`rgba(242,228,216,${0.62*e})`;
+    c.fillText('LUMINATEMEDIA.SE',W/2+0.13*fs,H-Math.max(0.065*H,0.07*u)+(1-e)*0.01*u);
+    c.restore();
+  }
+
+  // efterbehandling: blixt, vinjett, korn
+  c.setTransform(1,0,0,1,0,0); c.globalAlpha=1; c.globalCompositeOperation='source-over';
+  if(di>=0){const a=0.8*Math.exp(-di*11); if(a>0.003){c.fillStyle=`rgba(255,238,238,${a})`; c.fillRect(0,0,W,H);}}
+  {const v=c.createRadialGradient(W/2,H/2,Math.min(W,H)*0.35,W/2,H/2,Math.hypot(W,H)*0.62);
+   v.addColorStop(0,'rgba(0,0,0,0)'); v.addColorStop(1,'rgba(0,0,0,.6)'); c.fillStyle=v; c.fillRect(0,0,W,H);}
+  c.globalCompositeOperation='overlay'; c.globalAlpha=0.07;
+  c.drawImage(grain[Math.floor(t*24)%4],0,0,W,H);
+  c.globalAlpha=1; c.globalCompositeOperation='source-over';
+  // svart in-fade första bildrutorna
+  if(t<0.12){c.fillStyle=`rgba(0,0,0,${1-t/0.12})`; c.fillRect(0,0,W,H);}
+}
+
+/* ---------- start ---------- */
+const params=new URLSearchParams(location.search);
+const isExport=params.has('export');
+if(isExport) document.body.classList.add('export');
+setFormat(params.get('f')||'9x16');
+
+window.ready=Promise.all([
+  document.fonts.load('400 100px "Archivo Black"'),
+  document.fonts.load('italic 400 100px "Instrument Serif"'),
+  document.fonts.load('600 100px "Schibsted Grotesk"'),
+]).then(()=>document.fonts.ready);
+window.renderFrame=render; window.setFormat=setFormat; window.DUR=DUR; window.FPS=FPS;
+window.frameDataURL=(t,type='image/png')=>{render(t);return cv.toDataURL(type);};
+
+if(!isExport){
+  let start=performance.now();
+  document.querySelectorAll('.ui button[data-f]').forEach(b=>b.onclick=()=>{setFormat(b.dataset.f);start=performance.now();});
+  document.getElementById('replay').onclick=()=>start=performance.now();
+  window.ready.then(()=>{
+    const loop=now=>{const t=(now-start)/1000; render(Math.min(t,DUR)); if(t>DUR+1.5) start=now; requestAnimationFrame(loop);};
+    requestAnimationFrame(loop);
+  });
+}
+</script>
+</body>
+</html>
