@@ -99,7 +99,7 @@ def build(cfg_path):
 <link rel="icon" type="image/png" href="/assets/luminate-icon-192.png" sizes="192x192">
 <link rel="icon" type="image/svg+xml" href="/assets/luminate-icon.svg">
 <link rel="apple-touch-icon" href="/assets/luminate-icon-180.png">
-<meta name="theme-color" content="#2A1A1D">
+<meta name="theme-color" content="#FFFFFF">
 <link rel="preload" href="/assets/fonts/archivo-black.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/schibsted-grotesk.woff2" as="font" type="font/woff2" crossorigin>
@@ -109,52 +109,53 @@ def build(cfg_path):
 @font-face{{font-family:'Schibsted Grotesk';font-style:normal;font-weight:400 700;font-display:swap;src:url(/assets/fonts/schibsted-grotesk.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}}
 </style>
 <style>
-:root{{--pink:#E7999C;--plum:#2A1A1D;--plum-3:#180D10;--white:#fff;
+/* Vit och rosa, som luminatemedia.se */
+:root{{--pink:#E7999C;--pink-soft:#FBEDEE;--pink-line:#F2CFD1;--rose:#B05661;--plum:#2A1A1D;--muted:#7A5A60;--white:#FFFFFF;
 --black:"Archivo Black","Arial Black",sans-serif;--sans:"Schibsted Grotesk","Helvetica Neue",sans-serif;
 --pad:clamp(20px,4.5vw,64px)}}
 *{{margin:0;padding:0;box-sizing:border-box}}
-body{{font-family:var(--sans);background:linear-gradient(180deg,var(--plum) 0%,var(--plum-3) 100%);
-color:var(--white);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}}
+body{{font-family:var(--sans);background:var(--white);color:var(--plum);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}}
 a{{color:inherit}}
 .wrap{{max-width:900px;margin:0 auto;padding:clamp(26px,5vw,52px) var(--pad) 80px}}
-.top{{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:clamp(36px,6vw,60px)}}
+.top{{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:clamp(36px,6vw,60px);flex-wrap:wrap}}
 .brand{{display:flex;align-items:center;gap:12px;text-decoration:none;min-height:44px}}
 .brand svg{{width:28px;height:auto;color:var(--pink)}}
 .brand b{{font-family:var(--black);font-weight:400;font-size:13px;letter-spacing:.08em;text-transform:uppercase}}
 .live{{display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:700;letter-spacing:.16em;
-text-transform:uppercase;color:var(--pink);border:1px solid rgba(231,153,156,.45);padding:6px 13px;border-radius:999px}}
+text-transform:uppercase;color:var(--rose);border:1px solid var(--pink-line);background:var(--pink-soft);padding:6px 13px;border-radius:999px}}
 .live i{{width:6px;height:6px;border-radius:50%;background:var(--pink);animation:p 1.6s ease-in-out infinite}}
 @keyframes p{{0%,100%{{opacity:1}}50%{{opacity:.4}}}}
-.label{{display:block;font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:rgba(231,153,156,.9);margin-bottom:12px}}
+@media (prefers-reduced-motion:reduce){{.live i{{animation:none}}}}
+.label{{display:block;font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--rose);margin-bottom:12px}}
 h1{{font-family:var(--black);font-weight:400;font-size:clamp(28px,5.6vw,58px);line-height:1.04;text-transform:uppercase;margin-bottom:10px}}
 h1 em{{font-family:"Instrument Serif",Georgia,serif;font-style:italic;text-transform:none;color:var(--pink);font-size:1.06em}}
-.sub{{color:rgba(255,255,255,.7);font-weight:500;margin-bottom:clamp(30px,5vw,48px)}}
-.kpis{{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:rgba(231,153,156,.2);
-border:1px solid rgba(231,153,156,.2);margin-bottom:clamp(30px,5vw,48px)}}
-.kpi{{background:#241519;padding:clamp(20px,3vw,30px)}}
+.sub{{color:var(--muted);font-weight:500;margin-bottom:clamp(30px,5vw,48px)}}
+.kpis{{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:clamp(30px,5vw,48px)}}
+.kpi{{background:var(--pink-soft);border-radius:16px;padding:clamp(20px,3vw,30px)}}
 .kpi b{{display:block;font-family:var(--black);font-weight:400;font-size:clamp(30px,5vw,52px);line-height:1}}
-.kpi span{{display:block;margin-top:8px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55)}}
+.kpi span{{display:block;margin-top:8px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}}
+.kpi b span{{display:inline;margin:0;font-size:inherit;letter-spacing:0;color:var(--pink)}}
 h2{{font-family:var(--black);font-weight:400;font-size:clamp(17px,2.4vw,24px);text-transform:uppercase;margin:0 0 14px}}
-.empty{{border:1px dashed rgba(231,153,156,.4);border-radius:18px;padding:clamp(24px,4vw,40px);margin-bottom:36px}}
+.empty{{border:1px dashed var(--pink);background:var(--pink-soft);border-radius:18px;padding:clamp(24px,4vw,40px);margin-bottom:36px}}
 .empty b{{display:block;font-family:var(--black);font-weight:400;font-size:clamp(18px,2.6vw,26px);text-transform:uppercase;margin-bottom:10px}}
-.empty p{{color:rgba(255,255,255,.68);max-width:560px}}
+.empty p{{color:var(--muted);max-width:560px}}
 .scroller{{overflow-x:auto;margin-bottom:36px}}
 table{{width:100%;border-collapse:collapse;min-width:460px}}
-th,td{{text-align:left;padding:13px 12px;border-bottom:1px solid rgba(231,153,156,.16);font-size:15px;vertical-align:top}}
-thead th{{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5)}}
+th,td{{text-align:left;padding:13px 12px;border-bottom:1px solid var(--pink-line);font-size:15px;vertical-align:top}}
+thead th{{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}}
 tbody th{{font-weight:700}}
-tbody th a{{text-decoration:none;border-bottom:1px solid rgba(231,153,156,.5)}}
-.cap{{display:block;font-weight:400;font-size:12.5px;color:rgba(255,255,255,.45);margin-top:4px;max-width:460px}}
+tbody th a{{text-decoration:none;border-bottom:1px solid var(--pink)}}
+.cap{{display:block;font-weight:400;font-size:12.5px;color:var(--muted);margin-top:4px;max-width:460px}}
 .num{{font-variant-numeric:tabular-nums;font-family:var(--black);font-weight:400;font-size:18px;white-space:nowrap}}
 .crs{{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:36px}}
-.cr{{border:1px solid rgba(231,153,156,.2);border-radius:14px;padding:14px 16px}}
+.cr{{border:1px solid var(--pink-line);border-radius:14px;padding:14px 16px}}
 .cr b{{display:block;font-family:var(--black);font-weight:400;font-size:14px;text-transform:uppercase}}
-.cr span{{font-size:12.5px;color:rgba(255,255,255,.55)}}
+.cr span{{font-size:12.5px;color:var(--muted)}}
 .days{{display:flex;align-items:flex-end;gap:5px;height:120px;margin-bottom:36px}}
-.days .d{{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;gap:6px}}
+.days .d{{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;gap:6px;min-width:0}}
 .days .d span{{width:100%;background:var(--pink);border-radius:4px 4px 0 0;display:block}}
-.days .d i{{font-style:normal;font-size:9px;color:rgba(255,255,255,.35)}}
-.note{{font-size:12.5px;color:rgba(255,255,255,.45);border-top:1px solid rgba(231,153,156,.18);padding-top:20px}}
+.days .d i{{font-style:normal;font-size:9px;color:var(--muted)}}
+.note{{font-size:12.5px;color:var(--muted);border-top:1px solid var(--pink-line);padding-top:20px}}
 </style>
 </head>
 <body>
