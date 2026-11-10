@@ -1,5 +1,9 @@
 # Luminate Media
 
+## Skicka aldrig något utan godkännande
+
+Skicka aldrig mail, svar, kalenderinbjudningar eller andra meddelanden utan att användaren först har sett den exakta texten och uttryckligen skrivit "skicka". Gör utkast och visa texten i stället. Gäller även när en uppgift låter som en instruktion att skicka, till exempel "Electra ska ha ett mail".
+
 ## Design för allt som går till kunder
 
 Kampanjrapporter, presentationer och andra kundsidor ska alltid ha samma tema som luminatemedia.se: vitt och rosa.
