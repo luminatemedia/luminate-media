@@ -893,6 +893,7 @@ body.bm-open{overflow:hidden}
   scroll-snap-type:x proximity;
   padding:6px var(--pad) 24px;
   scrollbar-width:none;-webkit-overflow-scrolling:touch;cursor:grab;
+  overscroll-behavior-x:contain;
 }
 .crail::-webkit-scrollbar{display:none}
 .crail.dragging{cursor:grabbing;scroll-snap-type:none}
@@ -2451,10 +2452,38 @@ function scramble(el){
 (function(){
   const rail = document.getElementById('crail');
   if (!rail || !matchMedia('(pointer:fine)').matches) return;
-  let down = false, moved = 0, sx = 0, sl = 0;
-  rail.addEventListener('pointerdown', e => { down = true; moved = 0; sx = e.clientX; sl = rail.scrollLeft; rail.classList.add('dragging'); });
-  addEventListener('pointermove', e => { if (down) { const dx = e.clientX - sx; moved = Math.max(moved, Math.abs(dx)); rail.scrollLeft = sl - dx; } });
-  addEventListener('pointerup', () => { down = false; rail.classList.remove('dragging'); });
+  /* Draget lever bara medan knappen hålls nere över railen (pointer capture).
+     Förut lyssnade pointermove på hela fönstret och släpptes bara på pointerup:
+     släpptes knappen utanför, eller tog webbläsaren över med bild-/länkdrag,
+     fastnade draget och varje musrörelse efteråt scrollade railen åt sidan. */
+  let down = false, moved = 0, sx = 0, sl = 0, pid = null;
+  const end = () => {
+    if (!down) return;
+    down = false;
+    rail.classList.remove('dragging');
+    if (pid !== null && rail.hasPointerCapture && rail.hasPointerCapture(pid)) rail.releasePointerCapture(pid);
+    pid = null;
+  };
+  rail.addEventListener('pointerdown', e => {
+    if (e.button !== 0) return;
+    down = true; moved = 0; sx = e.clientX; sl = rail.scrollLeft; pid = e.pointerId;
+  });
+  rail.addEventListener('pointermove', e => {
+    if (!down || e.pointerId !== pid) return;
+    if (!(e.buttons & 1)) { end(); return; }
+    const dx = e.clientX - sx;
+    moved = Math.max(moved, Math.abs(dx));
+    if (moved > 6 && !rail.classList.contains('dragging')) {
+      rail.classList.add('dragging');
+      rail.setPointerCapture(pid);
+    }
+    if (rail.classList.contains('dragging')) rail.scrollLeft = sl - dx;
+  });
+  rail.addEventListener('pointerup', end);
+  rail.addEventListener('pointercancel', end);
+  rail.addEventListener('lostpointercapture', end);
+  addEventListener('blur', end);
+  rail.addEventListener('dragstart', e => e.preventDefault());
   rail.addEventListener('click', e => { if (moved > 6) { e.preventDefault(); e.stopPropagation(); } }, true);
 })();
 
