@@ -24,6 +24,8 @@ jobs:
         run: python3 scripts/build_benchmark.py
       - name: Bygg prissidan
         run: python3 scripts/build_pricing.py
+      - name: Bygg Swedish Market Entry-sidan
+        run: python3 scripts/build_market_entry.py
       - name: Bygg mediakit-sidorna
         run: python3 scripts/build_mediakits.py
       - name: Hamta kampanjsiffror
@@ -35,6 +37,6 @@ jobs:
         run: |
           git config user.name "luminate-stats-bot"
           git config user.email "github-actions@github.com"
-          git add data/stats.json data/history.json data/views.json data/campaigns benchmark.html priser.html kreatorer
+          git add data/stats.json data/history.json data/views.json data/campaigns benchmark.html priser.html market-entry.html kreatorer
           git add -A -- rapport-*.html 2>/dev/null || true
           git diff --cached --quiet || { git commit -m "stats: nattlig TikTok-uppdatering"; git push; }
