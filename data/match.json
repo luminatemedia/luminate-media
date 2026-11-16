@@ -185,42 +185,6 @@
     "skonhet"
    ]
   },
-  "ebbasimonsbacka": {
-   "own": 78350,
-   "n": 52,
-   "cats": {
-    "mode": {
-     "n": 13,
-     "med": 65400
-    },
-    "skonhet": {
-     "n": 3,
-     "med": 38900
-    },
-    "mat": {
-     "n": 9,
-     "med": 97600
-    },
-    "traning": {
-     "n": 1,
-     "med": 67600
-    },
-    "livsstil": {
-     "n": 17,
-     "med": 73600
-    },
-    "hem": {
-     "n": 3,
-     "med": 120000
-    }
-   },
-   "profil": [
-    "skonhet",
-    "mode"
-   ],
-   "name": "Ebba Simonsbacka",
-   "followers": 50472
-  },
   "electrakarlsson200": {
    "own": 53300,
    "n": 52,

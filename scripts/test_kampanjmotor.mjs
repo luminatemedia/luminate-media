@@ -93,7 +93,8 @@ krav(M.tolkaBudget('30k') === 30000 && M.tolkaBudget('ca 45 tkr') === 45000 && M
 krav(M.tolkaBudget('vad kostar en video?') === null && M.tolkaBudget('500 kr') === null, 'tolkaBudget: inget belopp');
 krav(M.tolkaAmnen('jag vill bygga en kampanj').length === 0, 'tolkaAmnen: en mening utan produkt ger inget ämne');
 krav(M.tolkaAmnen('vi säljer barnkläder och leksaker').includes('mode'), 'tolkaAmnen: barnkläder');
-krav(match.creators.lunamaarkovic && match.creators.ebbasimonsbacka, 'alla kreatörer i nätverket ska finnas i match.json');
+krav(match.creators.lunamaarkovic && match.creators.wilmasqvist, 'kreatörer utan kort på sajten ska finnas i match.json');
+krav(!match.creators.ebbasimonsbacka, 'Ebba ska inte föreslås för företag (eget önskemål, beslut 7 sep 2026)');
 
 if (process.argv.includes('--exempel')) {
   const kr = n => Math.round(n).toLocaleString('sv-SE') + ' kr';
