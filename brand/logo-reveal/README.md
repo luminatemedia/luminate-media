@@ -1,42 +1,40 @@
 # Luminate — logo reveal
 
-6,5 s logo reveal för reels, TikTok, annonser och intro/outro i videor.
+En 5 sekunder lång logo reveal i samma formspråk som luminatemedia.se. Den kan användas som intro eller
+outro i reels, annonser, case-videor och presentationer.
 
-| Fil | Användning |
-| --- | --- |
-| `luminate-logo-reveal-9x16.mp4` | Reels, TikTok, Stories, Shorts (1080×1920) |
-| `luminate-logo-reveal-4x5.mp4` | Instagram/Facebook-feed (1080×1350) |
-| `luminate-logo-reveal-1x1.mp4` | Kvadratiskt flöde, LinkedIn (1080×1080) |
-| `luminate-logo-reveal-16x9.mp4` | YouTube, presentationer, webb (1920×1080) |
-| `luminate-endcard-*.jpg` | Slutbild, t.ex. omslag/thumbnail |
-| `luminate-logo-reveal.wav` | Ljudet separat (för att mixa under egen musik) |
+Det finns två versioner:
 
-Alla MP4:or är 60 fps, H.264 + AAC, med ljud.
+- **Vit** (`white`): vit bakgrund, rosa logga och mörk text, som på sajten.
+- **Rosa** (`pink`): rosa bakgrund med vit logga och vit text, som profilbilden.
 
-## Händelseförlopp
+| Format | Användning | Vit | Rosa |
+| --- | --- | --- | --- |
+| 9:16 (1080×1920) | Reels, TikTok, Stories, Shorts | `luminate-logo-reveal-white-9x16.mp4` | `luminate-logo-reveal-pink-9x16.mp4` |
+| 4:5 (1080×1350) | Instagram/Facebook-flödet | `luminate-logo-reveal-white-4x5.mp4` | `luminate-logo-reveal-pink-4x5.mp4` |
+| 1:1 (1080×1080) | Kvadratiskt, LinkedIn | `luminate-logo-reveal-white-1x1.mp4` | `luminate-logo-reveal-pink-1x1.mp4` |
+| 16:9 (1920×1080) | YouTube, presentationer, webb | `luminate-logo-reveal-white-16x9.mp4` | `luminate-logo-reveal-pink-16x9.mp4` |
+
+`luminate-endcard-*.png` är slutbilden som stillbild och passar som omslag eller thumbnail.
+Alla videor är i 60 fps, H.264 och **utan ljud**, så det går att lägga egen musik eller voiceover under.
+
+## Förlopp
 
 | Tid | Vad händer |
 | --- | --- |
-| 0,0–0,8 s | Ett ljusstreck öppnar bilden och kollapsar till en flare |
-| 0,6–1,7 s | LM-konturen ritas fram i rosa neon |
-| 1,4–1,9 s | L:et och M:et flyger in från var sitt håll, med riser i ljudet |
-| 1,9 s | Smäll: blixt, chockvågor, gnistor, kameraskak och basdrop |
-| 2,2 s | Ljussvep över loggan |
-| 2,6–3,8 s | Loggan lyfter, **LUMINATE** reser sig bokstav för bokstav |
-| 3,5 s | *Media* tonar in |
-| 4,2 s → slut | luminatemedia.se, ljusstrålar och ett andra glint; slutbilden står kvar |
+| 0,25–1,6 s | LM-konturen ritas fram, först L:et och sedan M:et |
+| 1,35–2,05 s | Loggan fylls med färg underifrån |
+| 2,2–3,35 s | Loggan krymper och glider åt vänster medan "Luminate" glider fram bredvid |
+| 3,0–3,65 s | luminatemedia.se tonar in |
+| 3,65–5,0 s | Slutbilden står kvar |
 
-Klipp vid ~4,8 s om ni vill ha en kortare version (då är loggan, texten och URL:en på plats).
+## Ändra eller rendera om
 
-## Ändra / rendera om
+Animationen är skriven som kod i `index.html`. Den använder den riktiga vektorloggan, sajtens rosa
+(#E7929C) och mörka textfärg (#1C1316), typsnittet Schibsted Grotesk och sajtens easing.
 
-Animationen är ren kod (canvas) i `index.html`, byggd på den riktiga vektorloggan, sajtens färger
-och typsnitten Archivo Black, Instrument Serif och Schibsted Grotesk.
-
-- Förhandsvisa: öppna `brand/logo-reveal/` via en lokal server (t.ex. `python3 -m http.server` i repo-roten).
-- Tidslinjen styrs av objektet `T` i `index.html`. Ändrar ni tiderna, uppdatera samma tider överst i
-  `scripts/logo_reveal_audio.py` så att ljudet följer med.
-- Rendera alla format: `node scripts/render_logo_reveal.js` (eller t.ex. `... 9x16`). Kräver Playwright,
-  ffmpeg och python3 med numpy.
-
-Ljudet är helt syntetiserat (inga samplingar eller licenser) och fritt att använda.
+- **Förhandsvisa:** kör `python3 -m http.server` i repo-roten och öppna `/brand/logo-reveal/`.
+  Där kan du byta tema och format.
+- **Tider och färger:** tidslinjen styrs av objektet `T` och färgerna av `THEMES`, båda i `index.html`.
+- **Rendera:** `node scripts/render_logo_reveal.js` renderar alla teman och format. Vill du bara ha
+  vissa, skriv t.ex. `node scripts/render_logo_reveal.js pink 9x16`. Skriptet kräver Playwright och ffmpeg.
