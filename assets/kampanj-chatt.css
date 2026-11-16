@@ -1,0 +1,73 @@
+/* Kampanjassistenten — styrd chatt på startsidan. Vitt och rosa, samma tema som resten av sajten. */
+.kchat{padding:clamp(48px,7vw,88px) var(--pad) clamp(40px,6vw,72px);background:#fff;color:#2A1A1D}
+.kchat-head{max-width:760px;margin:0 auto clamp(22px,3vw,32px);text-align:center}
+.kchat-head .kchat-eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#B05661;margin-bottom:12px}
+.kchat-head h2{font-family:var(--sans);font-weight:700;font-size:clamp(28px,3.6vw,44px);line-height:1.1;letter-spacing:-.02em;color:#2A1A1D;margin:0 0 12px}
+.kchat-head h2 em{font-family:"Instrument Serif",serif;font-style:italic;font-weight:400;color:#B05661}
+.kchat-head p{font-size:clamp(15px,1.4vw,17px);line-height:1.6;color:#5F5558;max-width:600px;margin:0 auto}
+
+.kchat-box{max-width:760px;margin:0 auto;background:#FBEDEE;border:1px solid #F2CFD1;border-radius:22px;overflow:hidden;box-shadow:0 1px 2px rgba(17,17,17,.05),0 18px 36px -22px rgba(42,26,29,.35)}
+.kchat-log{padding:clamp(16px,2.6vw,26px);display:flex;flex-direction:column;gap:12px;max-height:min(72vh,760px);overflow-y:auto;overscroll-behavior:contain;scroll-behavior:smooth}
+.kc-msg{max-width:88%;padding:12px 16px;border-radius:18px;font-size:15.5px;line-height:1.5;animation:kcIn .28s cubic-bezier(.16,1,.3,1) both}
+.kc-bot{align-self:flex-start;background:#fff;border:1px solid #F2CFD1;border-bottom-left-radius:6px;color:#2A1A1D}
+.kc-user{align-self:flex-end;background:#2A1A1D;color:#fff;border-bottom-right-radius:6px}
+.kc-msg b{font-weight:700}
+.kc-chips{align-self:flex-start;display:flex;flex-wrap:wrap;gap:8px;max-width:100%;animation:kcIn .28s cubic-bezier(.16,1,.3,1) both}
+.kc-chips button{font:600 14px/1 var(--sans);padding:11px 15px;border-radius:999px;border:1px solid #E7999C;background:#fff;color:#2A1A1D;cursor:pointer;transition:background .15s,color .15s,transform .15s}
+.kc-chips button:hover{background:#E7999C}
+.kc-chips button:active{transform:scale(.97)}
+.kc-chips button.on{background:#2A1A1D;border-color:#2A1A1D;color:#fff}
+.kc-chips button.kc-go{background:#E7999C;border-color:#E7999C;font-weight:700}
+.kc-chips button[disabled]{opacity:.45;cursor:default;pointer-events:none}
+.kc-chips.done button:not(.on){display:none}
+.kc-chips.done button.on{pointer-events:none}
+.kc-typing{align-self:flex-start;display:inline-flex;gap:5px;padding:14px 16px;background:#fff;border:1px solid #F2CFD1;border-radius:18px;border-bottom-left-radius:6px}
+.kc-typing i{width:7px;height:7px;border-radius:50%;background:#E7999C;animation:kcDot 1s ease-in-out infinite}
+.kc-typing i:nth-child(2){animation-delay:.15s}.kc-typing i:nth-child(3){animation-delay:.3s}
+
+.kchat-form{display:flex;gap:10px;padding:12px;background:#fff;border-top:1px solid #F2CFD1}
+.kchat-form input{flex:1;min-width:0;font:500 16px/1.2 var(--sans);padding:13px 16px;border-radius:999px;border:1px solid #F2CFD1;background:#fff;color:#2A1A1D;outline:none}
+.kchat-form input:focus{border-color:#E7999C;box-shadow:0 0 0 3px rgba(231,153,156,.25)}
+.kchat-form button{font:700 15px/1 var(--sans);padding:0 20px;border-radius:999px;border:0;background:#2A1A1D;color:#fff;cursor:pointer}
+.kchat-form button:hover{background:#B05661}
+.kchat-foot{max-width:760px;margin:12px auto 0;font-size:12.5px;line-height:1.5;color:#756B6F;text-align:center}
+
+/* förslaget */
+.kc-card{align-self:stretch;background:#fff;border:1px solid #F2CFD1;border-radius:18px;padding:clamp(16px,2.4vw,22px);animation:kcIn .35s cubic-bezier(.16,1,.3,1) both}
+.kc-card h3{font-family:"Archivo Black","Arial Black",sans-serif;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#B05661;margin:0 0 4px}
+.kc-card .kc-sum{font-size:clamp(20px,2.4vw,26px);font-weight:700;letter-spacing:-.02em;line-height:1.2;margin:0 0 14px;color:#2A1A1D}
+.kc-card .kc-sum small{display:block;font-size:14px;font-weight:500;color:#5F5558;letter-spacing:0;margin-top:4px}
+.kc-people{list-style:none;margin:0 0 14px;padding:0;display:grid;gap:8px}
+.kc-people li{display:grid;grid-template-columns:48px 1fr auto;gap:12px;align-items:center;padding:8px;border-radius:14px;background:#FBEDEE}
+.kc-people img{width:48px;height:48px;border-radius:50%;object-fit:cover;background:#F2CFD1}
+.kc-people a{color:inherit;text-decoration:none}
+.kc-people a:hover b{text-decoration:underline}
+.kc-who b{display:block;font-size:15px;font-weight:700;line-height:1.25}
+.kc-who small{display:block;font-size:12.5px;color:#5F5558;line-height:1.35}
+.kc-num{text-align:right;white-space:nowrap}
+.kc-num b{display:block;font-size:15px;font-weight:700}
+.kc-num small{display:block;font-size:12px;color:#5F5558}
+.kc-people li.kc-free{grid-template-columns:1fr auto;background:transparent;border:1px dashed #F2CFD1}
+.kc-lines{margin:0 0 12px;padding:12px 0 0;border-top:1px solid #F2CFD1;display:grid;gap:7px}
+.kc-lines div{display:flex;justify-content:space-between;gap:16px;font-size:14.5px}
+.kc-lines div span:last-child{font-weight:600;white-space:nowrap}
+.kc-lines .kc-total{margin-top:4px;padding-top:10px;border-top:1px solid #F2CFD1;font-size:17px;font-weight:700}
+.kc-lines .kc-minus span:last-child{color:#B05661}
+.kc-spark{margin:0 0 12px;padding:12px 14px;border-radius:14px;background:#FBEDEE;font-size:14px;line-height:1.5}
+.kc-spark b{font-weight:700}
+.kc-note{margin:0 0 10px;font-size:13.5px;line-height:1.5;color:#2A1A1D}
+.kc-fine{margin:0;font-size:12px;line-height:1.5;color:#756B6F}
+.kc-ctas{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+.kc-ctas a,.kc-ctas button{font:700 14.5px/1 var(--sans);padding:13px 18px;border-radius:999px;border:1px solid #2A1A1D;background:#2A1A1D;color:#fff;cursor:pointer;text-decoration:none}
+.kc-ctas .kc-ghost{background:#fff;color:#2A1A1D}
+.kc-ctas a:hover,.kc-ctas button:hover{background:#B05661;border-color:#B05661;color:#fff}
+
+@keyframes kcIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes kcDot{0%,100%{opacity:.3;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
+@media (max-width:560px){
+  .kc-msg{max-width:94%;font-size:15px}
+  .kc-people li{grid-template-columns:40px 1fr auto;gap:10px}
+  .kc-people img{width:40px;height:40px}
+  .kchat-form button{padding:0 16px}
+}
+@media (prefers-reduced-motion:reduce){.kc-msg,.kc-chips,.kc-card{animation:none}.kc-typing i{animation:none}.kchat-log{scroll-behavior:auto}}

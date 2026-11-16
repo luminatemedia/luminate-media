@@ -1,0 +1,629 @@
+{
+ "updated": "2026-11-16",
+ "window": "videor publicerade 18 aug–8 nov 2026, lästa 16 nov 2026",
+ "method": "organiska videor med bildtext, sorterade per ämne efter bildtexten; median av visningar per kreatör och ämne",
+ "categories": [
+  {
+   "key": "mode",
+   "label": "Mode & kläder"
+  },
+  {
+   "key": "skonhet",
+   "label": "Skönhet & smink"
+  },
+  {
+   "key": "har",
+   "label": "Hår"
+  },
+  {
+   "key": "hudvard",
+   "label": "Hudvård"
+  },
+  {
+   "key": "mat",
+   "label": "Mat & dryck"
+  },
+  {
+   "key": "traning",
+   "label": "Träning & sport"
+  },
+  {
+   "key": "livsstil",
+   "label": "Livsstil & vardag"
+  },
+  {
+   "key": "hem",
+   "label": "Hem & pyssel"
+  }
+ ],
+ "creators": {
+  "alice.almm": {
+   "own": 3488,
+   "n": 42,
+   "cats": {
+    "mode": {
+     "n": 4,
+     "med": 3363
+    },
+    "skonhet": {
+     "n": 4,
+     "med": 3263
+    },
+    "har": {
+     "n": 2,
+     "med": 2651
+    },
+    "mat": {
+     "n": 5,
+     "med": 6498
+    },
+    "livsstil": {
+     "n": 9,
+     "med": 3423
+    },
+    "hem": {
+     "n": 2,
+     "med": 2781
+    }
+   },
+   "profil": [
+    "livsstil",
+    "mode"
+   ]
+  },
+  "aotterud": {
+   "own": 61350,
+   "n": 36,
+   "cats": {
+    "mode": {
+     "n": 2,
+     "med": 57950
+    },
+    "skonhet": {
+     "n": 2,
+     "med": 81400
+    },
+    "har": {
+     "n": 4,
+     "med": 115800
+    },
+    "mat": {
+     "n": 2,
+     "med": 74000
+    },
+    "livsstil": {
+     "n": 5,
+     "med": 46000
+    }
+   },
+   "profil": [
+    "mode",
+    "skonhet",
+    "livsstil"
+   ]
+  },
+  "astridholmstromming": {
+   "own": 19800,
+   "n": 49,
+   "cats": {
+    "mode": {
+     "n": 3,
+     "med": 23700
+    },
+    "livsstil": {
+     "n": 2,
+     "med": 24850
+    }
+   },
+   "profil": [
+    "mode",
+    "skonhet",
+    "livsstil"
+   ]
+  },
+  "coolneliaaa": {
+   "own": 94400,
+   "n": 39,
+   "cats": {
+    "livsstil": {
+     "n": 1,
+     "med": 218000
+    }
+   },
+   "profil": [
+    "livsstil",
+    "skonhet",
+    "mode"
+   ]
+  },
+  "diihhva": {
+   "own": 8782,
+   "n": 42,
+   "cats": {
+    "mode": {
+     "n": 2,
+     "med": 7560
+    },
+    "skonhet": {
+     "n": 5,
+     "med": 8769
+    },
+    "har": {
+     "n": 2,
+     "med": 16300
+    },
+    "mat": {
+     "n": 1,
+     "med": 8769
+    },
+    "traning": {
+     "n": 2,
+     "med": 14076
+    },
+    "livsstil": {
+     "n": 9,
+     "med": 8153
+    },
+    "hem": {
+     "n": 1,
+     "med": 22500
+    }
+   },
+   "profil": [
+    "mode",
+    "skonhet"
+   ]
+  },
+  "electrakarlsson200": {
+   "own": 53300,
+   "n": 52,
+   "cats": {
+    "mode": {
+     "n": 1,
+     "med": 72000
+    },
+    "skonhet": {
+     "n": 7,
+     "med": 45000
+    },
+    "har": {
+     "n": 1,
+     "med": 98500
+    },
+    "mat": {
+     "n": 1,
+     "med": 26000
+    },
+    "livsstil": {
+     "n": 4,
+     "med": 61400
+    }
+   },
+   "profil": [
+    "mode",
+    "livsstil",
+    "skonhet"
+   ]
+  },
+  "ellaaxman": {
+   "own": 16900,
+   "n": 13,
+   "cats": {
+    "mat": {
+     "n": 2,
+     "med": 65650
+    },
+    "livsstil": {
+     "n": 1,
+     "med": 8301
+    }
+   },
+   "profil": []
+  },
+  "elsa41612": {
+   "own": 56800,
+   "n": 24,
+   "cats": {
+    "mode": {
+     "n": 2,
+     "med": 31200
+    },
+    "skonhet": {
+     "n": 1,
+     "med": 69000
+    },
+    "har": {
+     "n": 3,
+     "med": 82700
+    },
+    "livsstil": {
+     "n": 3,
+     "med": 111300
+    }
+   },
+   "profil": [
+    "mode",
+    "livsstil",
+    "skonhet"
+   ]
+  },
+  "isabellamensahh": {
+   "own": 7987,
+   "n": 60,
+   "cats": {
+    "mode": {
+     "n": 9,
+     "med": 10700
+    },
+    "har": {
+     "n": 5,
+     "med": 7065
+    },
+    "livsstil": {
+     "n": 1,
+     "med": 8496
+    }
+   },
+   "profil": []
+  },
+  "jacquelineekenstedt": {
+   "own": 7210,
+   "n": 50,
+   "cats": {
+    "mode": {
+     "n": 8,
+     "med": 11351
+    },
+    "skonhet": {
+     "n": 12,
+     "med": 12600
+    },
+    "har": {
+     "n": 2,
+     "med": 12805
+    },
+    "hudvard": {
+     "n": 1,
+     "med": 3497
+    },
+    "mat": {
+     "n": 6,
+     "med": 6765
+    },
+    "livsstil": {
+     "n": 8,
+     "med": 6565
+    },
+    "hem": {
+     "n": 2,
+     "med": 58450
+    }
+   },
+   "profil": []
+  },
+  "jessprivatastory": {
+   "own": 10250,
+   "n": 38,
+   "cats": {
+    "mode": {
+     "n": 5,
+     "med": 19500
+    },
+    "livsstil": {
+     "n": 5,
+     "med": 16300
+    }
+   },
+   "profil": []
+  },
+  "juliaberglunnd": {
+   "own": 13900,
+   "n": 17,
+   "cats": {
+    "mode": {
+     "n": 2,
+     "med": 10896
+    },
+    "har": {
+     "n": 1,
+     "med": 8024
+    },
+    "livsstil": {
+     "n": 4,
+     "med": 10601
+    }
+   },
+   "profil": [
+    "mode",
+    "livsstil",
+    "skonhet"
+   ]
+  },
+  "leabelge_": {
+   "own": 27000,
+   "n": 22,
+   "cats": {
+    "har": {
+     "n": 1,
+     "med": 33900
+    }
+   },
+   "profil": []
+  },
+  "linneafknahlqvist": {
+   "own": 2123,
+   "n": 52,
+   "cats": {
+    "livsstil": {
+     "n": 1,
+     "med": 3990
+    }
+   },
+   "profil": [
+    "livsstil",
+    "skonhet",
+    "mode"
+   ]
+  },
+  "lovisa.haeger": {
+   "own": 27150,
+   "n": 50,
+   "cats": {
+    "mode": {
+     "n": 7,
+     "med": 40500
+    },
+    "har": {
+     "n": 1,
+     "med": 26300
+    },
+    "mat": {
+     "n": 6,
+     "med": 48350
+    },
+    "livsstil": {
+     "n": 11,
+     "med": 34700
+    },
+    "hem": {
+     "n": 1,
+     "med": 17800
+    }
+   },
+   "profil": [
+    "livsstil"
+   ]
+  },
+  "michel1egrwm": {
+   "own": 50850,
+   "n": 44,
+   "cats": {
+    "mode": {
+     "n": 25,
+     "med": 54500
+    },
+    "skonhet": {
+     "n": 17,
+     "med": 51100
+    },
+    "mat": {
+     "n": 1,
+     "med": 26700
+    },
+    "livsstil": {
+     "n": 6,
+     "med": 48150
+    },
+    "hem": {
+     "n": 2,
+     "med": 54450
+    }
+   },
+   "profil": [
+    "skonhet",
+    "mode",
+    "livsstil"
+   ]
+  },
+  "minoue.ranta": {
+   "own": 3176,
+   "n": 35,
+   "cats": {
+    "mode": {
+     "n": 7,
+     "med": 2101
+    },
+    "har": {
+     "n": 3,
+     "med": 1786
+    }
+   },
+   "profil": [
+    "livsstil"
+   ]
+  },
+  "mirandaomatilda_westerbe": {
+   "own": 11300,
+   "n": 17,
+   "cats": {
+    "mat": {
+     "n": 1,
+     "med": 7381
+    },
+    "traning": {
+     "n": 5,
+     "med": 11300
+    },
+    "livsstil": {
+     "n": 1,
+     "med": 10100
+    }
+   },
+   "profil": [
+    "mode",
+    "livsstil"
+   ]
+  },
+  "nezzysf": {
+   "own": 10600,
+   "n": 13,
+   "cats": {
+    "har": {
+     "n": 1,
+     "med": 6673
+    },
+    "livsstil": {
+     "n": 3,
+     "med": 13800
+    }
+   },
+   "profil": []
+  },
+  "norvellan": {
+   "own": 18450,
+   "n": 32,
+   "cats": {
+    "skonhet": {
+     "n": 2,
+     "med": 44500
+    },
+    "har": {
+     "n": 1,
+     "med": 24900
+    },
+    "mat": {
+     "n": 1,
+     "med": 22800
+    },
+    "livsstil": {
+     "n": 2,
+     "med": 49000
+    }
+   },
+   "profil": [
+    "livsstil",
+    "mode"
+   ]
+  },
+  "olivia3jonsson": {
+   "own": 88100,
+   "n": 48,
+   "cats": {
+    "mat": {
+     "n": 1,
+     "med": 39000
+    },
+    "traning": {
+     "n": 38,
+     "med": 84200
+    }
+   },
+   "profil": [
+    "traning"
+   ]
+  },
+  "shoppargalet": {
+   "own": 8471,
+   "n": 17,
+   "cats": {
+    "mode": {
+     "n": 11,
+     "med": 7225
+    },
+    "skonhet": {
+     "n": 1,
+     "med": 8105
+    },
+    "traning": {
+     "n": 1,
+     "med": 8471
+    },
+    "livsstil": {
+     "n": 1,
+     "med": 5745
+    }
+   },
+   "profil": []
+  },
+  "superhemligtmg": {
+   "own": 12850,
+   "n": 40,
+   "cats": {},
+   "profil": [
+    "livsstil",
+    "mode"
+   ]
+  },
+  "svea.engstrom": {
+   "own": 19300,
+   "n": 11,
+   "cats": {
+    "mode": {
+     "n": 1,
+     "med": 131100
+    },
+    "livsstil": {
+     "n": 4,
+     "med": 31300
+    }
+   },
+   "profil": [
+    "skonhet",
+    "hudvard",
+    "mode",
+    "livsstil"
+   ]
+  },
+  "tildesundb": {
+   "own": 27650,
+   "n": 50,
+   "cats": {
+    "mode": {
+     "n": 1,
+     "med": 26300
+    },
+    "har": {
+     "n": 3,
+     "med": 26100
+    },
+    "hudvard": {
+     "n": 1,
+     "med": 59200
+    },
+    "livsstil": {
+     "n": 2,
+     "med": 63450
+    }
+   },
+   "profil": [
+    "mode",
+    "livsstil",
+    "skonhet"
+   ]
+  },
+  "tjejenshemlighet": {
+   "own": 5050,
+   "n": 2,
+   "cats": {
+    "mat": {
+     "n": 1,
+     "med": 4568
+    }
+   },
+   "profil": [
+    "livsstil",
+    "mode"
+   ]
+  },
+  "veira.larsson": {
+   "own": 23950,
+   "n": 8,
+   "cats": {},
+   "profil": [
+    "mode",
+    "livsstil",
+    "skonhet"
+   ]
+  }
+ }
+}

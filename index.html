@@ -1299,6 +1299,7 @@ h2 .acc,.stats h2 mark,.services h2 .acc,.creators h2 .acc,.portal h2 .acc,.case
 .contact .book.ghost{box-shadow:inset 0 0 0 1px rgba(42,26,29,.55)}
 footer{background:var(--plum)}
 </style>
+<link rel="stylesheet" href="assets/kampanj-chatt.css">
 </head>
 <body>
 
@@ -1331,7 +1332,7 @@ footer{background:var(--plum)}
   <p class="hero-sub">Ett exklusivt nätverk av svenska TikTok-kreatörer inom mode, beauty och lifestyle — <b>2 miljoner följare</b>. Vi tar hela ansvaret från urval till rapport, och ni godkänner allt innan det publiceras.</p>
   <div class="hero-ctas">
     <a class="book js-book" href="https://calendar.app.google/8vFghCDtFN2itfJU8" target="_blank" rel="noopener">Boka möte →</a>
-    <a class="book ghost" href="#siffror">Se nätverket ↓</a>
+    <a class="book ghost" href="#bygg">Bygg er kampanj ↓</a>
   </div>
   
   </div>
@@ -1343,6 +1344,23 @@ footer{background:var(--plum)}
 </header>
 
 <main id="main">
+<section class="kchat" id="bygg" aria-labelledby="kchat-h">
+  <div class="kchat-head">
+    <span class="kchat-eyebrow">Kampanjassistenten</span>
+    <h2 id="kchat-h">Bygg er kampanj på <em>en minut</em></h2>
+    <p>Svara på fyra frågor och få ett förslag med namngivna kreatörer, pris och estimerade visningar. Inget konto och inget säljsamtal.</p>
+  </div>
+  <div class="kchat-box">
+    <div class="kchat-log" id="kchat-log" role="log" aria-live="polite" aria-label="Samtal med kampanjassistenten"></div>
+    <form class="kchat-form" id="kchat-form" autocomplete="off">
+      <label class="vh" for="kchat-input">Skriv till kampanjassistenten</label>
+      <input id="kchat-input" type="text" inputmode="text" maxlength="200" placeholder="Skriv här, till exempel: hårvård, 40 000 kr">
+      <button type="submit">Skicka</button>
+    </form>
+  </div>
+  <p class="kchat-foot">Assistenten räknar på nätverkets egna siffror, hämtade från TikTok. Det ni skriver stannar i er webbläsare.</p>
+  <noscript><p class="kchat-foot">Kampanjassistenten kräver JavaScript. Hela prislistan finns på <a href="priser.html">prissidan</a>.</p></noscript>
+</section>
 <section class="stats" id="siffror">
   <div class="sec-row stats-top reveal"><span class="label">Nätverket i siffror</span><span class="live-badge" id="live-badge"><i></i>Live från TikTok</span><span class="track-note" id="track-note"></span></div>
   <h2 class="reveal">Räckvidd man inte kan <mark>ignorera</mark></h2>
@@ -2532,5 +2550,7 @@ document.querySelectorAll('.svc-btn').forEach(btn => {
   });
 });
 </script>
+<script src="assets/kampanj-motor.js"></script>
+<script src="assets/kampanj-chatt.js"></script>
 </body>
 </html>
