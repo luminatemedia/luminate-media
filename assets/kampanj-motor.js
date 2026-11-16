@@ -9,7 +9,8 @@
    1. En kreatör föreslås för ett ämne bara om hon har gjort videor i ämnet
       (data/match.json) eller har det i sin profil. Annars föreslås hon inte.
    2. Estimerade visningar är hennes median, aldrig ett snitt eller en toppvideo.
-   3. Förslaget ryms alltid i budgeten. Räcker budgeten inte står det i klartext.
+   3. Kreatörerna ryms alltid i budgeten. Räcker budgeten inte står det i klartext.
+   4. Spark Ads är en rekommendation ovanpå budgeten och räknas aldrig in i den.
 */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory();
@@ -24,15 +25,21 @@
   /* Ämnesmedianen får inte lyfta estimatet mer än så här över hennes vanliga nivå:
      tre videor kan råka innehålla en toppvideo. Nedåt finns ingen spärr. */
   var MAX_LYFT = 1.5;
-  /* Spark Ads: andel av budgeten som läggs på annonsering (rättigheter + mediebudget)
-     när kunden vill annonsera, och hur stor del av videorna vi räknar med att sparka.
-     Förslagsvärden — ändras här. */
-  var SPARK_ANDEL = 0.25;
+  /* Spark Ads läggs ovanpå kreatörsbudgeten och räknas aldrig in i den (Love 16 nov 2026).
+     Rekommenderad nivå: rättigheter för ungefär var tredje video och en mediebudget
+     som är en fjärdedel av kreatörskostnaden. Förslagsvärden — ändras här. */
   var SPARK_VIDEOANDEL = 0.3;
+  var SPARK_MEDIAANDEL = 0.25;
+  var SPARK_MEDIA_MIN = 2000;
   /* Kostnad per tittare som stannade minst sex sekunder i höstkampanjen 2026.
      Samma siffra som står på prissidan. */
   var KR_PER_6S = 0.06;
   var STANDARD_ANTAL = 5;
+  /* Prislistan börjar vid 5 000 följare. Mindre konton har inget pris och föreslås inte. */
+  var MIN_FOLJARE = 5000;
+  /* En kreatör föreslås inte om hennes estimerade visningar är färre än priset i kronor
+     (under en visning per krona): det är ett dåligt köp hur väl ämnet än passar. */
+  var MIN_VISN_PER_KR = 1;
 
   function tierFor(tiers, followers) {
     /* Klasserna följer följarintervallen på prissidan. */
@@ -81,7 +88,8 @@
     var labels = {};
     (ctx.match.categories || []).forEach(function (c) { labels[c.key] = c.label; });
 
-    /* De minsta kontona följer med utan kostnad och prissätts aldrig. */
+    /* ctx.free.count konton (de minsta) kan följa med utan kostnad och prissätts då aldrig.
+       Chatten skickar 0: inga gratiskreatörer i förslag (Willem 31 okt 2026). */
     var roster = ctx.creators.filter(function (c) { return c.followers > 0 && c.median > 0; })
       .sort(function (a, b) { return b.followers - a.followers; });
     var betalda = roster.slice(0, Math.max(0, roster.length - ctx.free.count));
@@ -93,8 +101,9 @@
       var u = underlag(m, cats, c.median);
       if (!u) return;
       var ti = tierFor(ctx.tiers, c.followers);
+      if (c.followers < MIN_FOLJARE || u.views < ctx.tiers[ti].price * MIN_VISN_PER_KR) return;
       kandidater.push({
-        handle: c.handle, name: c.name, followers: c.followers, tier: ti,
+        handle: c.handle, name: c.name, followers: c.followers, tier: ti, kort: !!c.kort,
         tierLabel: ctx.tiers[ti].label, price: ctx.tiers[ti].price,
         views: Math.round(u.views), niva: u.niva, n: u.n, basta: u.basta,
         poang: VIKT[u.niva] * u.views / ctx.tiers[ti].price
@@ -105,8 +114,8 @@
     var RANG = { bevisad: 0, gjort: 1, profil: 2, bred: 3 };
     kandidater.sort(function (a, b) { return (RANG[a.niva] - RANG[b.niva]) || (b.poang - a.poang); });
 
-    /* Pengarna för kreatörerna: hela budgeten, minus annonsdelen om kunden vill annonsera. */
-    var organiskBudget = budget ? (sparkOn ? budget * (1 - SPARK_ANDEL) : budget) : null;
+    /* Hela budgeten går till kreatörsvideor. Spark Ads rekommenderas ovanpå. */
+    var organiskBudget = budget;
 
     var valda = [];
     function ryms(k) {
@@ -127,25 +136,18 @@
     valda.sort(function (a, b) { return (RANG[a.niva] - RANG[b.niva]) || (b.views - a.views); });
 
     var k = kostnad(valda, v, ctx);
-    var views = (valda.reduce(function (s, x) { return s + x.views; }, 0) + (valda.length ? ctx.free.views : 0)) * v;
+    var views = (valda.reduce(function (s, x) { return s + x.views; }, 0) + (valda.length && ctx.free.count ? ctx.free.views : 0)) * v;
 
-    /* Spark Ads: rättigheter för de videor som går bäst, resten av annonsdelen som mediebudget. */
+    /* Spark Ads, ovanpå: rättigheter för de videor som går bäst och en rekommenderad mediebudget. */
     var spark = null;
     if (sparkOn && valda.length) {
       var antal = Math.max(1, Math.round(valda.length * v * SPARK_VIDEOANDEL));
-      var perVideo = k.list / (valda.length * v) * period.up;
-      /* Rättigheterna måste rymmas i det som är kvar av budgeten. */
-      if (budget) antal = Math.min(antal, Math.floor((budget - k.net) / perVideo));
-      if (antal >= 1) {
-        var ratt = Math.round(antal * perVideo);
-        var media = budget ? Math.max(0, Math.floor((budget - k.net - ratt) / 500) * 500) : null;
-        spark = {
-          period: period.label, up: period.up, videos: antal, rights: ratt, media: media,
-          viewers6s: media ? Math.round(media / KR_PER_6S / 1000) * 1000 : null
-        };
-      } else {
-        notes.push('Budgeten räcker inte till Spark Ads-rättigheter i ' + period.label + ' ovanpå kreatörerna. Välj en kortare period eller köp rättigheterna i efterhand.');
-      }
+      var ratt = Math.round(antal * k.list / (valda.length * v) * period.up);
+      var media = Math.max(SPARK_MEDIA_MIN, Math.round(k.net * SPARK_MEDIAANDEL / 1000) * 1000);
+      spark = {
+        period: period.label, up: period.up, videos: antal, rights: ratt, media: media,
+        viewers6s: Math.round(media / KR_PER_6S / 1000) * 1000, total: ratt + media
+      };
     }
 
     if (!kandidater.length) {
@@ -159,15 +161,15 @@
       notes.push('Vi har få videor i det här ämnet sedan augusti, så underlaget är tunt. På ett möte visar vi fler exempel ur nätverket.');
     }
     if (budget && valda.length && kandidater.length === valda.length && k.net < (organiskBudget || budget) * 0.7) {
-      notes.push('Alla kreatörer som passar ämnet är med. Resten av budgeten gör mest nytta som två videor per kreatör eller som annonsering.');
+      notes.push('Alla kreatörer som passar ämnet är med. Resten av budgeten gör mest nytta som två videor per kreatör.');
     }
 
     return {
       cats: cats, labels: labels, videos: v, budget: budget,
       creators: valda, kandidater: kandidater.length,
-      free: valda.length ? { count: ctx.free.count, views: ctx.free.views } : null,
+      free: valda.length && ctx.free.count ? { count: ctx.free.count, views: ctx.free.views } : null,
       list: k.list, disc: k.disc, saved: k.saved, organic: k.net,
-      spark: spark, total: k.net + (spark ? spark.rights + (spark.media || 0) : 0),
+      spark: spark, total: k.net,
       views: views, videoCount: (valda.length + (valda.length ? ctx.free.count : 0)) * v, notes: notes
     };
   }
@@ -185,14 +187,20 @@
      Ett ord i listan matchar början av ett ord i texten ("kläd" → "klädmärke");
      slutar det på $ måste hela ordet stämma ("mat$" matchar inte "material"). */
   var ORD = {
-    mode: ['mode', 'kläd', 'klad', 'plagg', 'fashion', 'skor$', 'sko$', 'sneaker', 'väsk', 'vask', 'smycke', 'jeans', 'outfit', 'accessoar', 'klänning', 'jack', 'streetwear', 'barnkläd'],
-    skonhet: ['skönhet', 'skonhet', 'smink', 'makeup', 'beauty', 'nagel', 'naglar', 'parfym', 'frans', 'kosmetik', 'läpp', 'mascara'],
-    har: ['hår', 'schampo', 'shampoo', 'balsam', 'frisör', 'frisor', 'hair', 'lockar', 'locktång'],
-    hudvard: ['hud', 'skincare', 'serum', 'ansikts', 'spf$', 'solskydd'],
-    mat: ['mat$', 'maten$', 'matkasse', 'dryck', 'snacks', 'godis', 'kaffe', 'bakning', 'bageri', 'restaurang', 'café', 'cafe', 'livsmedel', 'food', 'läsk', 'proteinbar', 'energidryck'],
-    traning: ['träning', 'traning', 'gym', 'sport', 'fotboll', 'löpning', 'kosttillskott', 'protein', 'fitness', 'hälsa', 'halsa'],
-    livsstil: ['livsstil', 'lifestyle', 'vardag', 'app$', 'appen$', 'tjänst', 'tjanst', 'event', 'resa$', 'resor', 'teknik', 'mobil', 'student', 'skola'],
-    hem: ['hem$', 'hemmet$', 'heminredning', 'inredning', 'möbel', 'mobel', 'pyssel', 'doftljus', 'kök', 'säng', 'städ']
+    mode: ['mode', 'kläd', 'klad', 'plagg', 'fashion', 'skor$', 'sko$', 'sneaker', 'väsk', 'vask', 'smycke', 'jeans', 'outfit',
+           'accessoar', 'klänning', 'jack', 'streetwear', 'barnkläd', 'barnmode', 'secondhand', 'second', 'vintage', 'klock',
+           'glasögon', 'solglasögon', 'underkläd', 'badkläd', 'träningskläd', 'tröj', 'hoodie', 'byx', 'mössa', 'mössor', 'ring$', 'ringar', 'halsband', 'örhäng'],
+    skonhet: ['skönhet', 'skonhet', 'smink', 'makeup', 'beauty', 'nagel', 'naglar', 'nagellack', 'parfym', 'doft$', 'dofter', 'frans', 'kosmetik',
+              'läpp', 'mascara', 'foundation', 'concealer', 'brun', 'selftan', 'tandblekning'],
+    har: ['hår', 'schampo', 'shampoo', 'balsam', 'frisör', 'frisor', 'hair', 'lockar', 'locktång', 'plattång', 'extensions', 'löshår', 'hårfärg'],
+    hudvard: ['hud', 'skincare', 'serum', 'ansikts', 'spf$', 'solskydd', 'solkräm', 'cleanser', 'fuktkräm', 'akne', 'kräm', 'krämer'],
+    mat: ['mat$', 'maten$', 'matkasse', 'dryck', 'snacks', 'godis', 'kaffe', 'te$', 'bakning', 'bageri', 'restaurang', 'café', 'cafe', 'livsmedel',
+          'food', 'läsk', 'proteinbar', 'energidryck', 'choklad', 'glass', 'chips', 'smoothie', 'matcha', 'pizza', 'burgare', 'sushi', 'fika'],
+    traning: ['träning', 'traning', 'träna', 'gym', 'sport', 'fotboll', 'löpning', 'löpar', 'kosttillskott', 'protein', 'fitness', 'hälsa', 'halsa',
+              'yoga', 'padel', 'golf', 'hockey', 'innebandy', 'cykel', 'vitamin'],
+    livsstil: ['livsstil', 'lifestyle', 'vardag', 'app$', 'appen$', 'appar', 'tjänst', 'tjanst', 'event', 'resa$', 'resor', 'resebolag', 'festival',
+               'teknik', 'mobil', 'student', 'skola', 'utbildning', 'kurs', 'bank', 'försäkring', 'spel$', 'bok$', 'böcker', 'musik', 'konsert', 'bio$', 'hotell', 'elektronik', 'hörlur'],
+    hem: ['hem$', 'hemmet$', 'heminredning', 'inredning', 'möbel', 'mobel', 'pyssel', 'doftljus', 'ljus$', 'kök', 'säng', 'städ', 'textil', 'garn', 'blommor', 'växt']
   };
   function tolkaAmnen(text) {
     var ordITexten = String(text || '').toLowerCase().split(/[^a-zåäöé]+/).filter(Boolean);
@@ -219,6 +227,23 @@
     return Math.round(n);
   }
 
-  return { build: build, motivering: motivering, tierFor: tierFor, tolkaAmnen: tolkaAmnen, tolkaBelopp: tolkaBelopp,
-           MIN_BEVISAD: MIN_BEVISAD, SPARK_ANDEL: SPARK_ANDEL, KR_PER_6S: KR_PER_6S };
+  /* Hittar budgeten i en hel mening: största beloppet på minst 2 000 kr som inte är ett antal
+     ("2 videor", "5 kreatörer", "30 dagar", "12 månader"). Null om inget sådant finns. */
+  function tolkaBudget(text) {
+    var t = String(text || '').toLowerCase().replace(/\u00a0/g, ' ');
+    var re = /(\d{1,3}(?: \d{3})+|\d+)(?:[.,](\d+))?\s*(mkr|miljon(?:er)?|tkr|tusen|k(?![a-zåäö]))?\s*([a-zåäö%]*)/g;
+    var basta = null, m;
+    while ((m = re.exec(t))) {
+      if (!m[3] && /^(video|kreatör|influencer|dag|mån|man|år|st$|styck|vecka|veckor|%|procent|person)/.test(m[4])) continue;
+      var n = parseFloat(m[1].replace(/ /g, '') + (m[2] ? '.' + m[2] : ''));
+      if (m[3] === 'mkr' || (m[3] && m[3].indexOf('miljon') === 0)) n *= 1e6;
+      else if (m[3]) n *= 1e3;
+      n = Math.round(n);
+      if (n >= 2000 && (basta === null || n > basta)) basta = n;
+    }
+    return basta;
+  }
+
+  return { build: build, motivering: motivering, tierFor: tierFor, tolkaAmnen: tolkaAmnen, tolkaBelopp: tolkaBelopp, tolkaBudget: tolkaBudget,
+           MIN_BEVISAD: MIN_BEVISAD, KR_PER_6S: KR_PER_6S };
 });

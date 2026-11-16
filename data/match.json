@@ -121,6 +121,17 @@
     "livsstil"
    ]
   },
+  "bellawesterfelt": {
+   "own": 23400,
+   "n": 12,
+   "cats": {},
+   "profil": [
+    "mode",
+    "livsstil"
+   ],
+   "name": "Bella Westerfelt",
+   "followers": 61061
+  },
   "coolneliaaa": {
    "own": 94400,
    "n": 39,
@@ -174,6 +185,42 @@
     "skonhet"
    ]
   },
+  "ebbasimonsbacka": {
+   "own": 78350,
+   "n": 52,
+   "cats": {
+    "mode": {
+     "n": 13,
+     "med": 65400
+    },
+    "skonhet": {
+     "n": 3,
+     "med": 38900
+    },
+    "mat": {
+     "n": 9,
+     "med": 97600
+    },
+    "traning": {
+     "n": 1,
+     "med": 67600
+    },
+    "livsstil": {
+     "n": 17,
+     "med": 73600
+    },
+    "hem": {
+     "n": 3,
+     "med": 120000
+    }
+   },
+   "profil": [
+    "skonhet",
+    "mode"
+   ],
+   "name": "Ebba Simonsbacka",
+   "followers": 50472
+  },
   "electrakarlsson200": {
    "own": 53300,
    "n": 52,
@@ -204,6 +251,26 @@
     "livsstil",
     "skonhet"
    ]
+  },
+  "elissves": {
+   "own": 1214,
+   "n": 22,
+   "cats": {
+    "mode": {
+     "n": 2,
+     "med": 11773
+    },
+    "skonhet": {
+     "n": 2,
+     "med": 4121
+    }
+   },
+   "profil": [
+    "livsstil",
+    "mode"
+   ],
+   "name": "Elina Vesterlund",
+   "followers": 6258
   },
   "ellaaxman": {
    "own": 16900,
@@ -246,6 +313,50 @@
     "livsstil",
     "skonhet"
    ]
+  },
+  "emmalisenz": {
+   "own": 16600,
+   "n": 37,
+   "cats": {
+    "mode": {
+     "n": 18,
+     "med": 18400
+    },
+    "skonhet": {
+     "n": 14,
+     "med": 18900
+    },
+    "har": {
+     "n": 4,
+     "med": 12079
+    },
+    "livsstil": {
+     "n": 5,
+     "med": 15300
+    }
+   },
+   "profil": [
+    "livsstil",
+    "mode",
+    "skonhet"
+   ],
+   "name": "Emma-Li",
+   "followers": 44535
+  },
+  "filippaiwar2": {
+   "own": 60600,
+   "n": 35,
+   "cats": {
+    "mode": {
+     "n": 1,
+     "med": 21400
+    }
+   },
+   "profil": [
+    "mode"
+   ],
+   "name": "Filippa Iwar",
+   "followers": 51193
   },
   "isabellamensahh": {
    "own": 7987,
@@ -392,6 +503,34 @@
    },
    "profil": [
     "livsstil"
+   ]
+  },
+  "lunamaarkovic": {
+   "own": 16000,
+   "n": 25,
+   "cats": {
+    "mode": {
+     "n": 2,
+     "med": 13405
+    },
+    "skonhet": {
+     "n": 2,
+     "med": 14150
+    },
+    "mat": {
+     "n": 2,
+     "med": 17192
+    },
+    "livsstil": {
+     "n": 5,
+     "med": 37800
+    }
+   },
+   "profil": [
+    "mode",
+    "skonhet",
+    "livsstil",
+    "hudvard"
    ]
   },
   "michel1egrwm": {
@@ -615,6 +754,17 @@
     "mode"
    ]
   },
+  "user126282815": {
+   "own": 8207,
+   "n": 7,
+   "cats": {},
+   "profil": [
+    "livsstil",
+    "mode"
+   ],
+   "name": "Julia Limpár",
+   "followers": 67134
+  },
   "veira.larsson": {
    "own": 23950,
    "n": 8,
@@ -624,6 +774,31 @@
     "livsstil",
     "skonhet"
    ]
+  },
+  "wilmasqvist": {
+   "own": 17600,
+   "n": 43,
+   "cats": {
+    "mode": {
+     "n": 15,
+     "med": 20300
+    },
+    "skonhet": {
+     "n": 4,
+     "med": 20050
+    },
+    "har": {
+     "n": 4,
+     "med": 17550
+    },
+    "livsstil": {
+     "n": 7,
+     "med": 35600
+    }
+   },
+   "profil": [],
+   "name": "Wilma Sjöqvist",
+   "followers": 29263
   }
  }
 }

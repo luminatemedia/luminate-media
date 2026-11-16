@@ -53,8 +53,12 @@
 .kc-lines div span:last-child{font-weight:600;white-space:nowrap}
 .kc-lines .kc-total{margin-top:4px;padding-top:10px;border-top:1px solid #F2CFD1;font-size:17px;font-weight:700}
 .kc-lines .kc-minus span:last-child{color:#B05661}
-.kc-spark{margin:0 0 12px;padding:12px 14px;border-radius:14px;background:#FBEDEE;font-size:14px;line-height:1.5}
-.kc-spark b{font-weight:700}
+.kc-spark{margin:0 0 12px;padding:14px;border-radius:14px;background:#FBEDEE;font-size:14px;line-height:1.5;display:grid;gap:7px}
+.kc-spark .kc-spark-h{font-family:"Archivo Black","Arial Black",sans-serif;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#B05661;font-weight:400}
+.kc-spark div{display:flex;justify-content:space-between;gap:16px;font-size:14.5px}
+.kc-spark div span:last-child{font-weight:600;white-space:nowrap}
+.kc-spark p{margin:2px 0 0;font-size:13px;color:#5F5558}
+.kc-ini{width:48px;height:48px;border-radius:50%;background:#F2CFD1;color:#B05661;display:flex;align-items:center;justify-content:center;font:700 18px/1 var(--sans)}
 .kc-note{margin:0 0 10px;font-size:13.5px;line-height:1.5;color:#2A1A1D}
 .kc-fine{margin:0;font-size:12px;line-height:1.5;color:#756B6F}
 .kc-ctas{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
@@ -67,7 +71,7 @@
 @media (max-width:560px){
   .kc-msg{max-width:94%;font-size:15px}
   .kc-people li{grid-template-columns:40px 1fr auto;gap:10px}
-  .kc-people img{width:40px;height:40px}
+  .kc-people img,.kc-ini{width:40px;height:40px}
   .kchat-form button{padding:0 16px}
 }
 @media (prefers-reduced-motion:reduce){.kc-msg,.kc-chips,.kc-card{animation:none}.kc-typing i{animation:none}.kchat-log{scroll-behavior:auto}}

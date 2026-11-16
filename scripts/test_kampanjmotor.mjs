@@ -27,9 +27,15 @@ const fri = h.match(/const KM_FREE = \{count:(\d+), views:(\d+)\}/);
 const namn = Object.fromEntries([...h.matchAll(/class="ccard" data-handle="([^"]+)"[^>]*>.*?<div class="cc-info"><b>([^<]+)<\/b>/g)].map(m => [m[1], m[2].replace(/&amp;/g, '&')]));
 
 const stats = json('stats.json').creators, views = json('views.json').creators, match = json('match.json');
+/* Samma sammanslagning som i kampanj-chatt.js: kort på sajten + övriga kreatörer i match.json. */
+const alla = [...new Set([...Object.keys(namn), ...Object.keys(match.creators)])];
 const ctx = {
-  tiers, spark, discount, free: { count: +fri[1], views: +fri[2] }, match,
-  creators: Object.keys(namn).map(k => ({ handle: k, name: namn[k], followers: stats[k]?.followers || 0, median: views[k]?.median || 0 })),
+  tiers, spark, discount, free: { count: 0, views: 0 }, match,   /* som chatten: inga gratiskreatörer */
+  creators: alla.map(k => {
+    const m = match.creators[k] || {};
+    return { handle: k, name: namn[k] || m.name || k, kort: !!namn[k],
+             followers: stats[k]?.followers || m.followers || 0, median: views[k]?.median || m.own || 0 };
+  }),
 };
 
 let fel = 0;
@@ -52,8 +58,8 @@ for (const cats of [[], ...amnen.map(a => [a]), ['mode', 'skonhet'], ['har', 'hu
     for (const k of p.creators) {
       krav(match.creators[k.handle], `${id}: ${k.handle} saknas i match.json`);
       krav(!minsta.includes(k.handle), `${id}: ${k.handle} är ett av de minsta kontona och ska inte prissättas`);
-      krav(namn[k.handle], `${id}: ${k.handle} har inget kort på sajten`);
-      krav(k.views > 0 && k.price > 0, `${id}: ${k.handle} saknar visningar eller pris`);
+      krav(k.name && k.name !== k.handle, `${id}: ${k.handle} saknar namn`);
+      krav(k.views >= k.price && k.followers >= 5000, `${id}: ${k.handle} ger under en visning per krona eller har under 5 000 följare`);
       if (cats.length) {
         const m = match.creators[k.handle];
         const harUnderlag = cats.some(c => m.cats[c] || m.profil.includes(c));
@@ -63,7 +69,13 @@ for (const cats of [[], ...amnen.map(a => [a]), ['mode', 'skonhet'], ['har', 'hu
     }
     krav(p.list === p.creators.reduce((s, k) => s + k.price, 0) * videos, `${id}: listpriset stämmer inte med kreatörerna`);
     krav(p.disc === discount(p.creators.length * videos), `${id}: fel volymrabatt`);
-    if (p.spark) krav(p.spark.rights >= 0 && (p.spark.media === null || p.spark.media >= 0), `${id}: negativ Spark-post`);
+    if (p.spark) krav(p.spark.rights > 0 && p.spark.media > 0 && p.spark.total === p.spark.rights + p.spark.media, `${id}: Spark-rekommendationen stämmer inte`);
+    krav(p.free === null && p.videoCount === p.creators.length * videos, `${id}: gratiskreatörer får inte finnas i förslaget`);
+    krav(p.total === p.organic, `${id}: Spark Ads får aldrig räknas in i totalen`);
+    if (sp !== false) {
+      const utan = M.build({ cats, budget, videos, spark: false }, ctx);
+      krav(utan.creators.map(k => k.handle).join() === p.creators.map(k => k.handle).join(), `${id}: Spark Ads ändrade vilka kreatörer som valdes`);
+    }
     if (!p.creators.length) krav(p.notes.length > 0, `${id}: tomt förslag utan förklaring`);
   }
 }
@@ -75,6 +87,13 @@ krav(JSON.stringify(M.tolkaAmnen('vi har 60 000 kr och säljer smink')) === '["s
 krav(M.tolkaAmnen('kolla vår hemsida och vårt material').length === 0, 'tolkaAmnen: hemsida och material är inga ämnen');
 krav(M.tolkaBelopp('30 000 kr') === 30000 && M.tolkaBelopp('30k') === 30000 && M.tolkaBelopp('ca 45 tkr') === 45000, 'tolkaBelopp');
 krav(M.tolkaBelopp('vet inte') === null, 'tolkaBelopp: inget tal');
+krav(M.tolkaBudget('vi säljer barnkläder och har 50 000 kr, 2 videor per kreatör') === 50000, 'tolkaBudget: belopp bland antal');
+krav(M.tolkaBudget('2 videor och 5 kreatörer i 30 dagar') === null, 'tolkaBudget: antal är ingen budget');
+krav(M.tolkaBudget('30k') === 30000 && M.tolkaBudget('ca 45 tkr') === 45000 && M.tolkaBudget('60000') === 60000 && M.tolkaBudget('0,1 mkr') === 100000, 'tolkaBudget: enheter');
+krav(M.tolkaBudget('vad kostar en video?') === null && M.tolkaBudget('500 kr') === null, 'tolkaBudget: inget belopp');
+krav(M.tolkaAmnen('jag vill bygga en kampanj').length === 0, 'tolkaAmnen: en mening utan produkt ger inget ämne');
+krav(M.tolkaAmnen('vi säljer barnkläder och leksaker').includes('mode'), 'tolkaAmnen: barnkläder');
+krav(match.creators.lunamaarkovic && match.creators.ebbasimonsbacka, 'alla kreatörer i nätverket ska finnas i match.json');
 
 if (process.argv.includes('--exempel')) {
   const kr = n => Math.round(n).toLocaleString('sv-SE') + ' kr';
@@ -87,9 +106,9 @@ if (process.argv.includes('--exempel')) {
     const p = M.build({ cats: e.cats, budget: e.budget, videos: e.videos || 1, spark: e.spark ?? false }, ctx);
     console.log(`\n## ${e.namn} · ${e.cats.map(c => p.labels[c]).join(', ') || 'brett'} · budget ${kr(e.budget)}${e.spark === false || e.spark == null ? '' : ' · Spark ' + spark[e.spark].label}`);
     for (const k of p.creators) console.log(`- ${k.name} (${k.tierLabel}, ${kr(k.price)}): ≈ ${k.views.toLocaleString('sv-SE')} visningar · ${M.motivering(k, p.labels)}`);
-    console.log(`  ${p.creators.length} kreatörer + ${p.free ? p.free.count : 0} på köpet · ${p.videoCount} videor · ≈ ${p.views.toLocaleString('sv-SE')} visningar`);
+    console.log(`  ${p.creators.length} kreatörer · ${p.videoCount} videor · ≈ ${p.views.toLocaleString('sv-SE')} visningar`);
     console.log(`  kreatörer ${kr(p.list)}${p.disc ? ' − ' + p.disc + ' %' : ''} = ${kr(p.organic)}` +
-      (p.spark ? ` · Spark-rättigheter ${p.spark.videos} st ${kr(p.spark.rights)} · mediebudget ${p.spark.media ? kr(p.spark.media) : '–'}` : '') + ` · totalt ${kr(p.total)}`);
+      ` · totalt ${kr(p.total)}` + (p.spark ? ` · OVANPÅ: Spark-rättigheter ${p.spark.videos} st ${kr(p.spark.rights)} + mediebudget ${kr(p.spark.media)}` : ''));
     for (const n of p.notes) console.log('  OBS: ' + n);
   }
 }
