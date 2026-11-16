@@ -155,6 +155,8 @@
         Math.min.apply(null, kandidater.map(function (x) { return x.price; })) * v + ' kr.');
     } else if (cats.length && valda.every(function (x) { return x.niva === 'profil'; })) {
       notes.push('Ingen av dem har gjort videor i just det ämnet sedan augusti. Urvalet bygger på deras profiler.');
+    } else if (cats.length && !valda.some(function (x) { return x.niva === 'bevisad'; })) {
+      notes.push('Vi har få videor i det här ämnet sedan augusti, så underlaget är tunt. På ett möte visar vi fler exempel ur nätverket.');
     }
     if (budget && valda.length && kandidater.length === valda.length && k.net < (organiskBudget || budget) * 0.7) {
       notes.push('Alla kreatörer som passar ämnet är med. Resten av budgeten gör mest nytta som två videor per kreatör eller som annonsering.');

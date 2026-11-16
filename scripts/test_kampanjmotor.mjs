@@ -24,7 +24,7 @@ const d = h.match(/return videos>=26\?(\d+) : videos>=20\?(\d+) : videos>=15\?(\
 const trappa = [[26, +d[1]], [20, +d[2]], [15, +d[3]], [10, +d[4]], [6, +d[5]], [3, +d[6]]];
 const discount = v => (trappa.find(([t]) => v >= t) || [0, 0])[1];
 const fri = h.match(/const KM_FREE = \{count:(\d+), views:(\d+)\}/);
-const namn = Object.fromEntries([...h.matchAll(/class="ccard" data-handle="([^"]+)"[^>]*>.*?<div class="cc-info"><b>([^<]+)<\/b>/g)].map(m => [m[1], m[2]]));
+const namn = Object.fromEntries([...h.matchAll(/class="ccard" data-handle="([^"]+)"[^>]*>.*?<div class="cc-info"><b>([^<]+)<\/b>/g)].map(m => [m[1], m[2].replace(/&amp;/g, '&')]));
 
 const stats = json('stats.json').creators, views = json('views.json').creators, match = json('match.json');
 const ctx = {
