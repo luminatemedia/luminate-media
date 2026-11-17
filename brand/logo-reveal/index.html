@@ -7,6 +7,8 @@
 <title>Luminate — Logo reveal</title>
 <style>
 @font-face{font-family:'Schibsted Grotesk';font-style:normal;font-weight:400 700;src:url(../../assets/fonts/schibsted-grotesk.woff2) format('woff2')}
+@font-face{font-family:'Unbounded';font-style:normal;font-weight:500;src:url(../../assets/fonts/unbounded-500.woff2) format('woff2')}
+@font-face{font-family:'Unbounded';font-style:normal;font-weight:600;src:url(../../assets/fonts/unbounded-600.woff2) format('woff2')}
 html,body{margin:0;height:100%;background:#F6F3F1;color:#1C1316;font-family:'Schibsted Grotesk',system-ui,sans-serif}
 body{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
 canvas{display:block;max-width:94vw;max-height:80vh;border-radius:12px;box-shadow:0 1px 2px rgba(17,17,17,.06),0 12px 24px -12px rgba(17,17,17,.22)}
@@ -45,13 +47,17 @@ const P_L = new Path2D(D_L), P_M = new Path2D(D_M);
 
 const THEMES = {
   // vit bakgrund, rosa logga, mörk text — som sajten
-  white: { bg:'#FFFFFF', stroke:'#E7929C', fill:'#E7929C', name:'#1C1316', url:'#5F5558' },
+  white: { bg:'#FFFFFF', stroke:'#E7929C', fill:'#E7929C', name:'#E7929C', url:'#E7929C' },
   // rosa bakgrund, vitt — som profilbilden
-  pink:  { bg:'#E7929C', stroke:'#FFFFFF', fill:'#FFFFFF', name:'#FFFFFF', url:'rgba(255,255,255,.86)' },
+  pink:  { bg:'#E7929C', stroke:'#FFFFFF', fill:'#FFFFFF', name:'#FFFFFF', url:'#FFFFFF' },
 };
 const FORMATS = {'9x16':[1080,1920],'4x5':[1080,1350],'1x1':[1080,1080],'16x9':[1920,1080]};
 const FPS = 60, DUR = 5.0;
-const INTRO_SCALE = 2.0;   // loggans storlek under framritningen, relativt slutstorleken
+const INTRO_H = 0.36;      // loggans höjd under framritningen (andel av u)
+const NAME = 'LUMINATE', NAME_FONT = '600 {px} "Unbounded"', NAME_TRACK = 0.06;
+const URL_FONT = '500 {px} "Unbounded"', URL_TRACK = 0.04;
+// loggans geometri i den 400x435 stora logo-boxen (y nedåt, centrum 200/217.5)
+const G = { left:5.9, right:394.6, bottom:429.7, mTop:114 };
 
 // Tidslinje (sekunder)
 const T = {
@@ -97,23 +103,28 @@ function markUI(){
   document.querySelectorAll('[data-theme]').forEach(b=>b.classList.toggle('on',b.dataset.theme===themeName));
 }
 
-// Lockup: [logga] [Luminate], centrerad; samma proportioner i alla format
+// Lockup: [logga] [LUMINATE]. Versalernas höjd = M:ets höjd och baslinjen = loggans botten,
+// så texten linjerar exakt med märket (L:et sticker upp som en "ascender").
+function font(tpl,px){ return tpl.replace('{px}',px+'px'); }
 function layout(){
   if(lay) return lay;
-  const total=0.74*u;                         // lockupens bredd
-  const NAME_K=0.66;                          // textstorlek i förhållande till loggans höjd
-  ctx.font=`700 100px "Schibsted Grotesk"`; ctx.letterSpacing='-2px'; // -0.02em
-  const m=ctx.measureText('Luminate'); ctx.letterSpacing='0px';
-  const nameW100=m.width, cap100=m.actualBoundingBoxAscent;
-  // total = Lw + gap + nameW;  Lw = Lh/1.0875;  gap = 0.3*Lh;  nameW = nameW100*(NAME_K*Lh)/100
-  const Lh=total/(1/1.0875+0.3+nameW100*NAME_K/100);
-  const Lw=Lh/1.0875, gap=0.3*Lh, fs=NAME_K*Lh, nameW=nameW100*fs/100, cap=cap100*fs/100;
-  const cy=H/2 - (fmt==='16x9'?0.03*H:0.015*H);
+  const total=Math.min(0.82*W,1.05*u);                 // lockupens bredd
+  ctx.font=font(NAME_FONT,100); ctx.letterSpacing=`${NAME_TRACK*100}px`;
+  const m=ctx.measureText(NAME); ctx.letterSpacing='0px';
+  const cap100=m.actualBoundingBoxAscent, w100=m.width-NAME_TRACK*100;   // utan efterhängande spärrning
+  const capK=(G.bottom-G.mTop)/435;                    // versalhöjd / logo-boxens höjd
+  const logoWK=(G.right-G.left)/435, gapK=0.27;
+  const textWK=w100*capK/cap100;                       // textbredd / logo-boxens höjd
+  const Lh=total/(logoWK+gapK+textWK);
+  const fs=capK*Lh/cap100*100, nameW=textWK*Lh;
+  const cy=H/2-0.02*u;
   const left=W/2-total/2;
-  lay={Lh,Lw,gap,fs,nameW,cap,cy,
-    logoStartX:W/2, logoEndX:left+Lw/2,
-    nameX:left+Lw+gap, nameBase:cy+cap/2,
-    urlFs:Math.max(0.036*u,0.27*Lh), urlY:cy+Lh/2+Math.max(0.1*u,0.6*Lh)};
+  const logoEndX=left+(200-G.left)/435*Lh;
+  const capH=capK*Lh;
+  lay={Lh,fs,nameW,cy,capH,gap:gapK*Lh,
+    logoStartX:W/2, logoEndX,
+    nameX:left+logoWK*Lh+gapK*Lh, nameBase:cy+(G.bottom-217.5)/435*Lh,
+    urlFs:Math.max(0.03*u,0.3*capH), urlY:cy+(G.bottom-217.5)/435*Lh+Math.max(0.085*u,0.75*capH)};
   return lay;
 }
 
@@ -134,7 +145,7 @@ function render(t){
 
   const ps=easeInOut(prog(t,T.slide));
   const lx=lerp(L.logoStartX,L.logoEndX,ps);
-  const lh=L.Lh*lerp(INTRO_SCALE,1,ps);       // stor i mitten -> lockup-storlek
+  const lh=lerp(Math.max(INTRO_H*u,L.Lh),L.Lh,ps);   // stor i mitten -> lockup-storlek
   const M=cam.multiply(logoMatrix(lx,L.cy,lh));
   const k=lh/435*0.1;                       // px per path-enhet
 
@@ -167,13 +178,13 @@ function render(t){
   const pn=prog(t,T.name);
   if(pn>0){
     const e=easeSite(pn);
-    const logoRight=lx+lh/1.0875/2;
+    const logoRight=lx+(G.right-200)/435*lh;
     c.save(); c.setTransform(cam);
-    c.beginPath(); c.rect(logoRight+L.gap*0.35,0,W,H); c.clip();
-    c.font=`700 ${L.fs}px "Schibsted Grotesk"`; c.letterSpacing=`${-0.02*L.fs}px`;
+    c.beginPath(); c.rect(logoRight+L.gap*0.3,0,W,H); c.clip();
+    c.font=font(NAME_FONT,L.fs); c.letterSpacing=`${NAME_TRACK*L.fs}px`;
     c.fillStyle=theme.name; c.textBaseline='alphabetic';
     c.globalAlpha=clamp(pn*2.2);
-    c.fillText('Luminate', L.nameX - (1-e)*L.nameW*0.28, L.nameBase);
+    c.fillText(NAME, L.nameX - (1-e)*L.nameW*0.28, L.nameBase);
     c.restore();
   }
 
@@ -182,9 +193,9 @@ function render(t){
   if(pu>0){
     const e=easeSite(pu);
     c.save(); c.setTransform(cam);
-    c.font=`600 ${L.urlFs}px "Schibsted Grotesk"`; c.letterSpacing=`${0.01*L.urlFs}px`;
+    c.font=font(URL_FONT,L.urlFs); c.letterSpacing=`${URL_TRACK*L.urlFs}px`;
     c.textAlign='center'; c.fillStyle=theme.url; c.globalAlpha=e;
-    c.fillText('luminatemedia.se', W/2, L.urlY + (1-e)*0.02*u);
+    c.fillText('luminatemedia.se', W/2 + URL_TRACK*L.urlFs/2, L.urlY + (1-e)*0.02*u);
     c.restore();
   }
 }
@@ -196,7 +207,7 @@ if(isExport) document.body.classList.add('export');
 setTheme(params.get('theme')||'white');
 setFormat(params.get('f')||'9x16');
 
-window.ready=document.fonts.load('700 100px "Schibsted Grotesk"').then(()=>document.fonts.load('600 100px "Schibsted Grotesk"')).then(()=>document.fonts.ready).then(()=>{lay=null;});
+window.ready=Promise.all([document.fonts.load(font(NAME_FONT,100)),document.fonts.load(font(URL_FONT,100))]).then(()=>document.fonts.ready).then(()=>{lay=null;});
 window.DUR=DUR; window.FPS=FPS; window.renderFrame=render;
 window.frameDataURL=(t,type='image/png',q)=>{render(t);return cv.toDataURL(type,q);};
 

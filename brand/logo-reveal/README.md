@@ -5,8 +5,11 @@ outro i reels, annonser, case-videor och presentationer.
 
 Det finns två versioner:
 
-- **Vit** (`white`): vit bakgrund, rosa logga och mörk text, som på sajten.
+- **Vit** (`white`): vit bakgrund med rosa logga och rosa text.
 - **Rosa** (`pink`): rosa bakgrund med vit logga och vit text, som profilbilden.
+
+Namnet står i versaler med typsnittet **Unbounded**. Versalerna är exakt lika höga som loggans M och
+står på samma baslinje som loggan, så L:et sticker upp ovanför texten.
 
 | Format | Användning | Vit | Rosa |
 | --- | --- | --- | --- |
@@ -24,17 +27,19 @@ Alla videor är i 60 fps, H.264 och **utan ljud**, så det går att lägga egen 
 | --- | --- |
 | 0,25–1,6 s | LM-konturen ritas fram, först L:et och sedan M:et |
 | 1,35–2,05 s | Loggan fylls med färg underifrån |
-| 2,2–3,35 s | Loggan krymper och glider åt vänster medan "Luminate" glider fram bredvid |
+| 2,2–3,35 s | Loggan krymper och glider åt vänster medan LUMINATE glider fram bredvid |
 | 3,0–3,65 s | luminatemedia.se tonar in |
 | 3,65–5,0 s | Slutbilden står kvar |
 
 ## Ändra eller rendera om
 
-Animationen är skriven som kod i `index.html`. Den använder den riktiga vektorloggan, sajtens rosa
-(#E7929C) och mörka textfärg (#1C1316), typsnittet Schibsted Grotesk och sajtens easing.
+Animationen är skriven som kod i `index.html`. Den använder den riktiga vektorloggan, loggans rosa
+(#E7929C), typsnittet Unbounded (`assets/fonts/unbounded-*.woff2`, licens SIL OFL, fri för kommersiellt
+bruk, se `assets/fonts/unbounded-OFL.txt`) och sajtens easing.
 
 - **Förhandsvisa:** kör `python3 -m http.server` i repo-roten och öppna `/brand/logo-reveal/`.
   Där kan du byta tema och format.
-- **Tider och färger:** tidslinjen styrs av objektet `T` och färgerna av `THEMES`, båda i `index.html`.
+- **Tider, färger och typsnitt:** tidslinjen styrs av objektet `T`, färgerna av `THEMES` och typsnittet av
+  `NAME_FONT`/`URL_FONT`, allt i `index.html`.
 - **Rendera:** `node scripts/render_logo_reveal.js` renderar alla teman och format. Vill du bara ha
   vissa, skriv t.ex. `node scripts/render_logo_reveal.js pink 9x16`. Skriptet kräver Playwright och ffmpeg.
