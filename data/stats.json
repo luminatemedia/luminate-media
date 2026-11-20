@@ -1,9 +1,9 @@
 {
- "updated": "2026-11-19T13:47:21Z",
+ "updated": "2026-11-20T13:30:15Z",
  "fetched_ok": 29,
  "totals": {
-  "followers": 1793126,
-  "likes": 112846700,
+  "followers": 1793801,
+  "likes": 112954000,
   "creators": 29
  },
  "creators": {
@@ -12,7 +12,7 @@
    "likes": 15900000
   },
   "michel1egrwm": {
-   "followers": 209800,
+   "followers": 209900,
    "likes": 9000000
   },
   "veira.larsson": {
@@ -44,19 +44,19 @@
    "likes": 3400000
   },
   "juliaberglunnd": {
-   "followers": 46200,
+   "followers": 46100,
    "likes": 3700000
   },
   "ellaaxman": {
-   "followers": 52100,
-   "likes": 849700
+   "followers": 52000,
+   "likes": 849800
   },
   "lunamaarkovic": {
    "followers": 43200,
    "likes": 2300000
   },
   "ebbasimonsbacka": {
-   "followers": 50700,
+   "followers": 50800,
    "likes": 3500000
   },
   "jessprivatastory": {
@@ -64,7 +64,7 @@
    "likes": 2100000
   },
   "jacquelineekenstedt": {
-   "followers": 31700,
+   "followers": 31800,
    "likes": 3000000
   },
   "astridholmstromming": {
@@ -77,7 +77,7 @@
   },
   "nezzysf": {
    "followers": 22600,
-   "likes": 921600
+   "likes": 921800
   },
   "svea.engstrom": {
    "followers": 18300,
@@ -85,10 +85,10 @@
   },
   "shoppargalet": {
    "followers": 18300,
-   "likes": 525600
+   "likes": 526600
   },
   "alice.almm": {
-   "followers": 7938,
+   "followers": 7934,
    "likes": 475700
   },
   "norvellan": {
@@ -96,12 +96,12 @@
    "likes": 1500000
   },
   "diihhva": {
-   "followers": 7107,
-   "likes": 260100
+   "followers": 7113,
+   "likes": 260800
   },
   "minoue.ranta": {
-   "followers": 3481,
-   "likes": 125000
+   "followers": 3554,
+   "likes": 130300
   },
   "tjejenshemlighet": {
    "followers": 68500,
@@ -120,8 +120,8 @@
    "likes": 2300000
   },
   "olivia3jonsson": {
-   "followers": 80800,
-   "likes": 2000000
+   "followers": 81300,
+   "likes": 2100000
   }
  }
 }
