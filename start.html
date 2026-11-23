@@ -776,5 +776,45 @@ async function send() {
 $("mailto").addEventListener("click", () => { track("Lead", { content_name: "Luminate Start", method: "mailto" }); setTimeout(() => showDone(true), 400); });
 })();
 </script>
+<script>
+/* ---------- besöksmätning (23 nov 2026): visning, påbörjat, inskickat + källa ----------
+   Inga cookies och ingen lagring i webbläsaren: besöks-id:t finns bara i minnet för den här sidvisningen.
+   Rör inte formulärets kod: lyssnar på formuläret och tackrutan utifrån, och tyst om något fel uppstår. */
+(function () {
+  try {
+    var URL_EV = "https://bdxuftjhcbhyzawdpyyr.supabase.co/rest/v1/site_events";
+    var KEY = "sb_publishable_NYXRQv35JZI5VIWTIK9v1w_5foqGNr0";
+    var id = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() :
+      "xxxxxxxx-xxxx-4xxx-8xxx-xxxxxxxxxxxx".replace(/x/g, function () { return (Math.random() * 16 | 0).toString(16); });
+    var q = new URLSearchParams(location.search);
+    var cut = function (v) { return v ? String(v).slice(0, 100) : null; };
+    var ref = null;
+    try { if (document.referrer) ref = new URL(document.referrer).host.slice(0, 200) || null; } catch (e) {}
+    var base = { page: "start", visit_id: id, utm_source: cut(q.get("utm_source")), utm_medium: cut(q.get("utm_medium")),
+      utm_campaign: cut(q.get("utm_campaign")), utm_content: cut(q.get("utm_content")), referrer_host: ref };
+    var sent = {};
+    var send = function (ev) {
+      if (sent[ev]) return; sent[ev] = 1;
+      try {
+        fetch(URL_EV, { method: "POST", keepalive: true,
+          headers: { apikey: KEY, "Content-Type": "application/json", Prefer: "return=minimal" },
+          body: JSON.stringify(Object.assign({ event: ev }, base)) }).catch(function () {});
+      } catch (e) {}
+    };
+    send("view");
+    var form = document.getElementById("form");
+    if (form) {
+      var started = function () { send("start"); };
+      form.addEventListener("input", started, true);
+      form.addEventListener("change", started, true);
+    }
+    var done = document.getElementById("done");
+    if (done && window.MutationObserver) {
+      new MutationObserver(function () { if (done.style.display === "block") send("submit"); })
+        .observe(done, { attributes: true, attributeFilter: ["style"] });
+    }
+  } catch (e) {}
+})();
+</script>
 </body>
 </html>
