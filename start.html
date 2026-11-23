@@ -421,6 +421,16 @@ footer .fine{flex-basis:100%;font-size:12.5px;font-weight:500;letter-spacing:0;t
           </div>
           <div class="more" data-more="kalla" hidden><label class="vh" for="kalla_annat">Var hittade du oss?</label><input id="kalla_annat" name="kalla_annat" type="text" maxlength="80" placeholder="Var hittade du oss?"></div>
         </fieldset>
+        <fieldset class="f" data-f="klipp" id="klipp-box" hidden>
+          <legend>Vilken video såg du? <span class="opt">(valfritt)</span></legend>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="klipp" value="Black Friday"><span>Black Friday</span></label>
+            <label class="chip"><input type="radio" name="klipp" value="Tio gånger mer räckvidd"><span>Tio gånger mer räckvidd</span></label>
+            <label class="chip"><input type="radio" name="klipp" value="Vad virala videor har gemensamt"><span>Vad virala videor har gemensamt</span></label>
+            <label class="chip"><input type="radio" name="klipp" value="En annan video"><span>En annan video</span></label>
+            <label class="chip"><input type="radio" name="klipp" value="Minns inte"><span>Minns inte</span></label>
+          </div>
+        </fieldset>
         <div class="f" data-f="ovrigt"><label for="ovrigt">Något mer vi borde veta? <span class="opt">(valfritt)</span></label><textarea id="ovrigt" name="ovrigt" maxlength="1000" placeholder="T.ex. en lansering, en produkt ni vill lyfta eller frågor till oss."></textarea></div>
         <div class="f" data-f="samtycke">
           <label class="consent" for="samtycke"><input id="samtycke" name="samtycke" type="checkbox" required aria-describedby="e-samtycke"><span>Jag godkänner att Luminate sparar uppgifterna för att ta fram ett förslag och kontakta mig om det. <a href="/integritet.html" target="_blank" rel="noopener">Läs vår integritetspolicy</a>. <span class="req" aria-hidden="true">*</span></span></label>
@@ -581,6 +591,16 @@ form.querySelectorAll("[data-more]").forEach(box => {
     if (show) box.querySelector("input").focus();
   }));
 });
+/* "Vilken video såg du?" visas bara för den som kom via TikTok, Instagram eller YouTube (eget val eller bio-länkens utm_source) */
+const SOCIAL = ["tiktok", "instagram", "youtube"];
+function syncKlipp() {
+  const box = $("klipp-box"); if (!box) return;
+  const show = SOCIAL.includes(radio("kalla").toLowerCase()) || SOCIAL.includes(String(utm.source || "").toLowerCase());
+  box.hidden = !show;
+  if (!show) form.querySelectorAll('input[name="klipp"]').forEach(r => { r.checked = false; });
+}
+form.querySelectorAll('input[name="kalla"]').forEach(r => r.addEventListener("change", syncKlipp));
+syncKlipp();
 /* "Inget än" utesluter de andra kanalerna */
 form.querySelectorAll('input[name="kanaler"]').forEach(c => c.addEventListener("change", () => {
   if (!c.checked) return;
@@ -711,6 +731,7 @@ function answers() {
     ["Viktigaste mål", radio("mal")],
     ["Komma igång", radio("start")],
     ["Hittade oss via", withOther("kalla", "kalla_annat")],
+    ["Såg videon", radio("klipp")],
     ["Övrigt", val("ovrigt")]
   ];
 }
