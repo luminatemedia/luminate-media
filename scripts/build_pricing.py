@@ -83,13 +83,98 @@ spark_rows = "\n".join(
     f'<tr><th scope="row">{s["label"]}</th><td class="num">+{s["up"]} %</td>'
     f'<td class="num dim">{kr(TIERS[3]["price"] * s["up"] / 100)}</td></tr>' for s in SPARK)
 
-EX = [3, 5, 10, KM_MAX]
-ex_cards = "\n".join(f'''    <div class="ex">
-      <span class="ex-n">{e["n"]} kreatörer</span>
-      <b>{kr(e["final"])}</b>
-      <span class="ex-v">≈ {views_fmt(e["views"])} estimerade visningar</span>
-      <span class="ex-d">{e["n"] + e["free"]} videor{f', varav {e["free"]} utan kostnad' if e["free"] else ''} · −{e["disc"]} % volymrabatt</span>
-    </div>''' for e in (calc(n) for n in EX))
+# ---- Tre paket (Love 25 nov 2026): Pilot runt 25 000 kr, Growth runt 60 000 kr och Scale i samma
+# storlek som höstkampanjen 2026 (14 videor). Mixen står här; pris, rabatt och visningar räknas ur
+# prislistan ovan, så paketen följer med om ett pris ändras. Gratis kreatörer bara från FREE_MIN.
+PAKET_DEF = [
+    ("pilot", "Pilot", "Testa TikTok i liten skala",
+     "För er som vill se vad kreatörer gör för ert varumärke innan ni satsar större.",
+     {"topp": 1, "stor": 1, "mellan": 2, "micro": 1}),
+    ("growth", "Growth", "Synas på riktigt",
+     "För er som vet att TikTok fungerar och vill nå ut brett med flera stora konton samtidigt.",
+     {"storst": 2, "topp": 2, "stor": 3, "mellan": 3}),
+    ("scale", "Scale", "Vår största kampanj",
+     "Samma storlek som vår största kampanj hittills: många kreatörer, så att samma publik ser er flera gånger.",
+     {"storst": 2, "topp": 3, "stor": 3, "mellan": 5, "micro": 1}),
+]
+TIER_BY_KEY = {t["key"]: t for t in TIERS}
+
+
+def paket(pid, name, tagline, text, mix):
+    for k, n in mix.items():
+        assert n <= TIER_BY_KEY[k]["max"], f"nätverket har bara {TIER_BY_KEY[k]['max']} i {k}"
+    paid = sum(mix.values())
+    lst = sum(TIER_BY_KEY[k]["price"] * n for k, n in mix.items())
+    disc = discount(paid)
+    free = FREE_N if paid >= FREE_MIN else 0
+    views = sum(TIER_BY_KEY[k]["views"] * n for k, n in mix.items()) + (FREE_VIEWS if free else 0)
+    return {"id": pid, "name": name, "tagline": tagline, "text": text, "paid": paid, "free": free,
+            "videos": paid + free, "list": lst, "disc": disc, "saved": round(lst * disc / 100),
+            "final": round(lst * (1 - disc / 100)), "views": views, "spark30": round(lst * SPARK[0]["up"] / 100),
+            "mix": [{"n": n, "label": TIER_BY_KEY[k]["label"], "range": TIER_BY_KEY[k]["range"],
+                     "price": TIER_BY_KEY[k]["price"]} for k, n in mix.items()]}
+
+
+PAKET = [paket(*d) for d in PAKET_DEF]
+assert [p["free"] for p in PAKET] == [0, 0, FREE_N], "bara det största paketet ska ha gratis kreatörer"
+
+aff = (root / "affiliate.html").read_text(encoding="utf-8")
+AFF_FROM = int(re.search(r"från ([\d\s ]+) kr/mån", aff).group(1).replace(" ", "").replace(" ", ""))
+BOKA = "https://calendar.app.google/8vFghCDtFN2itfJU8"
+plural = lambda n, label: (f"{n} av de största" if label == "Störst" else f"{n} {label.lower()}" + ("" if n == 1 else "er"))
+for _p in PAKET:
+    _p["mixtext"] = ", ".join(plural(m["n"], m["label"]) for m in _p["mix"])
+
+pk_cards = "\n".join(f"""    <button type="button" class="px-card{' best' if p is PAKET[-1] else ''}" data-pk="{p['id']}" aria-haspopup="dialog">
+      {'<span class="px-badge">' + str(p["free"]) + ' kreatörer på köpet</span>' if p["free"] else ''}<span class="n">Paket {i} · {p['videos']} videor</span>
+      <h3>{p['name']}</h3>
+      <span class="for">{p['tagline']}</span>
+      <span class="p">{kr(p['final'])}<small>exkl. moms · −{p['disc']} % volymrabatt inräknad</small></span>
+      <ul>
+        <li><b>{p['paid']} kreatörer</b>, en video var</li>
+        <li>≈ <b>{views_fmt(p['views'])}</b> estimerade visningar</li>
+        <li>{'<b>' + str(p['free']) + ' mindre kreatörer</b> ingår utan kostnad' if p['free'] else 'Manus och video godkänns av er'}</li>
+      </ul>
+      <span class="more">Läs mer</span>
+    </button>""" for i, p in enumerate(PAKET, 1))
+
+pk_dialogs = "\n".join(f"""<dialog class="px px-dlg" id="pk-{p['id']}" aria-labelledby="pk-{p['id']}-h">
+  <button type="button" class="x" data-close aria-label="Stäng">×</button>
+  <div class="px-dlg-in">
+    <span class="n">Paket · {p['videos']} videor</span>
+    <h3 id="pk-{p['id']}-h">{p['name']}</h3>
+    <p class="for">{p['tagline']}</p>
+    <p>{p['text']}</p>
+    <div class="facts">
+      <div><b>{p['videos']}</b><span>videor</span></div>
+      <div><b>≈ {views_fmt(p['views'])}</b><span>estimerade visningar</span></div>
+      <div><b>{kr(p['final'] / p['videos'])}</b><span>per video i snitt</span></div>
+    </div>
+    <table>
+      <tbody>
+{chr(10).join(f'        <tr><th scope="row">{m["n"]} × {m["label"]}<small>{m["range"]} · {kr(m["price"])} per video</small></th><td>{kr(m["n"] * m["price"])}</td></tr>' for m in p['mix'])}
+{f'        <tr class="free"><th scope="row">{p["free"]} × Mindre kreatörer<small>ingår i det här paketet</small></th><td>0 kr</td></tr>' if p['free'] else ''}
+        <tr class="sum"><th scope="row">Listpris, {p['paid']} videor</th><td>{kr(p['list'])}</td></tr>
+        <tr class="sum"><th scope="row">Volymrabatt −{p['disc']} %</th><td>−{kr(p['saved'])}</td></tr>
+        <tr class="tot"><th scope="row">{p['name']}</th><td>{kr(p['final'])}</td></tr>
+      </tbody>
+    </table>
+    <p>Priset är exklusive moms och gäller organisk publicering på kreatörernas egna konton. Per video ingår koncept, manus, inspelning, redigering, publicering, en revisionsrunda och rapportering.</p>
+    <p>Vill ni annonsera med videorna köper ni Spark Ads-rättigheter efter publicering: +{SPARK[0]['up']} % av kreatörens grundpris för {SPARK[0]['label']}, till exempel {kr(p['spark30'])} för alla {p['paid']} videor. Ni kan också välja bara de bästa.</p>
+    <p>Mixen är ett exempel. Vilka kreatörer det blir bestämmer vi tillsammans, och priset följer prislistan.</p>
+    <div class="px-acts">
+      <a class="px-btn" href="{BOKA}" target="_blank" rel="noopener">Boka möte</a>
+      <a class="px-btn alt" href="mailto:hello@luminatemedia.se?subject=Paket%20{p['name']}">Mejla oss om {p['name']}</a>
+    </div>
+  </div>
+</dialog>""" for p in PAKET)
+
+LM_PRIS = json.dumps({
+    "paket": [{k: p[k] for k in ("id", "name", "paid", "free", "videos", "final", "views", "mixtext")} for p in PAKET],
+    "spark": SPARK, "ladder": sorted(LADDER), "min": min(t["price"] for t in TIERS),
+    "max": max(t["price"] for t in TIERS), "affiliate": {"from": AFF_FROM}, "boka": BOKA,
+}, ensure_ascii=False).replace("</", "<\\/")
+
 
 cheapest, priciest = min(t["price"] for t in TIERS), max(t["price"] for t in TIERS)
 five = calc(5)
@@ -103,8 +188,11 @@ FAQ = [
   "Vi prissätter på vad kontot faktiskt levererar, inte på följarantal. En kreatör med färre följare men högre snittvisningar kan kosta mer än en större kreatör som presterar sämre. Siffrorna hämtas från TikTok varje natt och räknas som snittet över de senaste 20 videorna."),
  ("Vad kostar Spark Ads?",
   f"Spark Ads-rättigheter är ett påslag på kreatörens grundpris: +{SPARK[0]['up']} % för {SPARK[0]['label']} upp till +{SPARK[-1]['up']} % för {SPARK[-1]['label']}. Ni köper dem först efter publicering, när ni sett vilka videor som presterat organiskt. Mediebudgeten betalar ni själva i ert eget annonskonto. I höstkampanjen 2026 gav Spark Ads 3,1 gånger den organiska räckvidden på en vecka."),
+ ("Vilka paket finns det?",
+  "Tre exempelpaket, räknade på prislistan: " + ", ".join(f"{p['name']} med {p['paid']} videor för {kr(p['final'])}" for p in PAKET)
+  + f". I det största ingår {FREE_N} mindre kreatörer utan kostnad. Alla priser är exklusive moms, och mixen av kreatörer anpassas efter er."),
  ("Finns det någon minsta beställning?",
-  f"Nej. Ni kan boka en enskild video. Prisbilden blir dock bättre per video ju fler ni bokar, och i större upplägg ingår {FREE_N} mindre kreatörer utan kostnad."),
+  f"Nej. Ni kan boka en enskild video. Prisbilden blir dock bättre per video ju fler ni bokar, och i vårt största paket ingår {FREE_N} mindre kreatörer utan kostnad."),
  ("Vad kostar det jämfört med att köpa annonsräckvidd?",
   "Publicerade CPM-nivåer för TikTok-annonsering 2026 ligger på ungefär 4–13 USD per 1 000 visningar. Organisk räckvidd genom creators har i våra kampanjer legat väsentligt under det, samtidigt som en rekommendation från en kreatör bär en trovärdighet en annons inte har. När vi lade Spark Ads på kampanjvideorna hösten 2026 kostade ett klick 0,75 kr mot runt 10 kr i branschsnitt."),
 ]
@@ -152,7 +240,7 @@ html = f'''<!DOCTYPE html>
 <link rel="icon" type="image/svg+xml" href="/assets/luminate-icon.svg">
 <link rel="apple-touch-icon" href="/assets/luminate-icon-180.png">
 <title>Vad kostar influencer marketing i Sverige? Priser 2026 — Luminate Media</title>
-<meta name="description" content="En creator-video kostar {kr(cheapest)}–{kr(priciest)} beroende på räckvidd, och priset sjunker med upp till {LADDER[0][1]} % vid fler videor. Hela prislistan öppet, med volymrabatt, Spark Ads-påslag och räkneexempel.">
+<meta name="description" content="En creator-video kostar {kr(cheapest)}–{kr(priciest)} beroende på räckvidd, och priset sjunker med upp till {LADDER[0][1]} % vid fler videor. Tre färdiga paket från {kr(PAKET[0]['final'])} och hela prislistan öppet.">
 <link rel="canonical" href="https://www.luminatemedia.se/priser.html">
 <meta name="theme-color" content="#2A1A1D">
 <meta property="og:type" content="website">
@@ -162,6 +250,7 @@ html = f'''<!DOCTYPE html>
 <meta property="og:image" content="https://www.luminatemedia.se/assets/og-priser.jpg">
 <meta name="twitter:card" content="summary_large_image">
 {schema_html}
+<link rel="stylesheet" href="/assets/priser.css">
 <link rel="preload" href="/assets/fonts/archivo-black.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/schibsted-grotesk.woff2" as="font" type="font/woff2" crossorigin>
@@ -316,11 +405,50 @@ th,td{{border-bottom-color:var(--line)}}
     <a class="back" href="/">← Till startsidan</a>
   </div>
 
-  <span class="label">Priser · uppdaterade löpande</span>
-  <h1>Vad kostar influencer marketing <em>i Sverige?</em></h1>
+  <section class="px px-hero" aria-labelledby="px-h1">
+    <span class="label">Priser · uppdaterade löpande</span>
+    <h1 id="px-h1">Vad kostar influencer marketing <em>för er?</em></h1>
+    <p class="px-sub">Skriv er hemsida eller vad ni säljer, så får ni ett förslag på upplägg och pris direkt.</p>
+    <form class="px-ask" id="px-ask" autocomplete="off">
+      <textarea id="px-q" rows="1" aria-label="Beskriv ert företag eller klistra in er hemsida" placeholder="Er hemsida, eller vad ni säljer…"></textarea>
+      <button class="px-send" type="submit" aria-label="Få ett förslag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </form>
+    <div class="px-chips" aria-label="Exempel">
+      <button type="button" class="px-chip" data-ex="Vi säljer hudvård på nätet">Vi säljer hudvård på nätet</button>
+      <button type="button" class="px-chip" data-ex="Klädkedja med butiker i hela Sverige">Klädkedja med butiker i hela Sverige</button>
+      <button type="button" class="px-chip" data-ex="Nystartat kaffemärke">Nystartat kaffemärke</button>
+    </div>
+    <div class="px-chat" id="px-chat" hidden>
+      <div class="px-chat-head"><b>Ert upplägg</b><button type="button" class="px-reset" id="px-reset">Börja om</button></div>
+      <div class="px-log" id="px-log" aria-live="polite"></div>
+      <form class="px-say" id="px-say" autocomplete="off">
+        <input id="px-say-in" type="text" aria-label="Skriv ett svar eller en fråga" placeholder="Skriv ett svar eller en fråga…">
+        <button type="submit" aria-label="Skicka"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </form>
+    </div>
+  </section>
 
+  <section class="px" aria-labelledby="px-paket">
+    <h2 class="px-h" id="px-paket">Tre paket, <em>tre nivåer</em></h2>
+    <p class="px-lead">Färdiga upplägg räknade på vår öppna prislista. Tryck på ett paket för att se exakt vad som ingår.</p>
+    <div class="px-cards">
+{pk_cards}
+    </div>
+    <a class="px-aff" href="/affiliate.html">
+      <div>
+        <span class="n">Affiliateprogrammet</span>
+        <h3>Har ni en produkt <em>kreatörerna vill ha?</em></h3>
+        <p>Då kan produkten och provisionen vara en del av betalningen. Löpande videor varje månad från {kr(AFF_FROM)}/mån, utan bindningstid.</p>
+      </div>
+      <span class="go">Läs om affiliate →</span>
+    </a>
+    <p class="px-fine">Alla priser är exklusive moms. Visningarna är estimat byggda på varje klass medianvisningar, inte löften. Mixen av kreatörer i paketen är exempel och anpassas efter er.</p>
+    <hr class="px-rule">
+  </section>
+
+  <h2>Hela <em>prislistan</em></h2>
   <div class="answer">
-    <p>En creator-video kostar <strong>{kr(cheapest)}–{kr(priciest)}</strong> beroende på kreatörens räckvidd. Priset per video sjunker med upp till <strong>{LADDER[0][1]} %</strong> ju fler videor ni bokar, och en kampanj med fem kreatörer landar på <strong>{kr(five['final'])}</strong> för uppskattningsvis <strong>{views_fmt(five['views'])} visningar</strong>. Alla priser är exklusive moms. I större upplägg ingår {FREE_N} mindre kreatörer utan kostnad.</p>
+    <p>En creator-video kostar <strong>{kr(cheapest)}–{kr(priciest)}</strong> beroende på kreatörens räckvidd. Priset per video sjunker med upp till <strong>{LADDER[0][1]} %</strong> ju fler videor ni bokar, och en kampanj med fem kreatörer landar på <strong>{kr(five['final'])}</strong> för uppskattningsvis <strong>{views_fmt(five['views'])} visningar</strong>. Alla priser är exklusive moms. I vårt största paket ingår {FREE_N} mindre kreatörer utan kostnad.</p>
   </div>
 
   <h2>Pris <em>per video</em></h2>
@@ -359,12 +487,7 @@ th,td{{border-bottom-color:var(--line)}}
   <p class="note">Mediebudgeten betalar ni själva i ert eget annonskonto och äger den fullt ut. Vill ni att vi sätter upp och optimerar kampanjerna tar vi 15 % av mediespenden.</p>
   <p class="note">I vår höstkampanj 2026 gav Spark Ads 3,1 gånger den organiska räckvidden på en vecka. Ett klick kostade 0,75 kr mot runt 10 kr i branschsnitt, och en tittare som stannade i sex sekunder 0,06 kr — under TikToks eget pris för en vanlig visning.</p>
 
-  <h2>Räkneexempel</h2>
-  <p class="intro">Färdiga upplägg med organiska rättigheter. I de större uppläggen ingår {FREE_N} mindre kreatörer utan kostnad.</p>
-  <div class="exs">
-{ex_cards}
-  </div>
-  <p class="note">Visningarna är estimat byggda på varje klass faktiska medianvisningar, inte på löften. Räkna på ert eget upplägg i kalkylatorn på startsidan — den använder exakt samma siffror som den här sidan.</p>
+  <p class="note">Visningarna i paketen är estimat byggda på varje klass faktiska medianvisningar, inte på löften. Räkna på ert eget upplägg i kalkylatorn på startsidan — den använder exakt samma siffror som den här sidan.</p>
   <p class="note">Lanserar ni ett utländskt varumärke i Sverige? Vårt färdiga paket <a href="/market-entry.html">Swedish Market Entry</a> (på engelska) bygger på samma priser: 2 av de största kreatörerna, 3 stora och 5 mellankreatörer.</p>
 
   <h2>Vanliga frågor <em>om pris</em></h2>
@@ -381,6 +504,9 @@ th,td{{border-bottom-color:var(--line)}}
   </div>
 </div>
 </main>
+{pk_dialogs}
+<script>window.LM_PRIS = {LM_PRIS};</script>
+<script src="/assets/priser-chat.js" defer></script>
 </body>
 </html>
 '''
