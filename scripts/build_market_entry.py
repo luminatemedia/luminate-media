@@ -28,8 +28,8 @@ SPARK = [{"label": l, "up": int(u)} for l, u in re.findall(r"\{label:'([^']+)',\
 d = re.search(r'return videos>=26\?(\d+) : videos>=20\?(\d+) : videos>=15\?(\d+) : videos>=10\?(\d+) : videos>=6\?(\d+) : videos>=3\?(\d+)', h)
 LADDER = [(26, int(d.group(1))), (20, int(d.group(2))), (15, int(d.group(3))),
           (10, int(d.group(4))), (6, int(d.group(5))), (3, int(d.group(6)))]
-fr = re.search(r"KM_FREE = \{count:(\d+), views:(\d+)\}", h)
-FREE_N, FREE_VIEWS = int(fr.group(1)), int(fr.group(2))
+fr = re.search(r"KM_FREE = \{count:(\d+), views:(\d+), min:(\d+)\}", h)
+FREE_N, FREE_VIEWS, FREE_MIN = int(fr.group(1)), int(fr.group(2)), int(fr.group(3))
 for key in ("storst", "topp", "stor", "mellan"):
     assert key in TIERS, f"tier {key} missing in index.html"
 assert len(SPARK) == 4, "Spark ladder not found in index.html"
@@ -51,12 +51,13 @@ def package(head_key):
     for k, n in rows:
         assert n <= TIERS[k]["max"], f"network has only {TIERS[k]['max']} in {k}"
     paid = sum(n for _, n in rows)
+    free = FREE_N if paid >= FREE_MIN else 0   # the smaller creators only come with larger campaigns
     lst = sum(TIERS[k]["price"] * n for k, n in rows)
     disc = discount(paid)
     saved = lst * disc / 100
-    views = sum(TIERS[k]["views"] * n for k, n in rows) + FREE_VIEWS
+    views = sum(TIERS[k]["views"] * n for k, n in rows) + (FREE_VIEWS if free else 0)
     return {"rows": rows, "paid": paid, "list": lst, "disc": disc, "saved": saved,
-            "final": lst - saved, "views": views, "videos": paid + FREE_N}
+            "final": lst - saved, "views": views, "videos": paid + free, "free": free}
 
 
 P = package("storst")
@@ -84,8 +85,8 @@ spark_rows = "\n".join(
 faq = [
     ("What does Swedish Market Entry cost?",
      f"{plain_sek(P['final'])} excluding VAT for {P['paid']} creators with one video each: two of the biggest creators in our network, "
-     f"three large and five mid-size. That is the list price of {plain_sek(P['list'])} minus our {P['disc']} % volume discount. "
-     f"{FREE_N} smaller creators come on top at no cost, so you get {P['videos']} videos."),
+     f"three large and five mid-size. That is the list price of {plain_sek(P['list'])} minus our {P['disc']} % volume discount."
+     + (f" {FREE_N} smaller creators come on top at no cost, so you get {P['videos']} videos." if P["free"] else "")),
     ("Why these three kinds of creators?",
      "Each layer does one job. The two biggest creators give a brand nobody in Sweden knows yet its credibility. "
      "The three large creators carry the launch to the widest audience. The five mid-size creators make sure the same buyers "
@@ -113,6 +114,9 @@ faq = [
 faq_html = "\n".join(f'''    <details{" open" if i == 0 else ""}><summary>{q}</summary><p>{a}</p></details>''' for i, (q, a) in enumerate(faq))
 schema = {"@context": "https://schema.org", "@type": "FAQPage",
           "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faq]}
+
+free_row = (f'''        <tr><th scope="row">{FREE_N} × Smaller creators<small>included in this package</small><small class="mv-in">{num(FREE_VIEWS)} views in total</small></th><td class="num">free</td><td class="num mv">{num(FREE_VIEWS)}&nbsp;in&nbsp;total</td><td class="num"><b>SEK&nbsp;0</b></td></tr>
+''' if P["free"] else "")
 
 html = f'''<!DOCTYPE html>
 <html lang="en">
@@ -220,7 +224,7 @@ html = f'''<!DOCTYPE html>
       <p class="why">People rarely buy a brand the first time they see it. Five <b>mid-size creators</b>, each with her own loyal audience, make sure the same buyers meet you again from someone else — that is what turns "never heard of it" into "I keep seeing it everywhere".</p>
     </div>
   </div>
-  <p class="after reveal">Plus <b>{FREE_N} smaller creators at no cost</b> — they always come with a campaign. Every creator makes one video on her own TikTok account, in Swedish.</p>
+  <p class="after reveal">{f"Plus <b>{FREE_N} smaller creators at no cost</b> — they are included in a campaign of this size. " if P["free"] else ""}Every creator makes one video on her own TikTok account, in Swedish.</p>
 </section>
 
 <section class="sec" id="price" aria-labelledby="h-price">
@@ -232,8 +236,7 @@ html = f'''<!DOCTYPE html>
       <thead><tr><th scope="col">Creators</th><th scope="col" class="num">Per video</th><th scope="col" class="num mv">Median views</th><th scope="col" class="num">Subtotal</th></tr></thead>
       <tbody>
 {price_rows}
-        <tr><th scope="row">{FREE_N} × Smaller creators<small>always included</small><small class="mv-in">{num(FREE_VIEWS)} views in total</small></th><td class="num">free</td><td class="num mv">{num(FREE_VIEWS)}&nbsp;in&nbsp;total</td><td class="num"><b>SEK&nbsp;0</b></td></tr>
-      </tbody>
+{free_row}      </tbody>
       <tfoot>
         <tr class="dim"><th scope="row" colspan="2">List price, {P["paid"]} videos</th><td class="mv"></td><td class="num">{sek(P["list"])}</td></tr>
         <tr class="dim"><th scope="row" colspan="2">Volume discount −{P["disc"]}&nbsp;%</th><td class="mv"></td><td class="num">−{sek(P["saved"])}</td></tr>
@@ -331,5 +334,5 @@ if ("IntersectionObserver" in window) {{
 '''
 
 (root / "market-entry.html").write_text(html, encoding="utf-8")
-print(f"market-entry.html byggd — {P['paid']} kreatörer + {FREE_N} gratis, {plain_sek(P['final'])} "
+print(f"market-entry.html byggd — {P['paid']} kreatörer + {P['free']} gratis, {plain_sek(P['final'])} "
       f"(lista {plain_sek(P['list'])}, −{P['disc']} %), ≈ {kviews(P['views'])} visningar; med 2 topp {plain_sek(ALT['final'])}")

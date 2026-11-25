@@ -9,7 +9,7 @@
 <link rel="icon" type="image/svg+xml" href="/assets/luminate-icon.svg">
 <link rel="apple-touch-icon" href="/assets/luminate-icon-180.png">
 <title>Vad kostar influencer marketing i Sverige? Priser 2026 — Luminate Media</title>
-<meta name="description" content="En creator-video kostar 2 900 kr–9 300 kr beroende på räckvidd, och priset sjunker med upp till 18 % vid fler videor. Hela prislistan öppet, med volymrabatt, Spark Ads-påslag och räkneexempel.">
+<meta name="description" content="En creator-video kostar 2 900 kr–9 300 kr beroende på räckvidd, och priset sjunker med upp till 18 % vid fler videor. Tre färdiga paket från 24 056 kr och hela prislistan öppet.">
 <link rel="canonical" href="https://www.luminatemedia.se/priser.html">
 <meta name="theme-color" content="#2A1A1D">
 <meta property="og:type" content="website">
@@ -28,7 +28,7 @@
    "name": "Vad kostar influencer marketing i Sverige?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Hos oss kostar en creator-video mellan 2 900 kr och 9 300 kr beroende på kreatörens räckvidd, och priset per video sjunker med upp till 18 % när ni bokar fler. En kampanj med fem kreatörer landar på 32 495 kr och ger uppskattningsvis 233K visningar. Alla priser är exklusive moms."
+    "text": "Hos oss kostar en creator-video mellan 2 900 kr och 9 300 kr beroende på kreatörens räckvidd, och priset per video sjunker med upp till 18 % när ni bokar fler. En kampanj med fem kreatörer landar på 32 495 kr och ger uppskattningsvis 211K visningar. Alla priser är exklusive moms."
    }
   },
   {
@@ -57,10 +57,18 @@
   },
   {
    "@type": "Question",
+   "name": "Vilka paket finns det?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Tre exempelpaket, räknade på prislistan: Pilot med 5 videor för 24 056 kr, Growth med 10 videor för 58 240 kr, Scale med 14 videor för 75 257 kr. I det största ingår 3 mindre kreatörer utan kostnad. Alla priser är exklusive moms, och mixen av kreatörer anpassas efter er."
+   }
+  },
+  {
+   "@type": "Question",
    "name": "Finns det någon minsta beställning?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Nej. Ni kan boka en enskild video, och 3 mindre kreatörer följer alltid med utan kostnad oavsett hur stor beställningen är. Prisbilden blir dock bättre per video ju fler ni bokar."
+    "text": "Nej. Ni kan boka en enskild video. Prisbilden blir dock bättre per video ju fler ni bokar, och i vårt största paket ingår 3 mindre kreatörer utan kostnad."
    }
   },
   {
@@ -148,6 +156,7 @@
  ]
 }
 </script>
+<link rel="stylesheet" href="/assets/priser.css">
 <link rel="preload" href="/assets/fonts/archivo-black.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/schibsted-grotesk.woff2" as="font" type="font/woff2" crossorigin>
@@ -302,11 +311,85 @@ th,td{border-bottom-color:var(--line)}
     <a class="back" href="/">← Till startsidan</a>
   </div>
 
-  <span class="label">Priser · uppdaterade löpande</span>
-  <h1>Vad kostar influencer marketing <em>i Sverige?</em></h1>
+  <section class="px px-hero" aria-labelledby="px-h1">
+    <span class="label">Priser · uppdaterade löpande</span>
+    <h1 id="px-h1">Vad kostar influencer marketing <em>för er?</em></h1>
+    <p class="px-sub">Skriv er hemsida eller vad ni säljer, så får ni ett förslag på upplägg och pris direkt.</p>
+    <form class="px-ask" id="px-ask" autocomplete="off">
+      <textarea id="px-q" rows="1" aria-label="Beskriv ert företag eller klistra in er hemsida" placeholder="Er hemsida, eller vad ni säljer…"></textarea>
+      <button class="px-send" type="submit" aria-label="Få ett förslag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </form>
+    <div class="px-chips" aria-label="Exempel">
+      <button type="button" class="px-chip" data-ex="Vi säljer hudvård på nätet">Vi säljer hudvård på nätet</button>
+      <button type="button" class="px-chip" data-ex="Klädkedja med butiker i hela Sverige">Klädkedja med butiker i hela Sverige</button>
+      <button type="button" class="px-chip" data-ex="Nystartat kaffemärke">Nystartat kaffemärke</button>
+    </div>
+    <div class="px-chat" id="px-chat" hidden>
+      <div class="px-chat-head"><b>Ert upplägg</b><button type="button" class="px-reset" id="px-reset">Börja om</button></div>
+      <div class="px-log" id="px-log" aria-live="polite"></div>
+      <form class="px-say" id="px-say" autocomplete="off">
+        <input id="px-say-in" type="text" aria-label="Skriv ett svar eller en fråga" placeholder="Skriv ett svar eller en fråga…">
+        <button type="submit" aria-label="Skicka"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </form>
+    </div>
+  </section>
 
+  <section class="px" aria-labelledby="px-paket">
+    <h2 class="px-h" id="px-paket">Tre paket, <em>tre nivåer</em></h2>
+    <p class="px-lead">Färdiga upplägg räknade på vår öppna prislista. Tryck på ett paket för att se exakt vad som ingår.</p>
+    <div class="px-cards">
+    <button type="button" class="px-card" data-pk="pilot" aria-haspopup="dialog">
+      <span class="n">Paket 1 · 5 videor</span>
+      <h3>Pilot</h3>
+      <span class="for">Testa TikTok i liten skala</span>
+      <span class="p">24 056 kr<small>exkl. moms · −3 % volymrabatt inräknad</small></span>
+      <ul>
+        <li><b>5 kreatörer</b>, en video var</li>
+        <li>≈ <b>182K</b> estimerade visningar</li>
+        <li>Manus och video godkänns av er</li>
+      </ul>
+      <span class="more">Läs mer</span>
+    </button>
+    <button type="button" class="px-card" data-pk="growth" aria-haspopup="dialog">
+      <span class="n">Paket 2 · 10 videor</span>
+      <h3>Growth</h3>
+      <span class="for">Synas på riktigt</span>
+      <span class="p">58 240 kr<small>exkl. moms · −9 % volymrabatt inräknad</small></span>
+      <ul>
+        <li><b>10 kreatörer</b>, en video var</li>
+        <li>≈ <b>413K</b> estimerade visningar</li>
+        <li>Manus och video godkänns av er</li>
+      </ul>
+      <span class="more">Läs mer</span>
+    </button>
+    <button type="button" class="px-card best" data-pk="scale" aria-haspopup="dialog">
+      <span class="px-badge">3 kreatörer på köpet</span><span class="n">Paket 3 · 17 videor</span>
+      <h3>Scale</h3>
+      <span class="for">Vår största kampanj</span>
+      <span class="p">75 257 kr<small>exkl. moms · −9 % volymrabatt inräknad</small></span>
+      <ul>
+        <li><b>14 kreatörer</b>, en video var</li>
+        <li>≈ <b>579K</b> estimerade visningar</li>
+        <li><b>3 mindre kreatörer</b> ingår utan kostnad</li>
+      </ul>
+      <span class="more">Läs mer</span>
+    </button>
+    </div>
+    <a class="px-aff" href="/affiliate.html">
+      <div>
+        <span class="n">Affiliateprogrammet</span>
+        <h3>Har ni en produkt <em>kreatörerna vill ha?</em></h3>
+        <p>Då kan produkten och provisionen vara en del av betalningen. Löpande videor varje månad från 6 900 kr/mån, utan bindningstid.</p>
+      </div>
+      <span class="go">Läs om affiliate →</span>
+    </a>
+    <p class="px-fine">Alla priser är exklusive moms. Visningarna är estimat byggda på varje klass medianvisningar, inte löften. Mixen av kreatörer i paketen är exempel och anpassas efter er.</p>
+    <hr class="px-rule">
+  </section>
+
+  <h2>Hela <em>prislistan</em></h2>
   <div class="answer">
-    <p>En creator-video kostar <strong>2 900 kr–9 300 kr</strong> beroende på kreatörens räckvidd. Priset per video sjunker med upp till <strong>18 %</strong> ju fler videor ni bokar, och en kampanj med fem kreatörer landar på <strong>32 495 kr</strong> för uppskattningsvis <strong>233K visningar</strong>. Alla priser är exklusive moms, och 3 mindre kreatörer följer alltid med utan kostnad.</p>
+    <p>En creator-video kostar <strong>2 900 kr–9 300 kr</strong> beroende på kreatörens räckvidd. Priset per video sjunker med upp till <strong>18 %</strong> ju fler videor ni bokar, och en kampanj med fem kreatörer landar på <strong>32 495 kr</strong> för uppskattningsvis <strong>211K visningar</strong>. Alla priser är exklusive moms. I vårt största paket ingår 3 mindre kreatörer utan kostnad.</p>
   </div>
 
   <h2>Pris <em>per video</em></h2>
@@ -357,41 +440,13 @@ th,td{border-bottom-color:var(--line)}
   <p class="note">Mediebudgeten betalar ni själva i ert eget annonskonto och äger den fullt ut. Vill ni att vi sätter upp och optimerar kampanjerna tar vi 15 % av mediespenden.</p>
   <p class="note">I vår höstkampanj 2026 gav Spark Ads 3,1 gånger den organiska räckvidden på en vecka. Ett klick kostade 0,75 kr mot runt 10 kr i branschsnitt, och en tittare som stannade i sex sekunder 0,06 kr — under TikToks eget pris för en vanlig visning.</p>
 
-  <h2>Räkneexempel</h2>
-  <p class="intro">Färdiga upplägg med organiska rättigheter, inklusive de 3 kreatörerna som följer med utan kostnad.</p>
-  <div class="exs">
-    <div class="ex">
-      <span class="ex-n">3 kreatörer</span>
-      <b>21 534 kr</b>
-      <span class="ex-v">≈ 157K estimerade visningar</span>
-      <span class="ex-d">6 videor · −3 % volymrabatt</span>
-    </div>
-    <div class="ex">
-      <span class="ex-n">5 kreatörer</span>
-      <b>32 495 kr</b>
-      <span class="ex-v">≈ 233K estimerade visningar</span>
-      <span class="ex-d">8 videor · −3 % volymrabatt</span>
-    </div>
-    <div class="ex">
-      <span class="ex-n">10 kreatörer</span>
-      <b>60 333 kr</b>
-      <span class="ex-v">≈ 441K estimerade visningar</span>
-      <span class="ex-d">13 videor · −9 % volymrabatt</span>
-    </div>
-    <div class="ex">
-      <span class="ex-n">26 kreatörer</span>
-      <b>112 668 kr</b>
-      <span class="ex-v">≈ 1,0 M estimerade visningar</span>
-      <span class="ex-d">29 videor · −18 % volymrabatt</span>
-    </div>
-  </div>
-  <p class="note">Visningarna är estimat byggda på varje klass faktiska medianvisningar, inte på löften. Räkna på ert eget upplägg i kalkylatorn på startsidan — den använder exakt samma siffror som den här sidan.</p>
+  <p class="note">Visningarna i paketen är estimat byggda på varje klass faktiska medianvisningar, inte på löften. Räkna på ert eget upplägg i kalkylatorn på startsidan — den använder exakt samma siffror som den här sidan.</p>
   <p class="note">Lanserar ni ett utländskt varumärke i Sverige? Vårt färdiga paket <a href="/market-entry.html">Swedish Market Entry</a> (på engelska) bygger på samma priser: 2 av de största kreatörerna, 3 stora och 5 mellankreatörer.</p>
 
   <h2>Vanliga frågor <em>om pris</em></h2>
     <div class="faq-item">
       <h3>Vad kostar influencer marketing i Sverige?</h3>
-      <p>Hos oss kostar en creator-video mellan 2 900 kr och 9 300 kr beroende på kreatörens räckvidd, och priset per video sjunker med upp till 18 % när ni bokar fler. En kampanj med fem kreatörer landar på 32 495 kr och ger uppskattningsvis 233K visningar. Alla priser är exklusive moms.</p>
+      <p>Hos oss kostar en creator-video mellan 2 900 kr och 9 300 kr beroende på kreatörens räckvidd, och priset per video sjunker med upp till 18 % när ni bokar fler. En kampanj med fem kreatörer landar på 32 495 kr och ger uppskattningsvis 211K visningar. Alla priser är exklusive moms.</p>
     </div>
     <div class="faq-item">
       <h3>Vad ingår i priset per video?</h3>
@@ -406,8 +461,12 @@ th,td{border-bottom-color:var(--line)}
       <p>Spark Ads-rättigheter är ett påslag på kreatörens grundpris: +25 % för 30 dagar upp till +90 % för 12 månader. Ni köper dem först efter publicering, när ni sett vilka videor som presterat organiskt. Mediebudgeten betalar ni själva i ert eget annonskonto. I höstkampanjen 2026 gav Spark Ads 3,1 gånger den organiska räckvidden på en vecka.</p>
     </div>
     <div class="faq-item">
+      <h3>Vilka paket finns det?</h3>
+      <p>Tre exempelpaket, räknade på prislistan: Pilot med 5 videor för 24 056 kr, Growth med 10 videor för 58 240 kr, Scale med 14 videor för 75 257 kr. I det största ingår 3 mindre kreatörer utan kostnad. Alla priser är exklusive moms, och mixen av kreatörer anpassas efter er.</p>
+    </div>
+    <div class="faq-item">
       <h3>Finns det någon minsta beställning?</h3>
-      <p>Nej. Ni kan boka en enskild video, och 3 mindre kreatörer följer alltid med utan kostnad oavsett hur stor beställningen är. Prisbilden blir dock bättre per video ju fler ni bokar.</p>
+      <p>Nej. Ni kan boka en enskild video. Prisbilden blir dock bättre per video ju fler ni bokar, och i vårt största paket ingår 3 mindre kreatörer utan kostnad.</p>
     </div>
     <div class="faq-item">
       <h3>Vad kostar det jämfört med att köpa annonsräckvidd?</h3>
@@ -425,5 +484,107 @@ th,td{border-bottom-color:var(--line)}
   </div>
 </div>
 </main>
+<dialog class="px px-dlg" id="pk-pilot" aria-labelledby="pk-pilot-h">
+  <button type="button" class="x" data-close aria-label="Stäng">×</button>
+  <div class="px-dlg-in">
+    <span class="n">Paket · 5 videor</span>
+    <h3 id="pk-pilot-h">Pilot</h3>
+    <p class="for">Testa TikTok i liten skala</p>
+    <p>För er som vill se vad kreatörer gör för ert varumärke innan ni satsar större.</p>
+    <div class="facts">
+      <div><b>5</b><span>videor</span></div>
+      <div><b>≈ 182K</b><span>estimerade visningar</span></div>
+      <div><b>4 811 kr</b><span>per video i snitt</span></div>
+    </div>
+    <table>
+      <tbody>
+        <tr><th scope="row">1 × Toppkreatör<small>90–150K följare · 6 800 kr per video</small></th><td>6 800 kr</td></tr>
+        <tr><th scope="row">1 × Stor kreatör<small>60–90K följare · 6 100 kr per video</small></th><td>6 100 kr</td></tr>
+        <tr><th scope="row">2 × Mellankreatör<small>20–60K följare · 4 500 kr per video</small></th><td>9 000 kr</td></tr>
+        <tr><th scope="row">1 × Microkreatör<small>5–20K följare · 2 900 kr per video</small></th><td>2 900 kr</td></tr>
+
+        <tr class="sum"><th scope="row">Listpris, 5 videor</th><td>24 800 kr</td></tr>
+        <tr class="sum"><th scope="row">Volymrabatt −3 %</th><td>−744 kr</td></tr>
+        <tr class="tot"><th scope="row">Pilot</th><td>24 056 kr</td></tr>
+      </tbody>
+    </table>
+    <p>Priset är exklusive moms och gäller organisk publicering på kreatörernas egna konton. Per video ingår koncept, manus, inspelning, redigering, publicering, en revisionsrunda och rapportering.</p>
+    <p>Vill ni annonsera med videorna köper ni Spark Ads-rättigheter efter publicering: +25 % av kreatörens grundpris för 30 dagar, till exempel 6 200 kr för alla 5 videor. Ni kan också välja bara de bästa.</p>
+    <p>Mixen är ett exempel. Vilka kreatörer det blir bestämmer vi tillsammans, och priset följer prislistan.</p>
+    <div class="px-acts">
+      <a class="px-btn" href="https://calendar.app.google/8vFghCDtFN2itfJU8" target="_blank" rel="noopener">Boka möte</a>
+      <a class="px-btn alt" href="mailto:hello@luminatemedia.se?subject=Paket%20Pilot">Mejla oss om Pilot</a>
+    </div>
+  </div>
+</dialog>
+<dialog class="px px-dlg" id="pk-growth" aria-labelledby="pk-growth-h">
+  <button type="button" class="x" data-close aria-label="Stäng">×</button>
+  <div class="px-dlg-in">
+    <span class="n">Paket · 10 videor</span>
+    <h3 id="pk-growth-h">Growth</h3>
+    <p class="for">Synas på riktigt</p>
+    <p>För er som vet att TikTok fungerar och vill nå ut brett med flera stora konton samtidigt.</p>
+    <div class="facts">
+      <div><b>10</b><span>videor</span></div>
+      <div><b>≈ 413K</b><span>estimerade visningar</span></div>
+      <div><b>5 824 kr</b><span>per video i snitt</span></div>
+    </div>
+    <table>
+      <tbody>
+        <tr><th scope="row">2 × Störst<small>190–300K följare · 9 300 kr per video</small></th><td>18 600 kr</td></tr>
+        <tr><th scope="row">2 × Toppkreatör<small>90–150K följare · 6 800 kr per video</small></th><td>13 600 kr</td></tr>
+        <tr><th scope="row">3 × Stor kreatör<small>60–90K följare · 6 100 kr per video</small></th><td>18 300 kr</td></tr>
+        <tr><th scope="row">3 × Mellankreatör<small>20–60K följare · 4 500 kr per video</small></th><td>13 500 kr</td></tr>
+
+        <tr class="sum"><th scope="row">Listpris, 10 videor</th><td>64 000 kr</td></tr>
+        <tr class="sum"><th scope="row">Volymrabatt −9 %</th><td>−5 760 kr</td></tr>
+        <tr class="tot"><th scope="row">Growth</th><td>58 240 kr</td></tr>
+      </tbody>
+    </table>
+    <p>Priset är exklusive moms och gäller organisk publicering på kreatörernas egna konton. Per video ingår koncept, manus, inspelning, redigering, publicering, en revisionsrunda och rapportering.</p>
+    <p>Vill ni annonsera med videorna köper ni Spark Ads-rättigheter efter publicering: +25 % av kreatörens grundpris för 30 dagar, till exempel 16 000 kr för alla 10 videor. Ni kan också välja bara de bästa.</p>
+    <p>Mixen är ett exempel. Vilka kreatörer det blir bestämmer vi tillsammans, och priset följer prislistan.</p>
+    <div class="px-acts">
+      <a class="px-btn" href="https://calendar.app.google/8vFghCDtFN2itfJU8" target="_blank" rel="noopener">Boka möte</a>
+      <a class="px-btn alt" href="mailto:hello@luminatemedia.se?subject=Paket%20Growth">Mejla oss om Growth</a>
+    </div>
+  </div>
+</dialog>
+<dialog class="px px-dlg" id="pk-scale" aria-labelledby="pk-scale-h">
+  <button type="button" class="x" data-close aria-label="Stäng">×</button>
+  <div class="px-dlg-in">
+    <span class="n">Paket · 17 videor</span>
+    <h3 id="pk-scale-h">Scale</h3>
+    <p class="for">Vår största kampanj</p>
+    <p>Samma storlek som vår största kampanj hittills: många kreatörer, så att samma publik ser er flera gånger.</p>
+    <div class="facts">
+      <div><b>17</b><span>videor</span></div>
+      <div><b>≈ 579K</b><span>estimerade visningar</span></div>
+      <div><b>4 427 kr</b><span>per video i snitt</span></div>
+    </div>
+    <table>
+      <tbody>
+        <tr><th scope="row">2 × Störst<small>190–300K följare · 9 300 kr per video</small></th><td>18 600 kr</td></tr>
+        <tr><th scope="row">3 × Toppkreatör<small>90–150K följare · 6 800 kr per video</small></th><td>20 400 kr</td></tr>
+        <tr><th scope="row">3 × Stor kreatör<small>60–90K följare · 6 100 kr per video</small></th><td>18 300 kr</td></tr>
+        <tr><th scope="row">5 × Mellankreatör<small>20–60K följare · 4 500 kr per video</small></th><td>22 500 kr</td></tr>
+        <tr><th scope="row">1 × Microkreatör<small>5–20K följare · 2 900 kr per video</small></th><td>2 900 kr</td></tr>
+        <tr class="free"><th scope="row">3 × Mindre kreatörer<small>ingår i det här paketet</small></th><td>0 kr</td></tr>
+        <tr class="sum"><th scope="row">Listpris, 14 videor</th><td>82 700 kr</td></tr>
+        <tr class="sum"><th scope="row">Volymrabatt −9 %</th><td>−7 443 kr</td></tr>
+        <tr class="tot"><th scope="row">Scale</th><td>75 257 kr</td></tr>
+      </tbody>
+    </table>
+    <p>Priset är exklusive moms och gäller organisk publicering på kreatörernas egna konton. Per video ingår koncept, manus, inspelning, redigering, publicering, en revisionsrunda och rapportering.</p>
+    <p>Vill ni annonsera med videorna köper ni Spark Ads-rättigheter efter publicering: +25 % av kreatörens grundpris för 30 dagar, till exempel 20 675 kr för alla 14 videor. Ni kan också välja bara de bästa.</p>
+    <p>Mixen är ett exempel. Vilka kreatörer det blir bestämmer vi tillsammans, och priset följer prislistan.</p>
+    <div class="px-acts">
+      <a class="px-btn" href="https://calendar.app.google/8vFghCDtFN2itfJU8" target="_blank" rel="noopener">Boka möte</a>
+      <a class="px-btn alt" href="mailto:hello@luminatemedia.se?subject=Paket%20Scale">Mejla oss om Scale</a>
+    </div>
+  </div>
+</dialog>
+<script>window.LM_PRIS = {"paket": [{"id": "pilot", "name": "Pilot", "paid": 5, "free": 0, "videos": 5, "final": 24056, "views": 182000, "mixtext": "1 toppkreatör, 1 stor kreatör, 2 mellankreatörer, 1 microkreatör"}, {"id": "growth", "name": "Growth", "paid": 10, "free": 0, "videos": 10, "final": 58240, "views": 413000, "mixtext": "2 av de största, 2 toppkreatörer, 3 stor kreatörer, 3 mellankreatörer"}, {"id": "scale", "name": "Scale", "paid": 14, "free": 3, "videos": 17, "final": 75257, "views": 579000, "mixtext": "2 av de största, 3 toppkreatörer, 3 stor kreatörer, 5 mellankreatörer, 1 microkreatör"}], "spark": [{"label": "30 dagar", "up": 25}, {"label": "90 dagar", "up": 45}, {"label": "6 månader", "up": 70}, {"label": "12 månader", "up": 90}], "ladder": [[3, 3], [6, 6], [10, 9], [15, 12], [20, 15], [26, 18]], "min": 2900, "max": 9300, "affiliate": {"from": 6900}, "boka": "https://calendar.app.google/8vFghCDtFN2itfJU8"};</script>
+<script src="/assets/priser-chat.js" defer></script>
 </body>
 </html>
