@@ -1845,7 +1845,7 @@ footer{background:var(--plum)}
         </div>
         <div class="km-save" id="km-save">Ni sparar –</div>
         <ul class="km-why">
-          <li>3 mindre kreatörer följer alltid med på köpet — samma brief, 0 kr</li>
+          <li>I större upplägg ingår 3 mindre kreatörer på köpet — samma brief, 0 kr</li>
           <li>Ett avtal, en kontaktperson — vi koordinerar alla kreatörer åt er</li>
           <li>Vi förhandlar kreatörspriserna — ni betalar mindre än vid direktkontakt</li>
           <li>Spark Ads-rättigheter köps först när ni sett vilken video som levererar</li>
@@ -1936,7 +1936,7 @@ document.getElementById('bm-close').addEventListener('click', closeBooking);
 document.getElementById('bm-back').addEventListener('click', closeBooking);
 addEventListener('keydown', e => { if (e.key === 'Escape' && bmodal.classList.contains('show')) closeBooking(); });
 
-/* campaign builder — tiers speglar det verkliga nätverket (27 prissatta + 3 på köpet = 30) */
+/* campaign builder — tiers speglar det verkliga nätverket (27 prissatta + 3 som ingår i större upplägg = 30) */
 const TIERS = [
   {key:'storst', label:'Störst',        range:'190–300K följare', max:2,  price:9300, views:56000},
   {key:'topp',   label:'Toppkreatör',   range:'90–150K följare',  max:4,  price:6800, views:41000},
@@ -1945,7 +1945,7 @@ const TIERS = [
   {key:'micro',  label:'Microkreatör',  range:'5–20K följare',    max:4,  price:2900, views:33000}
 ];
 const KM_MAX = TIERS.reduce((s,t)=>s+t.max,0);            /* 27 */
-const KM_FREE = {count:3, views:22000};                    /* 3 minsta följer med utan kostnad */
+const KM_FREE = {count:3, views:22000, min:10};            /* 3 minsta ingår utan kostnad först från min betalda videor (beslut 25 nov 2026: bara större upplägg) */
 const MIX = { bred:[.15,.22,.25,.26,.12], topp:null, micro:null };
 const kmodal = document.getElementById('kmodal');
 /* Spark Ads-rättigheter: påslag på kreatörernas grundpris, samma trappa som i våra offerter. */
@@ -1999,21 +1999,22 @@ function kmCalc(n, v, focus, rights, period){
   const counts = kmAlloc(n, focus);
   n = counts.reduce((a,b)=>a+b,0);
   const list = counts.reduce((s,c,i)=>s + c*TIERS[i].price, 0) * v;
-  const views = (counts.reduce((s,c,i)=>s + c*TIERS[i].views, 0) + KM_FREE.views) * v;
+  const free = n * v >= KM_FREE.min ? KM_FREE.count : 0;
+  const views = (counts.reduce((s,c,i)=>s + c*TIERS[i].views, 0) + (free ? KM_FREE.views : 0)) * v;
   const disc = kmDiscount(n * v);
   /* Spark Ads köps separat och omfattas därför inte av volymrabatten. */
   const spark = rights ? list * SPARK[period].up : 0;
   const saved = list * disc / 100;
-  return {n, v, focus, counts, list, disc, saved, spark, period,
+  return {n, v, focus, counts, list, disc, saved, spark, period, free,
           final: list * (1 - disc/100) + spark, views};
 }
 function kmRender(st){
   kmState = st;
   document.getElementById('km-mix').innerHTML = st.counts.map((c,i)=> c ?
     `<div class="km-mixrow"><b>${c}×</b><span>${TIERS[i].label}</span><small>${TIERS[i].range} · ${TIERS[i].max} i nätverket</small></div>` : '').join('') +
-    `<div class="km-mixrow"><b>${KM_FREE.count}×</b><span>Mindre kreatörer — på köpet</span><small>0 kr</small></div>`;
+    (st.free ? `<div class="km-mixrow"><b>${st.free}×</b><span>Mindre kreatörer — på köpet</span><small>0 kr</small></div>` : '');
   document.getElementById('km-views').textContent = '≈ ' + fmtViews(st.views);
-  document.getElementById('km-vidcount').textContent = (st.n + KM_FREE.count) * st.v + ' videos · ' + KM_FREE.count * st.v + ' på köpet';
+  document.getElementById('km-vidcount').textContent = (st.n + st.free) * st.v + ' videos' + (st.free ? ' · ' + st.free * st.v + ' på köpet' : '');
   document.getElementById('km-list').textContent = fmtKr(st.list);
   const sl = document.getElementById('km-sparkline');
   sl.hidden = !st.spark;
@@ -2028,7 +2029,7 @@ function kmRender(st){
   const mailBody =
     'Hej Luminate!\n\nVi har byggt ett kampanjförslag på er hemsida och vill veta mer:\n\n' +
     st.counts.map((c,i)=>c?`${c} × ${TIERS[i].label} (${TIERS[i].range})`:'').filter(Boolean).join('\n') +
-    `\n${KM_FREE.count} × mindre kreatörer på köpet\n${(st.n+KM_FREE.count)*st.v} videos totalt` +
+    (st.free ? `\n${st.free} × mindre kreatörer på köpet` : '') + `\n${(st.n+st.free)*st.v} videos totalt` +
     `\nRättigheter: ${st.spark ? 'Spark Ads ' + SPARK[st.period].label : 'Bara organiskt'}` +
     `\nEstimerad räckvidd: ${fmtViews(st.views)} visningar` +
     `\nEstimat: ${fmtKr(st.final)} (efter ${st.disc} % volymrabatt)\n\nFöretag:\nKontaktperson:\nTelefon:`;

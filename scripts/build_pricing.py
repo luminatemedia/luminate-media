@@ -18,7 +18,10 @@ SPARK = [{"label": l, "up": int(u)} for l, u in re.findall(r"\{label:'([^']+)',\
 d = re.search(r'return videos>=26\?(\d+) : videos>=20\?(\d+) : videos>=15\?(\d+) : videos>=10\?(\d+) : videos>=6\?(\d+) : videos>=3\?(\d+)', h)
 LADDER = [(26, int(d.group(1))), (20, int(d.group(2))), (15, int(d.group(3))),
           (10, int(d.group(4))), (6, int(d.group(5))), (3, int(d.group(6)))]
-FREE_N, FREE_VIEWS = 3, 22000
+# De mindre kreatörerna ingår bara i större upplägg (beslut 25 nov 2026).
+# Antal, visningar och gräns läses ur kalkylatorn så att sidorna inte kan gå isär.
+fr = re.search(r"KM_FREE = \{count:(\d+), views:(\d+), min:(\d+)\}", h)
+FREE_N, FREE_VIEWS, FREE_MIN = int(fr.group(1)), int(fr.group(2)), int(fr.group(3))
 KM_MAX = sum(t["max"] for t in TIERS)
 W = [.15, .22, .25, .26, .12]
 
@@ -60,9 +63,10 @@ def calc(n, v=1):
     c = alloc(n)
     n = sum(c)
     lst = sum(c[i] * TIERS[i]["price"] for i in range(len(TIERS))) * v
-    vw = (sum(c[i] * TIERS[i]["views"] for i in range(len(TIERS))) + FREE_VIEWS) * v
+    free = FREE_N if n * v >= FREE_MIN else 0
+    vw = (sum(c[i] * TIERS[i]["views"] for i in range(len(TIERS))) + (FREE_VIEWS if free else 0)) * v
     disc = discount(n * v)
-    return {"n": n, "counts": c, "list": lst, "disc": disc,
+    return {"n": n, "counts": c, "list": lst, "disc": disc, "free": free,
             "final": lst * (1 - disc / 100), "views": vw}
 
 
@@ -84,7 +88,7 @@ ex_cards = "\n".join(f'''    <div class="ex">
       <span class="ex-n">{e["n"]} kreatörer</span>
       <b>{kr(e["final"])}</b>
       <span class="ex-v">≈ {views_fmt(e["views"])} estimerade visningar</span>
-      <span class="ex-d">{e["n"] + FREE_N} videor · −{e["disc"]} % volymrabatt</span>
+      <span class="ex-d">{e["n"] + e["free"]} videor{f', varav {e["free"]} utan kostnad' if e["free"] else ''} · −{e["disc"]} % volymrabatt</span>
     </div>''' for e in (calc(n) for n in EX))
 
 cheapest, priciest = min(t["price"] for t in TIERS), max(t["price"] for t in TIERS)
@@ -100,7 +104,7 @@ FAQ = [
  ("Vad kostar Spark Ads?",
   f"Spark Ads-rättigheter är ett påslag på kreatörens grundpris: +{SPARK[0]['up']} % för {SPARK[0]['label']} upp till +{SPARK[-1]['up']} % för {SPARK[-1]['label']}. Ni köper dem först efter publicering, när ni sett vilka videor som presterat organiskt. Mediebudgeten betalar ni själva i ert eget annonskonto. I höstkampanjen 2026 gav Spark Ads 3,1 gånger den organiska räckvidden på en vecka."),
  ("Finns det någon minsta beställning?",
-  f"Nej. Ni kan boka en enskild video, och {FREE_N} mindre kreatörer följer alltid med utan kostnad oavsett hur stor beställningen är. Prisbilden blir dock bättre per video ju fler ni bokar."),
+  f"Nej. Ni kan boka en enskild video. Prisbilden blir dock bättre per video ju fler ni bokar, och i större upplägg ingår {FREE_N} mindre kreatörer utan kostnad."),
  ("Vad kostar det jämfört med att köpa annonsräckvidd?",
   "Publicerade CPM-nivåer för TikTok-annonsering 2026 ligger på ungefär 4–13 USD per 1 000 visningar. Organisk räckvidd genom creators har i våra kampanjer legat väsentligt under det, samtidigt som en rekommendation från en kreatör bär en trovärdighet en annons inte har. När vi lade Spark Ads på kampanjvideorna hösten 2026 kostade ett klick 0,75 kr mot runt 10 kr i branschsnitt."),
 ]
@@ -316,7 +320,7 @@ th,td{{border-bottom-color:var(--line)}}
   <h1>Vad kostar influencer marketing <em>i Sverige?</em></h1>
 
   <div class="answer">
-    <p>En creator-video kostar <strong>{kr(cheapest)}–{kr(priciest)}</strong> beroende på kreatörens räckvidd. Priset per video sjunker med upp till <strong>{LADDER[0][1]} %</strong> ju fler videor ni bokar, och en kampanj med fem kreatörer landar på <strong>{kr(five['final'])}</strong> för uppskattningsvis <strong>{views_fmt(five['views'])} visningar</strong>. Alla priser är exklusive moms, och {FREE_N} mindre kreatörer följer alltid med utan kostnad.</p>
+    <p>En creator-video kostar <strong>{kr(cheapest)}–{kr(priciest)}</strong> beroende på kreatörens räckvidd. Priset per video sjunker med upp till <strong>{LADDER[0][1]} %</strong> ju fler videor ni bokar, och en kampanj med fem kreatörer landar på <strong>{kr(five['final'])}</strong> för uppskattningsvis <strong>{views_fmt(five['views'])} visningar</strong>. Alla priser är exklusive moms. I större upplägg ingår {FREE_N} mindre kreatörer utan kostnad.</p>
   </div>
 
   <h2>Pris <em>per video</em></h2>
@@ -356,7 +360,7 @@ th,td{{border-bottom-color:var(--line)}}
   <p class="note">I vår höstkampanj 2026 gav Spark Ads 3,1 gånger den organiska räckvidden på en vecka. Ett klick kostade 0,75 kr mot runt 10 kr i branschsnitt, och en tittare som stannade i sex sekunder 0,06 kr — under TikToks eget pris för en vanlig visning.</p>
 
   <h2>Räkneexempel</h2>
-  <p class="intro">Färdiga upplägg med organiska rättigheter, inklusive de {FREE_N} kreatörerna som följer med utan kostnad.</p>
+  <p class="intro">Färdiga upplägg med organiska rättigheter. I de större uppläggen ingår {FREE_N} mindre kreatörer utan kostnad.</p>
   <div class="exs">
 {ex_cards}
   </div>
