@@ -1,6 +1,6 @@
 {
  "slug": "kbs",
- "updated": "2026-11-25T14:53:57Z",
+ "updated": "2026-11-26T14:19:31Z",
  "videos": {
   "7685375918554058006": {
    "handle": "ebbasimonsbacka",
@@ -30,7 +30,7 @@
    "handle": "elsa41612",
    "name": "Elsa Grahn",
    "caption": "Vems styling tyckte ni blev bäst?? Kolla tildes tiktok för att kolla ...",
-   "views": 449300,
+   "views": 449400,
    "url": "https://www.tiktok.com/@elsa41612/video/7685417731180498198",
    "first_seen": "2026-09-14"
   },
@@ -38,7 +38,7 @@
    "handle": "filippaiwar2",
    "name": "Filippa Iwar",
    "caption": "Reklam för Kids Brand Store @kidsbrandstore #kidsbrandstore #outfitin...",
-   "views": 64000,
+   "views": 64200,
    "url": "https://www.tiktok.com/@filippaiwar2/video/7686520713120926998",
    "first_seen": "2026-09-18"
   },
@@ -70,7 +70,7 @@
    "handle": "mirandaomatilda_westerbe",
    "name": "Miranda & Matilda Westerberg",
    "caption": "Reklam för Kids Brand Store@kidsbrandstore #foryou #foryourpage #twin...",
-   "views": 92200,
+   "views": 92300,
    "url": "https://www.tiktok.com/@mirandaomatilda_westerbe/video/7696073664051039510",
    "first_seen": "2026-10-13"
   },
@@ -94,7 +94,7 @@
    "handle": "tildesundb",
    "name": "Tilde Sundberg",
    "caption": "Reklam för Kids Brand Store @kidsbrandstore ",
-   "views": 109900,
+   "views": 110000,
    "url": "https://www.tiktok.com/@tildesundb/video/7696131323055918358",
    "first_seen": "2026-10-14"
   },
@@ -102,7 +102,7 @@
    "handle": "filippaiwar2",
    "name": "Filippa Iwar",
    "caption": "Reklam för Kids Brand Store @kidsbrandstore #kidsbrandstore #outfitin...",
-   "views": 164900,
+   "views": 165100,
    "url": "https://www.tiktok.com/@filippaiwar2/video/7696916824050421014",
    "first_seen": "2026-10-16"
   },
@@ -110,7 +110,7 @@
    "handle": "elsa41612",
    "name": "Elsa Grahn",
    "caption": "Reklam för Kids Brand Store @kidsbrandstore #kidsbrandstore #outfitin...",
-   "views": 173000,
+   "views": 173300,
    "url": "https://www.tiktok.com/@elsa41612/video/7696863389557067030",
    "first_seen": "2026-10-16"
   },
@@ -118,7 +118,7 @@
    "handle": "juliaberglunnd",
    "name": "Julia Berglund",
    "caption": "Reklam för Kids Brand Store @kidsbrandstore #outfitinspo #kidsbrandst...",
-   "views": 77800,
+   "views": 77900,
    "url": "https://www.tiktok.com/@juliaberglunnd/video/7698370106317016343",
    "first_seen": "2026-10-20"
   },
@@ -126,7 +126,7 @@
    "handle": "lunamaarkovic",
    "name": "Luna Markovic",
    "caption": "Reklam @kidsbrandstore mysig outfit☺️☺️",
-   "views": 4056,
+   "views": 4193,
    "url": "https://www.tiktok.com/@lunamaarkovic/video/7710214697114537238",
    "first_seen": "2026-11-20"
   },
@@ -134,7 +134,7 @@
    "handle": "ebbasimonsbacka",
    "name": "Ebba Simonsbacka",
    "caption": "Reklam för Kids Brand Store💗@kidsbrandstore #KidsBrandStore ",
-   "views": 21700,
+   "views": 22600,
    "url": "https://www.tiktok.com/@ebbasimonsbacka/video/7710548208526576918",
    "first_seen": "2026-11-22"
   },
@@ -142,7 +142,7 @@
    "handle": "mirandaomatilda_westerbe",
    "name": "Miranda & Matilda Westerberg",
    "caption": "Reklam för kids brand store @kidsbrandstore #twins #foryourpage #foryou ",
-   "views": 20900,
+   "views": 22700,
    "url": "https://www.tiktok.com/@mirandaomatilda_westerbe/video/7711367128636525846",
    "first_seen": "2026-11-23"
   },
@@ -150,7 +150,7 @@
    "handle": "juliaberglunnd",
    "name": "Julia Berglund",
    "caption": "Reklam för Kids Brand Store @kidsbrandstore #outfitinspo ",
-   "views": 2517,
+   "views": 2759,
    "url": "https://www.tiktok.com/@juliaberglunnd/video/7711402030325173526",
    "first_seen": "2026-11-24"
   },
@@ -158,7 +158,7 @@
    "handle": "filippaiwar2",
    "name": "Filippa Iwar",
    "caption": "Reklam för @kidsbrandstore 🫶🏼✨",
-   "views": 4934,
+   "views": 8529,
    "url": "https://www.tiktok.com/@filippaiwar2/video/7711783051688217878",
    "first_seen": "2026-11-25"
   }
@@ -603,6 +603,11 @@
    "date": "2026-11-25",
    "videos": 20,
    "views": 3218075
+  },
+  {
+   "date": "2026-11-26",
+   "videos": 20,
+   "views": 3225849
   }
  ]
 }
